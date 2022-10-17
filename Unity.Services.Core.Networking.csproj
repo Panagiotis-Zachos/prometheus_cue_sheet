@@ -9,7 +9,7 @@
     <ProductVersion>10.0.20506</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
     <RootNamespace></RootNamespace>
-    <ProjectGuid>{26256A9F-AA09-16EA-8E1C-271B1ABE0A72}</ProjectGuid>
+    <ProjectGuid>{B95A4597-B0CD-6F05-8F93-9A3C244CA757}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <AssemblyName>Unity.Services.Core.Networking</AssemblyName>
@@ -697,19 +697,19 @@
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="Unity.Services.Core.csproj">
-      <Project>{695D9DA1-ACF4-D854-D833-83C4A6E0DBCE}</Project>
+      <Project>{A940BCEA-7FF8-7A2C-85B0-8736820783A7}</Project>
       <Name>Unity.Services.Core</Name>
     </ProjectReference>
     <ProjectReference Include="Unity.Services.Core.Internal.csproj">
-      <Project>{2D7A5CEB-4D58-CF7A-FC25-7FCDDE3D1740}</Project>
+      <Project>{8349F11B-398F-412D-1BCB-76CAD7B089E9}</Project>
       <Name>Unity.Services.Core.Internal</Name>
     </ProjectReference>
     <ProjectReference Include="UnityEditor.UI.csproj">
-      <Project>{2E68ECA3-ECF1-F59C-8699-0A703FDB2FB4}</Project>
+      <Project>{FFD73C2F-56E3-FA15-FE35-D624D4DABE76}</Project>
       <Name>UnityEditor.UI</Name>
     </ProjectReference>
     <ProjectReference Include="UnityEngine.UI.csproj">
-      <Project>{0A2FAC76-F581-4797-7BDE-65C4C6E6629E}</Project>
+      <Project>{61AE9C41-E900-53D3-82F0-1EE496D7628D}</Project>
       <Name>UnityEngine.UI</Name>
     </ProjectReference>
   </ItemGroup>
