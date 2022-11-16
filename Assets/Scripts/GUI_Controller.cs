@@ -21,6 +21,9 @@ public class GUI_Controller : MonoBehaviour
     public Label play_sec_label;
 
     public Button start_scene_1;
+    public Button start_scene_2;
+    public Button start_scene_3;
+
 
     private float play_time_start;
     private float scene_time_start;
@@ -46,7 +49,13 @@ public class GUI_Controller : MonoBehaviour
         play_sec_label = root.Q<Label>("play_seconds");
 
         start_scene_1 = root.Q<Button>("start_scene_1");
-        start_scene_1.clicked += StartScene;
+        start_scene_1.clickable.clicked += () => StartScene(1);
+
+        start_scene_2 = root.Q<Button>("start_scene_2");
+        start_scene_2.clickable.clicked += () => StartScene(2);
+
+        start_scene_3 = root.Q<Button>("start_scene_3");
+        start_scene_3.clickable.clicked += () => StartScene(3);
     }
 
     // Update is called once per frame
@@ -77,14 +86,12 @@ public class GUI_Controller : MonoBehaviour
         var scene_time_minutes = Mathf.Floor((frame_time - scene_time_start - scene_time_hours * 3600) / 60);
         var scene_time_seconds = Mathf.Floor(frame_time - scene_time_start - scene_time_hours * 3600 - scene_time_minutes * 60);
 
-        Debug.Log(((frame_time - scene_time_start) / 3600).ToString());
-
         scene_hour_label.text = scene_time_hours.ToString();
         scene_min_label.text = scene_time_minutes.ToString();
         scene_sec_label.text = scene_time_seconds.ToString();
     }
 
-    private void StartScene(){
+    private void StartScene(int sceneSelected){
         Debug.Log("Button clicked");
 
         // get root objects in scene
@@ -100,9 +107,13 @@ public class GUI_Controller : MonoBehaviour
             SceneObjectController soc = gameObject.GetComponent<SceneObjectController>();
             if (soc != null)
             {
-                if (soc.sceneNumber != 1)
+                if (soc.sceneNumber != sceneSelected)
                 {
                     gameObject.SetActive(false);
+                }
+                else
+                {
+                    gameObject.SetActive(true);
                 }
             }
         }
