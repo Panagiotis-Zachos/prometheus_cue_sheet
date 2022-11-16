@@ -27,15 +27,15 @@
                 "m_Settings": {
                     "UxmlGuid": "5355e2a8203e3784c9525498872ec4b6",
                     "UxmlPath": "Assets/TestGUI.uxml",
-                    "CanvasX": 0,
-                    "CanvasY": 0,
-                    "CanvasWidth": 700,
-                    "CanvasHeight": 531,
+                    "CanvasX": -133,
+                    "CanvasY": -40,
+                    "CanvasWidth": 894,
+                    "CanvasHeight": 571,
                     "MatchGameView": false,
                     "ZoomScale": 1.25,
                     "PanOffset": {
-                        "x": 149.21392822265626,
-                        "y": 116.69340515136719
+                        "x": 241.04168701171876,
+                        "y": 93.0833740234375
                     },
                     "ColorModeBackgroundOpacity": 0.0,
                     "ImageModeCanvasBackgroundOpacity": 1.0,
