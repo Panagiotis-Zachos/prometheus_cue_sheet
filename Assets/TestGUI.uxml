@@ -57,7 +57,6 @@
         <ui:VisualElement name="bot_visual_element" style="height: 15%; flex-direction: row;">
             <ui:Button text="Button" display-tooltip-when-elided="true" />
             <ui:Button text="Button" display-tooltip-when-elided="true" />
-            <ui:Button text="Button" display-tooltip-when-elided="true" />
         </ui:VisualElement>
     </ui:VisualElement>
 </ui:UXML>

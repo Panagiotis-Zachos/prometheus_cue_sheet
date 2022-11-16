@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEngine.UIElements;
 using UnityEngine.SceneManagement; // To change scenes through the menu
 
+
 public class GUI_Controller : MonoBehaviour
 {
 
@@ -20,6 +21,7 @@ public class GUI_Controller : MonoBehaviour
     public Label play_min_label;
     public Label play_sec_label;
 
+    public int currentlyActiveScene;
     public Button start_scene_1;
     public Button start_scene_2;
     public Button start_scene_3;
@@ -27,6 +29,11 @@ public class GUI_Controller : MonoBehaviour
 
     private float play_time_start;
     private float scene_time_start;
+
+    private Light lt;
+    float duration = 1.0f;
+    Color color0 = Color.red;
+    Color color1 = Color.blue;
 
     // Start is called before the first frame update
     void Start()
@@ -56,13 +63,33 @@ public class GUI_Controller : MonoBehaviour
 
         start_scene_3 = root.Q<Button>("start_scene_3");
         start_scene_3.clickable.clicked += () => StartScene(3);
+
+
+        List<GameObject> rootObjects = new List<GameObject>();
+        Scene scene = SceneManager.GetActiveScene();
+        scene.GetRootGameObjects(rootObjects);
+        
+        for (int i = 0; i < rootObjects.Count; ++i)
+        {
+            GameObject gameObject = rootObjects[i];
+            if (gameObject.GetComponent<Light>())
+            {
+                lt = gameObject.GetComponent<Light>();
+            }
+        }
+
     }
 
     // Update is called once per frame
     void Update()
     {
-        UpdatePlayTime(play_hour_label, play_min_label, play_sec_label);
-        UpdateSceneTime(scene_hour_label, scene_min_label, scene_sec_label);
+        if (lt.GetComponent<SceneObjectController>().sceneNumber == currentlyActiveScene)
+        {
+            float t = Mathf.PingPong(Time.time, duration) / duration;
+            lt.color = Color.Lerp(color0, color1, t);
+        }
+        //UpdatePlayTime(play_hour_label, play_min_label, play_sec_label);
+        //UpdateSceneTime(scene_hour_label, scene_min_label, scene_sec_label);
     }
 
 
@@ -92,7 +119,7 @@ public class GUI_Controller : MonoBehaviour
     }
 
     private void StartScene(int sceneSelected){
-        Debug.Log("Button clicked");
+        currentlyActiveScene = sceneSelected;
 
         // get root objects in scene
         List<GameObject> rootObjects = new List<GameObject>();
@@ -104,8 +131,7 @@ public class GUI_Controller : MonoBehaviour
         for (int i = 0; i < rootObjects.Count; ++i)
         {
             GameObject gameObject = rootObjects[i];
-            SceneObjectController soc = gameObject.GetComponent<SceneObjectController>();
-            if (soc != null)
+            if (gameObject.TryGetComponent<SceneObjectController>(out var soc))
             {
                 if (soc.sceneNumber != sceneSelected)
                 {
