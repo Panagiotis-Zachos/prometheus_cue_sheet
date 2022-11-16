@@ -22,7 +22,9 @@ public class GUI_Controller : MonoBehaviour
 
     public Button start_scene_1;
 
-    private float time_start;
+    private float play_time_start;
+    private float scene_time_start;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -34,7 +36,7 @@ public class GUI_Controller : MonoBehaviour
         edit_cue_button = root.Q<Button>("save_settings");
         save_settings_button = root.Q<Button>("save_settings");
 
-        time_start = Time.time;
+        play_time_start = Time.time;
         scene_hour_label = root.Q<Label>("scene_hours");
         scene_min_label = root.Q<Label>("scene_minutes");
         scene_sec_label = root.Q<Label>("scene_seconds");
@@ -44,20 +46,21 @@ public class GUI_Controller : MonoBehaviour
         play_sec_label = root.Q<Label>("play_seconds");
 
         start_scene_1 = root.Q<Button>("start_scene_1");
-        start_scene_1.clicked += start_scene;
+        start_scene_1.clicked += StartScene;
     }
 
     // Update is called once per frame
     void Update()
     {
-        updateTotalTime(play_hour_label, play_min_label, play_sec_label);
+        UpdatePlayTime(play_hour_label, play_min_label, play_sec_label);
+        UpdateSceneTime(scene_hour_label, scene_min_label, scene_sec_label);
     }
 
 
-    private void updateTotalTime(Label play_hour_label, Label play_min_label, Label play_sec_label)
+    private void UpdatePlayTime(Label play_hour_label, Label play_min_label, Label play_sec_label)
     {
         var frame_time = Time.time;
-        var time_hours = Mathf.Floor((frame_time - time_start) / 3600);
+        var time_hours = Mathf.Floor((frame_time - play_time_start) / 3600);
         var time_minutes = Mathf.Floor((frame_time - time_hours * 3600) / 60);
         var time_seconds = Mathf.Floor(frame_time - time_hours * 3600 - time_minutes * 60);
 
@@ -66,7 +69,42 @@ public class GUI_Controller : MonoBehaviour
         play_sec_label.text = time_seconds.ToString();
     }
 
-    private void start_scene(){
+    private void UpdateSceneTime(Label scene_hour_label, Label scene_min_label, Label scene_sec_label)
+    {
+        var frame_time = Time.time;
+
+        var scene_time_hours = Mathf.Floor((frame_time - scene_time_start) / 3600);
+        var scene_time_minutes = Mathf.Floor((frame_time - scene_time_start - scene_time_hours * 3600) / 60);
+        var scene_time_seconds = Mathf.Floor(frame_time - scene_time_start - scene_time_hours * 3600 - scene_time_minutes * 60);
+
+        Debug.Log(((frame_time - scene_time_start) / 3600).ToString());
+
+        scene_hour_label.text = scene_time_hours.ToString();
+        scene_min_label.text = scene_time_minutes.ToString();
+        scene_sec_label.text = scene_time_seconds.ToString();
+    }
+
+    private void StartScene(){
         Debug.Log("Button clicked");
+
+        // get root objects in scene
+        List<GameObject> rootObjects = new List<GameObject>();
+        Scene scene = SceneManager.GetActiveScene();
+        scene.GetRootGameObjects(rootObjects);
+
+        scene_time_start = Time.time;
+
+        for (int i = 0; i < rootObjects.Count; ++i)
+        {
+            GameObject gameObject = rootObjects[i];
+            SceneObjectController soc = gameObject.GetComponent<SceneObjectController>();
+            if (soc != null)
+            {
+                if (soc.sceneNumber != 1)
+                {
+                    gameObject.SetActive(false);
+                }
+            }
+        }
     }
 }
