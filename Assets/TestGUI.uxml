@@ -70,7 +70,7 @@
                 </ui:VisualElement>
                 <ui:VisualElement style="flex-direction: row;">
                     <ui:Label text="Intensity" display-tooltip-when-elided="true" name="Label" style="width: 17%; color: rgb(255, 255, 255);" />
-                    <ui:Slider picking-mode="Ignore" value="42" high-value="255" page-size="0" show-input-field="true" direction="Horizontal" low-value="0" focusable="false" name="intensity_slider" style="width: 80%; flex-basis: auto; background-color: rgb(48, 50, 55); align-items: stretch; white-space: normal;" />
+                    <ui:Slider picking-mode="Ignore" value="1" high-value="10" page-size="0" show-input-field="true" direction="Horizontal" low-value="0" focusable="false" name="intensity_slider" style="width: 80%; flex-basis: auto; background-color: rgb(48, 50, 55); align-items: stretch; white-space: normal;" />
                 </ui:VisualElement>
             </ui:VisualElement>
         </ui:VisualElement>

@@ -38,6 +38,7 @@ public class GUI_Controller : MonoBehaviour
     private Slider redSlider;
     private Slider greenSlider;
     private Slider blueSlider;
+    private Slider intensitySlider;
 
     // Start is called before the first frame update
     void Start()
@@ -74,7 +75,8 @@ public class GUI_Controller : MonoBehaviour
         greenSlider.RegisterValueChangedCallback(x => SliderValueChangedClbk(x.newValue, 'G'));
         blueSlider = root.Q<Slider>("blue_slider");
         blueSlider.RegisterValueChangedCallback(x => SliderValueChangedClbk(x.newValue, 'B'));
-
+        intensitySlider = root.Q<Slider>("intensity_slider");
+        intensitySlider.RegisterValueChangedCallback(x => SliderValueChangedClbk(x.newValue, 'I'));
 
 
         List<GameObject> rootObjects = new List<GameObject>();
@@ -159,7 +161,6 @@ public class GUI_Controller : MonoBehaviour
 
     private void SliderValueChangedClbk(float sliderVal, char sliderColor)
     {
-        sliderVal = sliderVal / 255.0f;
         for (int i = 0; i < playLights.Count; ++i)
         {
             var light = playLights[i];
@@ -168,13 +169,16 @@ public class GUI_Controller : MonoBehaviour
                 switch (sliderColor)
                 {
                     case 'R':
-                        light.color = new Vector4(sliderVal, light.color.g, light.color.b, 1.0f);
+                        light.color = new Vector4(sliderVal / 255.0f, light.color.g, light.color.b, 1.0f);
                         break;
                     case 'G':
-                        light.color = new Vector4(light.color.r, sliderVal, light.color.b, 1.0f);
+                        light.color = new Vector4(light.color.r, sliderVal / 255.0f, light.color.b, 1.0f);
                         break;
                     case 'B':
-                        light.color = new Vector4(light.color.r, light.color.g, sliderVal, 1.0f);
+                        light.color = new Vector4(light.color.r, light.color.g, sliderVal / 255.0f, 1.0f);
+                        break;
+                    case 'I':
+                        light.intensity = sliderVal;
                         break;
                 }
             }
