@@ -41,6 +41,10 @@ public class GUI_Controller : MonoBehaviour
     private Slider lightYSlider;
     private Slider lightZSlider;
 
+    private Slider lightXRotSlider;
+    private Slider lightYRotSlider;
+    private Slider lightZRotSlider;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -92,13 +96,19 @@ public class GUI_Controller : MonoBehaviour
         intensitySlider = root.Q<Slider>("intensity_slider");
         intensitySlider.RegisterValueChangedCallback(x => ColorSliderValueChangedClbk(x.newValue, 'I'));
 
-
         lightXSlider = root.Q<Slider>("x_offset_control");
-        lightXSlider.RegisterValueChangedCallback(x => OffsetSliderValueChangedClbk(x.newValue, x.previousValue, 'X'));
+        lightXSlider.RegisterValueChangedCallback(x => PosOffsetSliderValueChangedClbk(x.newValue, x.previousValue, 'X'));
         lightYSlider = root.Q<Slider>("y_offset_control");
-        lightYSlider.RegisterValueChangedCallback(x => OffsetSliderValueChangedClbk(x.newValue, x.previousValue, 'Y'));
+        lightYSlider.RegisterValueChangedCallback(x => PosOffsetSliderValueChangedClbk(x.newValue, x.previousValue, 'Y'));
         lightZSlider = root.Q<Slider>("z_offset_control");
-        lightZSlider.RegisterValueChangedCallback(x => OffsetSliderValueChangedClbk(x.newValue, x.previousValue, 'Z'));
+        lightZSlider.RegisterValueChangedCallback(x => PosOffsetSliderValueChangedClbk(x.newValue, x.previousValue, 'Z'));
+
+        lightXRotSlider = root.Q<Slider>("x_rot_control");
+        lightXRotSlider.RegisterValueChangedCallback(x => RotOffsetSliderValueChangedClbk(x.newValue, x.previousValue, 'X'));
+        lightYRotSlider = root.Q<Slider>("y_rot_control");
+        lightYRotSlider.RegisterValueChangedCallback(x => RotOffsetSliderValueChangedClbk(x.newValue, x.previousValue, 'Y'));
+        lightZRotSlider = root.Q<Slider>("z_rot_control");
+        lightZRotSlider.RegisterValueChangedCallback(x => RotOffsetSliderValueChangedClbk(x.newValue, x.previousValue, 'Z'));
     }
 
     // Update is called once per frame
@@ -187,7 +197,7 @@ public class GUI_Controller : MonoBehaviour
         }
     }
 
-    private void OffsetSliderValueChangedClbk(float sliderVal, float sliderPrevVal, char sliderDim)
+    private void PosOffsetSliderValueChangedClbk(float sliderVal, float sliderPrevVal, char sliderDim)
     {
         for (int i = 0; i < playLights.Count; ++i)
         {
@@ -207,6 +217,32 @@ public class GUI_Controller : MonoBehaviour
                         break;
                     case 'Z':
                         lightTransform.position = lightSceneObjCont.getInitTransform().position + new Vector3(0.0f, 0.0f, moveAmount);
+                        break;
+                }
+            }
+        }
+    }
+
+    private void RotOffsetSliderValueChangedClbk(float sliderVal, float sliderPrevVal, char sliderDim)
+    {
+        for (int i = 0; i < playLights.Count; ++i)
+        {
+            var light = playLights[i];
+            var lightSceneObjCont = light.GetComponent<SceneObjectController>();
+            if (lightSceneObjCont.sceneNumber == currentlyActiveScene)
+            {
+                var moveAmount = sliderPrevVal - sliderVal;
+                Transform lightTransform = light.GetComponentInParent(typeof(Transform)) as Transform;
+                switch (sliderDim)
+                {
+                    case 'X':
+                        lightTransform.Rotate(new Vector3(moveAmount, 0.0f, 0.0f), Space.World);
+                        break;
+                    case 'Y':
+                        lightTransform.Rotate(new Vector3(0.0f, moveAmount, 0.0f), Space.World);
+                        break;
+                    case 'Z':
+                        lightTransform.Rotate(new Vector3(0.0f, 0.0f, moveAmount), Space.World);
                         break;
                 }
             }
