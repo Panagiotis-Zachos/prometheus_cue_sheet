@@ -70,13 +70,13 @@ public class GUI_Controller : MonoBehaviour
         start_scene_3.clickable.clicked += () => StartSceneButtonClbk(3);
 
         redSlider = root.Q<Slider>("red_slider");
-        redSlider.RegisterValueChangedCallback(x => SliderValueChangedClbk(x.newValue, 'R'));
+        redSlider.RegisterValueChangedCallback(x => ColorSliderValueChangedClbk(x.newValue, 'R'));
         greenSlider = root.Q<Slider>("green_slider");
-        greenSlider.RegisterValueChangedCallback(x => SliderValueChangedClbk(x.newValue, 'G'));
+        greenSlider.RegisterValueChangedCallback(x => ColorSliderValueChangedClbk(x.newValue, 'G'));
         blueSlider = root.Q<Slider>("blue_slider");
-        blueSlider.RegisterValueChangedCallback(x => SliderValueChangedClbk(x.newValue, 'B'));
+        blueSlider.RegisterValueChangedCallback(x => ColorSliderValueChangedClbk(x.newValue, 'B'));
         intensitySlider = root.Q<Slider>("intensity_slider");
-        intensitySlider.RegisterValueChangedCallback(x => SliderValueChangedClbk(x.newValue, 'I'));
+        intensitySlider.RegisterValueChangedCallback(x => ColorSliderValueChangedClbk(x.newValue, 'I'));
 
 
         List<GameObject> rootObjects = new List<GameObject>();
@@ -159,7 +159,7 @@ public class GUI_Controller : MonoBehaviour
         }
     }
 
-    private void SliderValueChangedClbk(float sliderVal, char sliderColor)
+    private void ColorSliderValueChangedClbk(float sliderVal, char sliderColor)
     {
         for (int i = 0; i < playLights.Count; ++i)
         {
@@ -185,4 +185,7 @@ public class GUI_Controller : MonoBehaviour
         }
     }
 
+    private void OffsetSliderValueChangedClbk(float sliderVal, char sliderColor)
+    {
+    }
 }
