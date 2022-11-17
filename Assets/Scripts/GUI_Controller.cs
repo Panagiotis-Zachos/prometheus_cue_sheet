@@ -185,7 +185,8 @@ public class GUI_Controller : MonoBehaviour
         }
     }
 
-    private void OffsetSliderValueChangedClbk(float sliderVal, char sliderColor)
+    private void OffsetSliderValueChangedClbk(float sliderVal, char sliderDim)
     {
+
     }
 }
