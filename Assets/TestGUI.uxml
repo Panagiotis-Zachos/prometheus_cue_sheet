@@ -97,7 +97,7 @@
                 </ui:VisualElement>
                 <ui:VisualElement style="flex-direction: row;">
                     <ui:Label text="Ry" display-tooltip-when-elided="true" style="width: 15%; -unity-text-align: upper-center; font-size: 14px; -unity-font-style: bold; color: rgb(255, 255, 255);" />
-                    <ui:Slider picking-mode="Ignore" value="0" high-value="180" show-input-field="false" low-value="-180" name="y_rot_control" inverted="true" style="width: 80%;" />
+                    <ui:Slider picking-mode="Ignore" value="0" high-value="180" show-input-field="false" low-value="-180" name="y_rot_control" inverted="false" style="width: 80%;" />
                 </ui:VisualElement>
                 <ui:VisualElement style="flex-direction: row;">
                     <ui:Label text="Rz" display-tooltip-when-elided="true" style="width: 15%; -unity-text-align: upper-center; font-size: 14px; -unity-font-style: bold; color: rgb(255, 255, 255);" />
