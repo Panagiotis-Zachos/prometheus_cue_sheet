@@ -66,3 +66,17 @@ crashlytics-build.properties
 # Temporary auto-generated Android Assets
 /[Aa]ssets/[Ss]treamingAssets/aa.meta
 /[Aa]ssets/[Ss]treamingAssets/aa/*
+
+.DS_Store
+Library/AssetImportState
+Library/AssetServerCacheV3
+Library/FailedAssetImports.txt
+Library/ScriptAssemblies
+Library/ScriptMapper
+Library/assetDatabase3
+Library/cache
+Library/expandedItems
+Library/metadata
+Library/previews
+Library/guidmapper
+Temp
