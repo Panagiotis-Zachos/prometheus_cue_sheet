@@ -55,38 +55,53 @@
             </ui:ScrollView>
         </ui:VisualElement>
         <ui:VisualElement name="bot_visual_element" style="height: 15%; flex-direction: row; width: 100%; justify-content: center;">
-            <ui:VisualElement style="align-items: stretch; justify-content: space-between; width: 30%;">
-                <ui:Label text="Light Color-Intensity Control" display-tooltip-when-elided="true" enable-rich-text="true" style="font-size: 13px; -unity-text-align: middle-center; color: rgba(255, 255, 255, 255);" />
+            <ui:VisualElement name="light_color_control" style="align-items: stretch; justify-content: space-between; width: 30%; margin-left: 3px; margin-right: 3px; margin-top: 1px; margin-bottom: 1px;">
+                <ui:Label text="Color-Intensity " display-tooltip-when-elided="true" enable-rich-text="true" style="font-size: 13px; -unity-text-align: middle-center; color: rgb(255, 255, 255);" />
                 <ui:VisualElement style="flex-direction: row;">
                     <ui:Label text="Red" display-tooltip-when-elided="true" name="Label" style="width: 17%; color: rgb(255, 255, 255); font-size: 14px;" />
-                    <ui:Slider picking-mode="Ignore" value="255" high-value="255" page-size="0" show-input-field="true" direction="Horizontal" low-value="0" focusable="false" name="red_slider" style="width: 80%; flex-basis: auto; background-color: rgb(48, 50, 55); align-items: stretch; white-space: normal;" />
+                    <ui:Slider picking-mode="Ignore" value="255" high-value="255" page-size="0" show-input-field="false" direction="Horizontal" low-value="0" focusable="false" name="red_slider" style="width: 80%; flex-basis: auto; background-color: rgb(48, 50, 55); align-items: stretch; white-space: normal;" />
                 </ui:VisualElement>
                 <ui:VisualElement style="flex-direction: row;">
                     <ui:Label text="Green" display-tooltip-when-elided="true" name="Label" style="width: 17%; color: rgb(255, 255, 255); font-size: 14px;" />
-                    <ui:Slider picking-mode="Ignore" value="243" high-value="255" page-size="0" show-input-field="true" direction="Horizontal" low-value="0" focusable="false" name="green_slider" style="width: 80%; flex-basis: auto; background-color: rgb(48, 50, 55); align-items: stretch; white-space: normal;" />
+                    <ui:Slider picking-mode="Ignore" value="243" high-value="255" page-size="0" show-input-field="false" direction="Horizontal" low-value="0" focusable="false" name="green_slider" style="width: 80%; flex-basis: auto; background-color: rgb(48, 50, 55); align-items: stretch; white-space: normal;" />
                 </ui:VisualElement>
                 <ui:VisualElement style="flex-direction: row;">
                     <ui:Label text="Blue" display-tooltip-when-elided="true" name="Label" style="width: 17%; color: rgb(255, 255, 255); font-size: 14px;" />
-                    <ui:Slider picking-mode="Ignore" value="210" high-value="255" page-size="0" show-input-field="true" direction="Horizontal" low-value="0" focusable="false" name="blue_slider" style="width: 80%; flex-basis: auto; background-color: rgb(48, 50, 55); align-items: stretch; white-space: normal;" />
+                    <ui:Slider picking-mode="Ignore" value="210" high-value="255" page-size="0" show-input-field="false" direction="Horizontal" low-value="0" focusable="false" name="blue_slider" style="width: 80%; flex-basis: auto; background-color: rgb(48, 50, 55); align-items: stretch; white-space: normal;" />
                 </ui:VisualElement>
                 <ui:VisualElement style="flex-direction: row;">
                     <ui:Label text="Intens." display-tooltip-when-elided="true" name="Label" style="width: 17%; color: rgb(255, 255, 255); font-size: 14px;" />
-                    <ui:Slider picking-mode="Ignore" value="1" high-value="10" page-size="0" show-input-field="true" direction="Horizontal" low-value="0" focusable="false" name="intensity_slider" style="width: 80%; flex-basis: auto; background-color: rgb(48, 50, 55); align-items: stretch; white-space: normal;" />
+                    <ui:Slider picking-mode="Ignore" value="1" high-value="10" page-size="0" show-input-field="false" direction="Horizontal" low-value="0" focusable="false" name="intensity_slider" style="width: 80%; flex-basis: auto; background-color: rgb(48, 50, 55); align-items: stretch; white-space: normal;" />
                 </ui:VisualElement>
             </ui:VisualElement>
-            <ui:VisualElement style="width: 30%; justify-content: space-between;">
-                <ui:Label text="Light Position Offset Control" display-tooltip-when-elided="true" enable-rich-text="true" style="font-size: 13px; -unity-text-align: middle-center; color: rgba(255, 255, 255, 255);" />
+            <ui:VisualElement name="light_position_control" style="width: 30%; justify-content: space-between; margin-left: 3px; margin-right: 3px; margin-top: 1px; margin-bottom: 1px;">
+                <ui:Label text="Position Offset" display-tooltip-when-elided="true" enable-rich-text="true" style="font-size: 13px; -unity-text-align: middle-center; color: rgb(255, 255, 255);" />
                 <ui:VisualElement style="flex-direction: row;">
-                    <ui:Label text="X" display-tooltip-when-elided="true" style="width: 15%; -unity-text-align: upper-center; font-size: 14px; -unity-font-style: bold; height: 22px;" />
-                    <ui:Slider picking-mode="Ignore" value="0" high-value="100" show-input-field="true" low-value="-100" name="x_offset_control" style="width: 80%;" />
+                    <ui:Label text="X" display-tooltip-when-elided="true" style="width: 15%; -unity-text-align: upper-center; font-size: 14px; -unity-font-style: bold; height: 22px; color: rgb(255, 255, 255);" />
+                    <ui:Slider picking-mode="Ignore" value="0" high-value="10" show-input-field="false" low-value="-10" name="x_offset_control" style="width: 80%;" />
                 </ui:VisualElement>
                 <ui:VisualElement style="flex-direction: row;">
-                    <ui:Label text="Y" display-tooltip-when-elided="true" style="width: 15%; -unity-text-align: upper-center; font-size: 14px; -unity-font-style: bold;" />
-                    <ui:Slider picking-mode="Ignore" value="0" high-value="100" show-input-field="true" low-value="-100" name="y_offset_control" style="width: 80%;" />
+                    <ui:Label text="Y" display-tooltip-when-elided="true" style="width: 15%; -unity-text-align: upper-center; font-size: 14px; -unity-font-style: bold; color: rgb(255, 255, 255);" />
+                    <ui:Slider picking-mode="Ignore" value="0" high-value="10" show-input-field="false" low-value="-10" name="y_offset_control" style="width: 80%;" />
                 </ui:VisualElement>
                 <ui:VisualElement style="flex-direction: row;">
-                    <ui:Label text="Z" display-tooltip-when-elided="true" style="width: 15%; -unity-text-align: upper-center; font-size: 14px; -unity-font-style: bold;" />
-                    <ui:Slider picking-mode="Ignore" value="0" high-value="100" show-input-field="true" low-value="-100" name="z_offset_control" style="width: 80%;" />
+                    <ui:Label text="Z" display-tooltip-when-elided="true" style="width: 15%; -unity-text-align: upper-center; font-size: 14px; -unity-font-style: bold; color: rgb(255, 255, 255);" />
+                    <ui:Slider picking-mode="Ignore" value="0" high-value="10" show-input-field="false" low-value="-10" name="z_offset_control" style="width: 80%;" />
+                </ui:VisualElement>
+            </ui:VisualElement>
+            <ui:VisualElement name="light_rotation_control" style="width: 30%; justify-content: space-between; margin-left: 3px; margin-right: 3px; margin-top: 1px; margin-bottom: 1px;">
+                <ui:Label text="Rotation Offset" display-tooltip-when-elided="true" enable-rich-text="true" style="font-size: 13px; -unity-text-align: middle-center; color: rgb(255, 255, 255);" />
+                <ui:VisualElement style="flex-direction: row;">
+                    <ui:Label text="Rx" display-tooltip-when-elided="true" style="width: 15%; -unity-text-align: upper-center; font-size: 14px; -unity-font-style: bold; height: 22px; color: rgb(255, 255, 255);" />
+                    <ui:Slider picking-mode="Ignore" value="0" high-value="180" show-input-field="false" low-value="-180" name="x_rot_control" style="width: 80%;" />
+                </ui:VisualElement>
+                <ui:VisualElement style="flex-direction: row;">
+                    <ui:Label text="Ry" display-tooltip-when-elided="true" style="width: 15%; -unity-text-align: upper-center; font-size: 14px; -unity-font-style: bold; color: rgb(255, 255, 255);" />
+                    <ui:Slider picking-mode="Ignore" value="0" high-value="180" show-input-field="false" low-value="-180" name="y_rot_control" inverted="true" style="width: 80%;" />
+                </ui:VisualElement>
+                <ui:VisualElement style="flex-direction: row;">
+                    <ui:Label text="Rz" display-tooltip-when-elided="true" style="width: 15%; -unity-text-align: upper-center; font-size: 14px; -unity-font-style: bold; color: rgb(255, 255, 255);" />
+                    <ui:Slider picking-mode="Ignore" value="0" high-value="180" show-input-field="false" low-value="-180" name="z_rot_control" style="width: 80%;" />
                 </ui:VisualElement>
             </ui:VisualElement>
         </ui:VisualElement>
