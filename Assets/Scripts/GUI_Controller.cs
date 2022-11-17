@@ -30,10 +30,14 @@ public class GUI_Controller : MonoBehaviour
     private float play_time_start;
     private float scene_time_start;
 
-    private Light lt;
-    float duration = 1.0f;
-    Color color0 = Color.red;
-    Color color1 = Color.blue;
+    private List<Light> playLights = new List<Light>();
+    //float duration = 1.0f;
+    //Color color0 = Color.red;
+    //Color color1 = Color.blue;
+
+    private Slider redSlider;
+    private Slider greenSlider;
+    private Slider blueSlider;
 
     // Start is called before the first frame update
     void Start()
@@ -56,13 +60,21 @@ public class GUI_Controller : MonoBehaviour
         play_sec_label = root.Q<Label>("play_seconds");
 
         start_scene_1 = root.Q<Button>("start_scene_1");
-        start_scene_1.clickable.clicked += () => StartScene(1);
+        start_scene_1.clickable.clicked += () => StartSceneButtonClbk(1);
 
         start_scene_2 = root.Q<Button>("start_scene_2");
-        start_scene_2.clickable.clicked += () => StartScene(2);
+        start_scene_2.clickable.clicked += () => StartSceneButtonClbk(2);
 
         start_scene_3 = root.Q<Button>("start_scene_3");
-        start_scene_3.clickable.clicked += () => StartScene(3);
+        start_scene_3.clickable.clicked += () => StartSceneButtonClbk(3);
+
+        redSlider = root.Q<Slider>("red_slider");
+        redSlider.RegisterValueChangedCallback(x => SliderValueChangedClbk(x.newValue, 'R'));
+        greenSlider = root.Q<Slider>("green_slider");
+        greenSlider.RegisterValueChangedCallback(x => SliderValueChangedClbk(x.newValue, 'G'));
+        blueSlider = root.Q<Slider>("blue_slider");
+        blueSlider.RegisterValueChangedCallback(x => SliderValueChangedClbk(x.newValue, 'B'));
+
 
 
         List<GameObject> rootObjects = new List<GameObject>();
@@ -74,7 +86,7 @@ public class GUI_Controller : MonoBehaviour
             GameObject gameObject = rootObjects[i];
             if (gameObject.GetComponent<Light>())
             {
-                lt = gameObject.GetComponent<Light>();
+                playLights.Add(gameObject.GetComponent<Light>());
             }
         }
 
@@ -83,13 +95,13 @@ public class GUI_Controller : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (lt.GetComponent<SceneObjectController>().sceneNumber == currentlyActiveScene)
-        {
-            float t = Mathf.PingPong(Time.time, duration) / duration;
-            lt.color = Color.Lerp(color0, color1, t);
-        }
-        //UpdatePlayTime(play_hour_label, play_min_label, play_sec_label);
-        //UpdateSceneTime(scene_hour_label, scene_min_label, scene_sec_label);
+        //if (lt.GetComponent<SceneObjectController>().sceneNumber == currentlyActiveScene)
+        //{
+        //    float t = Mathf.PingPong(Time.time, duration) / duration;
+        //    lt.color = Color.Lerp(color0, color1, t);
+        //}
+        UpdatePlayTime(play_hour_label, play_min_label, play_sec_label);
+        UpdateSceneTime(scene_hour_label, scene_min_label, scene_sec_label);
     }
 
 
@@ -118,7 +130,7 @@ public class GUI_Controller : MonoBehaviour
         scene_sec_label.text = scene_time_seconds.ToString();
     }
 
-    private void StartScene(int sceneSelected){
+    private void StartSceneButtonClbk(int sceneSelected){
         currentlyActiveScene = sceneSelected;
 
         // get root objects in scene
@@ -144,4 +156,31 @@ public class GUI_Controller : MonoBehaviour
             }
         }
     }
+
+    private void SliderValueChangedClbk(float sliderVal, char sliderColor)
+    {
+        sliderVal = sliderVal / 255.0f;
+        for (int i = 0; i < playLights.Count; ++i)
+        {
+            var light = playLights[i];
+            if (light.GetComponent<SceneObjectController>().sceneNumber == currentlyActiveScene)
+            {
+                switch (sliderColor)
+                {
+                    case 'R':
+                        light.color = new Vector4(sliderVal, light.color.g, light.color.b, 1.0f);
+                        break;
+                    case 'G':
+                        light.color = new Vector4(light.color.r, sliderVal, light.color.b, 1.0f);
+                        break;
+                    case 'B':
+                        light.color = new Vector4(light.color.r, light.color.g, sliderVal, 1.0f);
+                        break;
+                }
+            }
+                
+        }
+        
+    }
+
 }
