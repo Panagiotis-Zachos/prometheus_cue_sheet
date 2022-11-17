@@ -37,6 +37,10 @@ public class GUI_Controller : MonoBehaviour
     private Slider blueSlider;
     private Slider intensitySlider;
 
+    private Slider lightXSlider;
+    private Slider lightYSlider;
+    private Slider lightZSlider;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -66,16 +70,6 @@ public class GUI_Controller : MonoBehaviour
         start_scene_3 = root.Q<Button>("start_scene_3");
         start_scene_3.clickable.clicked += () => StartSceneButtonClbk(3);
 
-        redSlider = root.Q<Slider>("red_slider");
-        redSlider.RegisterValueChangedCallback(x => ColorSliderValueChangedClbk(x.newValue, 'R'));
-        greenSlider = root.Q<Slider>("green_slider");
-        greenSlider.RegisterValueChangedCallback(x => ColorSliderValueChangedClbk(x.newValue, 'G'));
-        blueSlider = root.Q<Slider>("blue_slider");
-        blueSlider.RegisterValueChangedCallback(x => ColorSliderValueChangedClbk(x.newValue, 'B'));
-        intensitySlider = root.Q<Slider>("intensity_slider");
-        intensitySlider.RegisterValueChangedCallback(x => ColorSliderValueChangedClbk(x.newValue, 'I'));
-
-
         List<GameObject> rootObjects = new List<GameObject>();
         Scene scene = SceneManager.GetActiveScene();
         scene.GetRootGameObjects(rootObjects);
@@ -89,6 +83,22 @@ public class GUI_Controller : MonoBehaviour
             }
         }
 
+        redSlider = root.Q<Slider>("red_slider");
+        redSlider.RegisterValueChangedCallback(x => ColorSliderValueChangedClbk(x.newValue, 'R'));
+        greenSlider = root.Q<Slider>("green_slider");
+        greenSlider.RegisterValueChangedCallback(x => ColorSliderValueChangedClbk(x.newValue, 'G'));
+        blueSlider = root.Q<Slider>("blue_slider");
+        blueSlider.RegisterValueChangedCallback(x => ColorSliderValueChangedClbk(x.newValue, 'B'));
+        intensitySlider = root.Q<Slider>("intensity_slider");
+        intensitySlider.RegisterValueChangedCallback(x => ColorSliderValueChangedClbk(x.newValue, 'I'));
+
+
+        lightXSlider = root.Q<Slider>("x_offset_control");
+        lightXSlider.RegisterValueChangedCallback(x => OffsetSliderValueChangedClbk(x.newValue, x.previousValue, 'X'));
+        lightYSlider = root.Q<Slider>("y_offset_control");
+        lightYSlider.RegisterValueChangedCallback(x => OffsetSliderValueChangedClbk(x.newValue, x.previousValue, 'Y'));
+        lightZSlider = root.Q<Slider>("z_offset_control");
+        lightZSlider.RegisterValueChangedCallback(x => OffsetSliderValueChangedClbk(x.newValue, x.previousValue, 'Z'));
     }
 
     // Update is called once per frame
@@ -177,8 +187,29 @@ public class GUI_Controller : MonoBehaviour
         }
     }
 
-    private void OffsetSliderValueChangedClbk(float sliderVal, char sliderDim)
+    private void OffsetSliderValueChangedClbk(float sliderVal, float sliderPrevVal, char sliderDim)
     {
-
+        for (int i = 0; i < playLights.Count; ++i)
+        {
+            var light = playLights[i];
+            var lightSceneObjCont = light.GetComponent<SceneObjectController>();
+            if (lightSceneObjCont.sceneNumber == currentlyActiveScene)
+            {
+                var moveAmount = sliderPrevVal - sliderVal;
+                Transform lightTransform = light.GetComponentInParent(typeof(Transform)) as Transform;
+                switch (sliderDim)
+                {
+                    case 'X':
+                        lightTransform.position = lightSceneObjCont.getInitTransform().position + new Vector3(moveAmount, 0.0f, 0.0f);
+                        break;
+                    case 'Y':
+                        lightTransform.position = lightSceneObjCont.getInitTransform().position + new Vector3(0.0f, moveAmount, 0.0f);
+                        break;
+                    case 'Z':
+                        lightTransform.position = lightSceneObjCont.getInitTransform().position + new Vector3(0.0f, 0.0f, moveAmount);
+                        break;
+                }
+            }
+        }
     }
 }
