@@ -181,10 +181,8 @@ public class GUI_Controller : MonoBehaviour
                         light.intensity = sliderVal;
                         break;
                 }
-            }
-                
+            }       
         }
-        
     }
 
 }
