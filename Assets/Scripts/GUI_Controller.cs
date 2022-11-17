@@ -8,23 +8,23 @@ using UnityEngine.SceneManagement; // To change scenes through the menu
 public class GUI_Controller : MonoBehaviour
 {
 
-    public Button open_cue_button;
-    public Button save_cue_button;
-    public Button edit_cue_button;
-    public Button save_settings_button;
+    private Button open_cue_button;
+    private Button save_cue_button;
+    private Button edit_cue_button;
+    private Button save_settings_button;
 
-    public Label scene_hour_label;
-    public Label scene_min_label;
-    public Label scene_sec_label;
+    private Label scene_hour_label;
+    private Label scene_min_label;
+    private Label scene_sec_label;
 
-    public Label play_hour_label;
-    public Label play_min_label;
-    public Label play_sec_label;
+    private Label play_hour_label;
+    private Label play_min_label;
+    private Label play_sec_label;
 
-    public int currentlyActiveScene;
-    public Button start_scene_1;
-    public Button start_scene_2;
-    public Button start_scene_3;
+    private int currentlyActiveScene;
+    private Button start_scene_1;
+    private Button start_scene_2;
+    private Button start_scene_3;
 
 
     private float play_time_start;
