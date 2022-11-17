@@ -31,9 +31,6 @@ public class GUI_Controller : MonoBehaviour
     private float scene_time_start;
 
     private List<Light> playLights = new List<Light>();
-    //float duration = 1.0f;
-    //Color color0 = Color.red;
-    //Color color1 = Color.blue;
 
     private Slider redSlider;
     private Slider greenSlider;
@@ -97,11 +94,6 @@ public class GUI_Controller : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        //if (lt.GetComponent<SceneObjectController>().sceneNumber == currentlyActiveScene)
-        //{
-        //    float t = Mathf.PingPong(Time.time, duration) / duration;
-        //    lt.color = Color.Lerp(color0, color1, t);
-        //}
         UpdatePlayTime(play_hour_label, play_min_label, play_sec_label);
         UpdateSceneTime(scene_hour_label, scene_min_label, scene_sec_label);
     }
