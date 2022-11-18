@@ -65,6 +65,8 @@ public class GUI_Controller : MonoBehaviour
         play_min_label = root.Q<Label>("play_minutes");
         play_sec_label = root.Q<Label>("play_seconds");
 
+        // Scene selection buttons initialization
+
         start_scene_1 = root.Q<Button>("start_scene_1");
         start_scene_1.clickable.clicked += () => StartSceneButtonClbk(1);
 
@@ -73,6 +75,8 @@ public class GUI_Controller : MonoBehaviour
 
         start_scene_3 = root.Q<Button>("start_scene_3");
         start_scene_3.clickable.clicked += () => StartSceneButtonClbk(3);
+
+        // Scene light controls initialization
 
         List<GameObject> rootObjects = new List<GameObject>();
         Scene scene = SceneManager.GetActiveScene();
