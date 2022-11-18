@@ -23,11 +23,6 @@ public class GUI_Controller : MonoBehaviour
     private Label play_sec_label;
 
     private int currentlyActiveScene;
-    private List<Button> testButtons = new();
-
-    private List<int> uniqueScenes = new();
-    private List<Button> startSceneButtons = new();
-    private List<VisualElement> sceneVisualElements = new();
 
     private float play_time_start;
     private float scene_time_start;
@@ -69,17 +64,7 @@ public class GUI_Controller : MonoBehaviour
 
         // Scene selection buttons initialization
 
-        testButtons.Add(root.Q<Button>("start_scene_1"));
-        testButtons[0].clickable.clicked += () => StartSceneButtonClbk(1);
-
-        testButtons.Add(root.Q<Button>("start_scene_2"));
-        testButtons[1].clickable.clicked += () => StartSceneButtonClbk(2);
-
-        testButtons.Add(root.Q<Button>("start_scene_3"));
-        testButtons[2].clickable.clicked += () => StartSceneButtonClbk(3);
-
-        uniqueScenes = GetUniqueScenes();
-        InitStartSceneElements(root.Q<VisualElement>("unity-content-container"), uniqueScenes);
+        InitStartSceneElements(root.Q<VisualElement>("unity-content-container"), GetUniqueScenes());
 
         // Scene light controls initialization
 
@@ -123,8 +108,8 @@ public class GUI_Controller : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        //UpdatePlayTime(play_hour_label, play_min_label, play_sec_label);
-        //UpdateSceneTime(scene_hour_label, scene_min_label, scene_sec_label);
+        UpdatePlayTime(play_hour_label, play_min_label, play_sec_label);
+        UpdateSceneTime(scene_hour_label, scene_min_label, scene_sec_label);
     }
 
     private List<int> GetUniqueScenes()
@@ -158,7 +143,7 @@ public class GUI_Controller : MonoBehaviour
     {
         for (int i = 0; i < uniqueScenes.Count; ++i)
         {
-            sceneVisualElements.Add(new VisualElement()
+            var sceneVisElement = new VisualElement()
             {
                 style =
                 {
@@ -172,9 +157,9 @@ public class GUI_Controller : MonoBehaviour
                     marginBottom = 2,
                     marginTop = 2,
                 }
-            });
+            };
 
-            startSceneButtons.Add(new Button()
+            var sceneButton = new Button()
             {
                 text = "Start",
                 style =
@@ -182,9 +167,9 @@ public class GUI_Controller : MonoBehaviour
                     width = Length.Percent(10),
                     height = Length.Percent(50)
                 }
-            });
+            };
 
-            startSceneButtons[i].RegisterCallback<ClickEvent, int>((evt, index) =>
+            sceneButton.RegisterCallback<ClickEvent, int>((evt, index) =>
             {
                 StartSceneButtonClbk(uniqueScenes[index]);
             }, i);
@@ -233,11 +218,11 @@ public class GUI_Controller : MonoBehaviour
             }
             };
 
-            sceneVisualElements[i].Add(startSceneButtons[i]);
-            sceneVisualElements[i].Add(sceneNumberLabel);
-            sceneVisualElements[i].Add(sceneDescriptionLabel);
+            sceneVisElement.Add(sceneButton);
+            sceneVisElement.Add(sceneNumberLabel);
+            sceneVisElement.Add(sceneDescriptionLabel);
 
-            midVisElement.Add(sceneVisualElements[i]);
+            midVisElement.Add(sceneVisElement);
         }
     }
     private void UpdatePlayTime(Label play_hour_label, Label play_min_label, Label play_sec_label)
@@ -266,7 +251,6 @@ public class GUI_Controller : MonoBehaviour
     }
 
     private void StartSceneButtonClbk(int sceneSelected){
-        Debug.Log(sceneSelected);
         currentlyActiveScene = sceneSelected;
 
         // get root objects in scene
