@@ -3,7 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UIElements;
 using UnityEngine.SceneManagement; // To change scenes through the menu
-
+using System;
+using UnityEngine.EventSystems;
 
 public class GUI_Controller : MonoBehaviour
 {
@@ -22,10 +23,11 @@ public class GUI_Controller : MonoBehaviour
     private Label play_sec_label;
 
     private int currentlyActiveScene;
-    private Button start_scene_1;
-    private Button start_scene_2;
-    private Button start_scene_3;
+    private List<Button> testButtons = new();
 
+    private List<int> uniqueScenes = new();
+    private List<Button> startSceneButtons = new();
+    private List<VisualElement> sceneVisualElements = new();
 
     private float play_time_start;
     private float scene_time_start;
@@ -67,21 +69,24 @@ public class GUI_Controller : MonoBehaviour
 
         // Scene selection buttons initialization
 
-        start_scene_1 = root.Q<Button>("start_scene_1");
-        start_scene_1.clickable.clicked += () => StartSceneButtonClbk(1);
+        testButtons.Add(root.Q<Button>("start_scene_1"));
+        testButtons[0].clickable.clicked += () => StartSceneButtonClbk(1);
 
-        start_scene_2 = root.Q<Button>("start_scene_2");
-        start_scene_2.clickable.clicked += () => StartSceneButtonClbk(2);
+        testButtons.Add(root.Q<Button>("start_scene_2"));
+        testButtons[1].clickable.clicked += () => StartSceneButtonClbk(2);
 
-        start_scene_3 = root.Q<Button>("start_scene_3");
-        start_scene_3.clickable.clicked += () => StartSceneButtonClbk(3);
+        testButtons.Add(root.Q<Button>("start_scene_3"));
+        testButtons[2].clickable.clicked += () => StartSceneButtonClbk(3);
+
+        uniqueScenes = GetUniqueScenes();
+        InitStartSceneElements(root.Q<VisualElement>("unity-content-container"), uniqueScenes);
 
         // Scene light controls initialization
 
         List<GameObject> rootObjects = new List<GameObject>();
         Scene scene = SceneManager.GetActiveScene();
         scene.GetRootGameObjects(rootObjects);
-        
+
         for (int i = 0; i < rootObjects.Count; ++i)
         {
             GameObject gameObject = rootObjects[i];
@@ -118,11 +123,123 @@ public class GUI_Controller : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        UpdatePlayTime(play_hour_label, play_min_label, play_sec_label);
-        UpdateSceneTime(scene_hour_label, scene_min_label, scene_sec_label);
+        //UpdatePlayTime(play_hour_label, play_min_label, play_sec_label);
+        //UpdateSceneTime(scene_hour_label, scene_min_label, scene_sec_label);
     }
 
+    private List<int> GetUniqueScenes()
+    {
+        // This method finds all unique scenes via parsing the available GameObjects and looking at their 'SceneNumber' property
 
+        List<int> uniqueScenes = new();
+
+        // get root objects in scene
+        List<GameObject> rootObjects = new();
+        Scene scene = SceneManager.GetActiveScene();
+        scene.GetRootGameObjects(rootObjects);
+
+        for (int i = 0; i < rootObjects.Count; ++i)
+        {
+            GameObject gameObject = rootObjects[i];
+            if (gameObject.TryGetComponent<SceneObjectController>(out var soc))
+            {
+                if (uniqueScenes.IndexOf(soc.sceneNumber) == -1)
+                {
+                    uniqueScenes.Add(soc.sceneNumber);
+                }
+            }
+        }
+        uniqueScenes.Sort();
+
+        return uniqueScenes;
+    }
+
+    private void InitStartSceneElements(VisualElement midVisElement, List<int> uniqueScenes)
+    {
+        for (int i = 0; i < uniqueScenes.Count; ++i)
+        {
+            sceneVisualElements.Add(new VisualElement()
+            {
+                style =
+                {
+                    flexWrap = Wrap.NoWrap,
+                    flexDirection = FlexDirection.Row,
+                    alignItems = Align.Center,
+                    justifyContent = Justify.SpaceBetween,
+
+                    marginLeft = 1,
+                    marginRight = 1,
+                    marginBottom = 2,
+                    marginTop = 2,
+                }
+            });
+
+            startSceneButtons.Add(new Button()
+            {
+                text = "Start",
+                style =
+                {
+                    width = Length.Percent(10),
+                    height = Length.Percent(50)
+                }
+            });
+
+            startSceneButtons[i].RegisterCallback<ClickEvent, int>((evt, index) =>
+            {
+                StartSceneButtonClbk(uniqueScenes[index]);
+            }, i);
+
+            var sceneNumberLabel = new Label()
+            {
+                text = "Scene #" + uniqueScenes[i],
+                style =
+            {
+                width = Length.Percent(10),
+                height = Length.Percent(100),
+
+                marginLeft = 3,
+                marginRight = 3,
+                marginBottom = 1,
+                marginTop = 1,
+
+                unityTextAlign = TextAnchor.MiddleCenter,
+                whiteSpace = WhiteSpace.Normal,
+                fontSize = 15,
+
+                color = new UnityEngine.Color(255, 255, 255)
+            }
+            };
+
+            var sceneDescriptionLabel = new Label()
+            {
+                text = "This is a placeholder description of the scene. It is intentionally long in order to test how the text wraps around the label. In the final deliverable, this should probably be initialized from an .ini file or something similar.\r\n",
+
+                style =
+            {
+                width = Length.Percent(75),
+                height = Length.Percent(100),
+
+                marginLeft = 3,
+                marginRight = 3,
+                marginBottom = 1,
+                marginTop = 1,
+
+                unityTextAlign = TextAnchor.MiddleLeft,
+                whiteSpace = WhiteSpace.Normal,
+                fontSize = 15,
+
+                color = new UnityEngine.Color(255, 255, 255)
+
+            }
+            };
+
+            sceneVisualElements[i].Add(startSceneButtons[i]);
+            sceneVisualElements[i].Add(sceneNumberLabel);
+            sceneVisualElements[i].Add(sceneDescriptionLabel);
+
+            midVisElement.Add(sceneVisualElements[i]);
+        }
+    }
     private void UpdatePlayTime(Label play_hour_label, Label play_min_label, Label play_sec_label)
     {
         var frame_time = Time.time;
@@ -149,6 +266,7 @@ public class GUI_Controller : MonoBehaviour
     }
 
     private void StartSceneButtonClbk(int sceneSelected){
+        Debug.Log(sceneSelected);
         currentlyActiveScene = sceneSelected;
 
         // get root objects in scene
