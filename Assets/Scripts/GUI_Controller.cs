@@ -8,12 +8,6 @@ using UnityEngine.EventSystems;
 
 public class GUI_Controller : MonoBehaviour
 {
-
-    private Button open_cue_button;
-    private Button save_cue_button;
-    private Button edit_cue_button;
-    private Button save_settings_button;
-
     private Label scene_hour_label;
     private Label scene_min_label;
     private Label scene_sec_label;
@@ -27,7 +21,7 @@ public class GUI_Controller : MonoBehaviour
     private float play_time_start;
     private float scene_time_start;
 
-    private List<Light> playLights = new List<Light>();
+    private List<Light> playLights = new();
 
     private Slider redSlider;
     private Slider greenSlider;
@@ -48,11 +42,6 @@ public class GUI_Controller : MonoBehaviour
         // SceneManager.LoadScene('name-of-the-scene'); // For future use
         var root = GetComponent<UIDocument>().rootVisualElement;
 
-        open_cue_button = root.Q<Button>("open_cue_file");
-        save_cue_button = root.Q<Button>("save_cue_file");
-        edit_cue_button = root.Q<Button>("save_settings");
-        save_settings_button = root.Q<Button>("save_settings");
-
         play_time_start = Time.time;
         scene_hour_label = root.Q<Label>("scene_hours");
         scene_min_label = root.Q<Label>("scene_minutes");
@@ -68,7 +57,7 @@ public class GUI_Controller : MonoBehaviour
 
         // Scene light controls initialization
 
-        List<GameObject> rootObjects = new List<GameObject>();
+        List<GameObject> rootObjects = new();
         Scene scene = SceneManager.GetActiveScene();
         scene.GetRootGameObjects(rootObjects);
 
