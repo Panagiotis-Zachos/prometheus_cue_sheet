@@ -136,15 +136,22 @@ public class GUI_Controller : MonoBehaviour
             {
                 style =
                 {
+                    width = Length.Percent(100),
+
                     flexWrap = Wrap.NoWrap,
                     flexDirection = FlexDirection.Row,
                     alignItems = Align.Center,
-                    justifyContent = Justify.SpaceBetween,
+                    justifyContent = Justify.Center,
 
-                    marginLeft = 1,
-                    marginRight = 1,
-                    marginBottom = 2,
-                    marginTop = 2,
+                    marginLeft = 0,
+                    marginRight = 0,
+                    marginBottom = 0,
+                    marginTop = 0,
+
+                    paddingLeft = 0,
+                    paddingRight = 0,
+                    paddingBottom = 0,
+                    paddingTop = 0,
                 }
             };
 
@@ -153,8 +160,29 @@ public class GUI_Controller : MonoBehaviour
                 text = "Start",
                 style =
                 {
-                    width = Length.Percent(10),
-                    height = Length.Percent(50)
+                    fontSize = 16,
+                    width = Length.Percent(8),
+                    height = Length.Percent(50),
+
+                    marginLeft = 2,
+                    marginRight = 2,
+                    marginBottom = 2,
+                    marginTop = 2,
+
+                    paddingLeft = 0,
+                    paddingRight = 0,
+                    paddingBottom = 0,
+                    paddingTop = 0,
+
+                    borderLeftWidth = 1,
+                    borderRightWidth = 1,
+                    borderBottomWidth = 1,
+                    borderTopWidth = 1,
+
+                    borderLeftColor = Color.black,
+                    borderRightColor = Color.black,
+                    borderBottomColor = Color.black,
+                    borderTopColor = Color.black
                 }
             };
 
@@ -168,17 +196,68 @@ public class GUI_Controller : MonoBehaviour
                 text = "Scene #" + uniqueScenes[i],
                 style =
             {
-                width = Length.Percent(10),
+                width = Length.Percent(8),
                 height = Length.Percent(100),
 
-                marginLeft = 3,
-                marginRight = 3,
-                marginBottom = 1,
-                marginTop = 1,
+                marginLeft = 2,
+                marginRight = 2,
+                marginBottom = 2,
+                marginTop = 2,
+
+                paddingLeft = 0,
+                paddingRight = 0,
+                paddingBottom = 0,
+                paddingTop = 0,
+
+                borderLeftWidth = 1,
+                borderRightWidth = 1,
+                borderBottomWidth = 1,
+                borderTopWidth = 1,
+
+                borderLeftColor = Color.black,
+                borderRightColor = Color.black,
+                borderBottomColor = Color.black,
+                borderTopColor = Color.black,
 
                 unityTextAlign = TextAnchor.MiddleCenter,
                 whiteSpace = WhiteSpace.Normal,
-                fontSize = 15,
+                fontSize = 16,
+
+                color = new UnityEngine.Color(255, 255, 255)
+            }
+            };
+
+            var sceneDynamicProjLabel = new Label()
+            {
+                text = "X",
+                style =
+            {
+                width = Length.Percent(8),
+                height = Length.Percent(100),
+
+                marginLeft = 2,
+                marginRight = 2,
+                marginBottom = 2,
+                marginTop = 2,
+
+                paddingLeft = 0,
+                paddingRight = 0,
+                paddingBottom = 0,
+                paddingTop = 0,
+
+                borderLeftWidth = 1,
+                borderRightWidth = 1,
+                borderBottomWidth = 1,
+                borderTopWidth = 1,
+
+                borderLeftColor = Color.black,
+                borderRightColor = Color.black,
+                borderBottomColor = Color.black,
+                borderTopColor = Color.black,
+
+                unityTextAlign = TextAnchor.MiddleCenter,
+                whiteSpace = WhiteSpace.Normal,
+                fontSize = 16,
 
                 color = new UnityEngine.Color(255, 255, 255)
             }
@@ -190,17 +269,32 @@ public class GUI_Controller : MonoBehaviour
 
                 style =
             {
-                width = Length.Percent(75),
+                width = Length.Percent(70),
                 height = Length.Percent(100),
 
-                marginLeft = 3,
-                marginRight = 3,
-                marginBottom = 1,
-                marginTop = 1,
+                marginLeft = 2,
+                marginRight = 2,
+                marginBottom = 2,
+                marginTop = 2,
+
+                paddingLeft = 0,
+                paddingRight = 0,
+                paddingBottom = 0,
+                paddingTop = 0,
+
+                borderLeftWidth = 1,
+                borderRightWidth = 1,
+                borderBottomWidth = 1,
+                borderTopWidth = 1,
+
+                borderLeftColor = Color.black,
+                borderRightColor = Color.black,
+                borderBottomColor = Color.black,
+                borderTopColor = Color.black,
 
                 unityTextAlign = TextAnchor.MiddleLeft,
                 whiteSpace = WhiteSpace.Normal,
-                fontSize = 15,
+                fontSize = 16,
 
                 color = new UnityEngine.Color(255, 255, 255)
 
@@ -209,6 +303,7 @@ public class GUI_Controller : MonoBehaviour
 
             sceneVisElement.Add(sceneButton);
             sceneVisElement.Add(sceneNumberLabel);
+            sceneVisElement.Add(sceneDynamicProjLabel);
             sceneVisElement.Add(sceneDescriptionLabel);
 
             midVisElement.Add(sceneVisElement);
