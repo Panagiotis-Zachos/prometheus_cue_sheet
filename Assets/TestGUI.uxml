@@ -35,15 +35,15 @@
             <ui:VisualElement name="light_color_control" style="align-items: stretch; justify-content: space-between; width: 30%; margin-left: 3px; margin-right: 3px; margin-top: 1px; margin-bottom: 1px; height: 90%;">
                 <ui:Label text="Color-Intensity " display-tooltip-when-elided="true" enable-rich-text="true" style="font-size: 13px; -unity-text-align: middle-center; color: rgb(255, 255, 255); height: 15%; width: 100%; margin-left: 2px; margin-right: 2px; margin-top: 1px; margin-bottom: 1px;" />
                 <ui:VisualElement style="flex-direction: row; margin-left: 2px; margin-right: 2px; margin-top: 1px; margin-bottom: 1px; height: 15%; width: 100%;">
-                    <ui:Label text="Red" display-tooltip-when-elided="true" name="Label" style="width: 17%; color: rgb(255, 255, 255); font-size: 14px;" />
+                    <ui:Label text="Red" display-tooltip-when-elided="true" name="Label" style="width: 17%; color: rgb(255, 0, 0); font-size: 14px;" />
                     <ui:Slider picking-mode="Ignore" value="255" high-value="255" page-size="0" show-input-field="false" direction="Horizontal" low-value="0" focusable="false" name="red_slider" style="width: 80%; flex-basis: auto; background-color: rgb(48, 50, 55); align-items: stretch; white-space: normal;" />
                 </ui:VisualElement>
                 <ui:VisualElement style="flex-direction: row; margin-left: 2px; margin-right: 2px; margin-top: 1px; margin-bottom: 1px; height: 15%; width: 100%;">
-                    <ui:Label text="Green" display-tooltip-when-elided="true" name="Label" style="width: 17%; color: rgb(255, 255, 255); font-size: 14px;" />
+                    <ui:Label text="Green" display-tooltip-when-elided="true" name="Label" style="width: 17%; color: rgb(7, 255, 0); font-size: 14px;" />
                     <ui:Slider picking-mode="Ignore" value="243" high-value="255" page-size="0" show-input-field="false" direction="Horizontal" low-value="0" focusable="false" name="green_slider" style="width: 80%; flex-basis: auto; background-color: rgb(48, 50, 55); align-items: stretch; white-space: normal;" />
                 </ui:VisualElement>
                 <ui:VisualElement style="flex-direction: row; margin-left: 2px; margin-right: 2px; margin-top: 1px; margin-bottom: 1px; height: 15%; width: 100%;">
-                    <ui:Label text="Blue" display-tooltip-when-elided="true" name="Label" style="width: 17%; color: rgb(255, 255, 255); font-size: 14px;" />
+                    <ui:Label text="Blue" display-tooltip-when-elided="true" name="Label" style="width: 17%; color: rgb(29, 194, 197); font-size: 14px;" />
                     <ui:Slider picking-mode="Ignore" value="210" high-value="255" page-size="0" show-input-field="false" direction="Horizontal" low-value="0" focusable="false" name="blue_slider" style="width: 80%; flex-basis: auto; background-color: rgb(48, 50, 55); align-items: stretch; white-space: normal;" />
                 </ui:VisualElement>
                 <ui:VisualElement style="flex-direction: row; margin-left: 2px; margin-right: 2px; margin-top: 1px; margin-bottom: 1px; height: 15%; width: 100%;">
