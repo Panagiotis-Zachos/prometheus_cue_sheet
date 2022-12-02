@@ -52,8 +52,7 @@ public class GUI_Controller : MonoBehaviour
         play_sec_label = root.Q<Label>("play_seconds");
 
         // Scene selection buttons initialization
-
-        InitStartSceneElements(root.Q<VisualElement>("unity-content-container"), GetUniqueScenes());
+        InitStartSceneElements(root.Q<ScrollView>("mid_scroll_view"), GetUniqueScenes());
 
         // Scene light controls initialization
 
@@ -128,25 +127,29 @@ public class GUI_Controller : MonoBehaviour
         return uniqueScenes;
     }
 
-    private void InitStartSceneElements(VisualElement midVisElement, List<int> uniqueScenes)
+    private void InitStartSceneElements(ScrollView midVisElement, List<int> uniqueScenes)
     {
+
+        //midVisElement
+
         for (int i = 0; i < uniqueScenes.Count; ++i)
         {
             var sceneVisElement = new VisualElement()
             {
                 style =
                 {
-                    width = Length.Percent(100),
+                    //width = Length.Percent(100),
+                    //width = midVisElement.resolvedStyle.width,
 
-                    flexWrap = Wrap.NoWrap,
                     flexDirection = FlexDirection.Row,
+                    flexWrap = Wrap.NoWrap,
                     alignItems = Align.Center,
                     justifyContent = Justify.Center,
 
                     marginLeft = 0,
                     marginRight = 0,
-                    marginBottom = 0,
-                    marginTop = 0,
+                    marginBottom = 1,
+                    marginTop = 1,
 
                     paddingLeft = 0,
                     paddingRight = 0,
@@ -162,22 +165,22 @@ public class GUI_Controller : MonoBehaviour
                 {
                     fontSize = 16,
                     width = Length.Percent(8),
-                    height = Length.Percent(50),
+                    //height = Length.Percent(100),
 
-                    marginLeft = 2,
-                    marginRight = 2,
-                    marginBottom = 2,
-                    marginTop = 2,
+                    marginLeft = 0,
+                    marginRight = 0 ,
+                    marginBottom = 0,
+                    marginTop = 0,
 
                     paddingLeft = 0,
                     paddingRight = 0,
                     paddingBottom = 0,
                     paddingTop = 0,
 
-                    borderLeftWidth = 1,
+                    borderLeftWidth = 2,
                     borderRightWidth = 1,
-                    borderBottomWidth = 1,
-                    borderTopWidth = 1,
+                    borderBottomWidth = 2,
+                    borderTopWidth = 2,
 
                     borderLeftColor = Color.black,
                     borderRightColor = Color.black,
@@ -190,19 +193,20 @@ public class GUI_Controller : MonoBehaviour
             {
                 StartSceneButtonClbk(uniqueScenes[index]);
             }, i);
-
-            var sceneNumberLabel = new Label()
+            sceneVisElement.Add(sceneButton);
+            
+            var cueNumberLabel = new Label()
             {
-                text = "Scene #" + uniqueScenes[i],
+                text = uniqueScenes[i].ToString(),
                 style =
             {
-                width = Length.Percent(8),
-                height = Length.Percent(100),
+                width = Length.Percent(4),
+                //height = Length.Percent(100),
 
-                marginLeft = 2,
-                marginRight = 2,
-                marginBottom = 2,
-                marginTop = 2,
+                marginLeft = 0,
+                marginRight = 0 ,
+                marginBottom = 0,
+                marginTop = 0,
 
                 paddingLeft = 0,
                 paddingRight = 0,
@@ -226,56 +230,21 @@ public class GUI_Controller : MonoBehaviour
                 color = new UnityEngine.Color(255, 255, 255)
             }
             };
-
-            var sceneDynamicProjLabel = new Label()
-            {
-                text = "X",
-                style =
-            {
-                width = Length.Percent(8),
-                height = Length.Percent(100),
-
-                marginLeft = 2,
-                marginRight = 2,
-                marginBottom = 2,
-                marginTop = 2,
-
-                paddingLeft = 0,
-                paddingRight = 0,
-                paddingBottom = 0,
-                paddingTop = 0,
-
-                borderLeftWidth = 1,
-                borderRightWidth = 1,
-                borderBottomWidth = 1,
-                borderTopWidth = 1,
-
-                borderLeftColor = Color.black,
-                borderRightColor = Color.black,
-                borderBottomColor = Color.black,
-                borderTopColor = Color.black,
-
-                unityTextAlign = TextAnchor.MiddleCenter,
-                whiteSpace = WhiteSpace.Normal,
-                fontSize = 16,
-
-                color = new UnityEngine.Color(255, 255, 255)
-            }
-            };
-
+            sceneVisElement.Add(cueNumberLabel);
+            
             var sceneDescriptionLabel = new Label()
             {
-                text = "This is a placeholder description of the scene. It is intentionally long in order to test how the text wraps around the label. In the final deliverable, this should probably be initialized from an .ini file or something similar.\r\n",
+                text = "X",
 
                 style =
             {
-                width = Length.Percent(70),
-                height = Length.Percent(100),
+                width = Length.Percent(11),
+                //height = Length.Percent(100),
 
-                marginLeft = 2,
-                marginRight = 2,
-                marginBottom = 2,
-                marginTop = 2,
+                marginLeft = 0,
+                marginRight = 0 ,
+                marginBottom = 0,
+                marginTop = 0,
 
                 paddingLeft = 0,
                 paddingRight = 0,
@@ -300,11 +269,377 @@ public class GUI_Controller : MonoBehaviour
 
             }
             };
-
-            sceneVisElement.Add(sceneButton);
-            sceneVisElement.Add(sceneNumberLabel);
-            sceneVisElement.Add(sceneDynamicProjLabel);
             sceneVisElement.Add(sceneDescriptionLabel);
+
+            var sceneStaticProjLabel = new Label()
+            {
+                text = "X",
+                style =
+            {
+                width = Length.Percent(6.5f),
+                //height = Length.Percent(100),
+
+                marginLeft = 0,
+                marginRight = 0 ,
+                marginBottom = 0,
+                marginTop = 0,
+
+                paddingLeft = 0,
+                paddingRight = 0,
+                paddingBottom = 0,
+                paddingTop = 0,
+
+                borderLeftWidth = 1,
+                borderRightWidth = 1,
+                borderBottomWidth = 1,
+                borderTopWidth = 1,
+
+                borderLeftColor = Color.black,
+                borderRightColor = Color.black,
+                borderBottomColor = Color.black,
+                borderTopColor = Color.black,
+
+                unityTextAlign = TextAnchor.MiddleCenter,
+                whiteSpace = WhiteSpace.Normal,
+                fontSize = 16,
+
+                color = new UnityEngine.Color(255, 255, 255)
+            }
+            };
+            sceneVisElement.Add(sceneStaticProjLabel);
+
+            var sceneDynamicProjLabel = new Label()
+            {
+                text = "X",
+                style =
+            {
+                width = Length.Percent(7),
+                //height = Length.Percent(100),
+
+                marginLeft = 0,
+                marginRight = 0 ,
+                marginBottom = 0,
+                marginTop = 0,
+
+                paddingLeft = 0,
+                paddingRight = 0,
+                paddingBottom = 0,
+                paddingTop = 0,
+
+                borderLeftWidth = 1,
+                borderRightWidth = 1,
+                borderBottomWidth = 1,
+                borderTopWidth = 1,
+
+                borderLeftColor = Color.black,
+                borderRightColor = Color.black,
+                borderBottomColor = Color.black,
+                borderTopColor = Color.black,
+
+                unityTextAlign = TextAnchor.MiddleCenter,
+                whiteSpace = WhiteSpace.Normal,
+                fontSize = 16,
+
+                color = new UnityEngine.Color(255, 255, 255)
+            }
+            };
+            sceneVisElement.Add(sceneDynamicProjLabel);
+
+            var sceneProj1Label = new Label()
+            {
+                text = "X",
+                style =
+            {
+                width = Length.Percent(9),
+                //height = Length.Percent(100),
+
+                marginLeft = 0,
+                marginRight = 0 ,
+                marginBottom = 0,
+                marginTop = 0,
+
+                paddingLeft = 0,
+                paddingRight = 0,
+                paddingBottom = 0,
+                paddingTop = 0,
+
+                borderLeftWidth = 1,
+                borderRightWidth = 1,
+                borderBottomWidth = 1,
+                borderTopWidth = 1,
+
+                borderLeftColor = Color.black,
+                borderRightColor = Color.black,
+                borderBottomColor = Color.black,
+                borderTopColor = Color.black,
+
+                unityTextAlign = TextAnchor.MiddleCenter,
+                whiteSpace = WhiteSpace.Normal,
+                fontSize = 16,
+
+                color = new UnityEngine.Color(255, 255, 255)
+            }
+            };
+            sceneVisElement.Add(sceneProj1Label);
+
+            var sceneProj2Label = new Label()
+            {
+                text = "X",
+                style =
+            {
+                width = Length.Percent(9),
+                //height = Length.Percent(100),
+
+                marginLeft = 0,
+                marginRight = 0 ,
+                marginBottom = 0,
+                marginTop = 0,
+
+                paddingLeft = 0,
+                paddingRight = 0,
+                paddingBottom = 0,
+                paddingTop = 0,
+
+                borderLeftWidth = 1,
+                borderRightWidth = 1,
+                borderBottomWidth = 1,
+                borderTopWidth = 1,
+
+                borderLeftColor = Color.black,
+                borderRightColor = Color.black,
+                borderBottomColor = Color.black,
+                borderTopColor = Color.black,
+
+                unityTextAlign = TextAnchor.MiddleCenter,
+                whiteSpace = WhiteSpace.Normal,
+                fontSize = 16,
+
+                color = new UnityEngine.Color(255, 255, 255)
+            }
+            };
+            sceneVisElement.Add(sceneProj2Label);
+
+            var sceneProj3Label = new Label()
+            {
+                text = "X",
+                style =
+            {
+                width = Length.Percent(9),
+                //height = Length.Percent(100),
+
+                marginLeft = 0,
+                marginRight = 0 ,
+                marginBottom = 0,
+                marginTop = 0,
+
+                paddingLeft = 0,
+                paddingRight = 0,
+                paddingBottom = 0,
+                paddingTop = 0,
+
+                borderLeftWidth = 1,
+                borderRightWidth = 1,
+                borderBottomWidth = 1,
+                borderTopWidth = 1,
+
+                borderLeftColor = Color.black,
+                borderRightColor = Color.black,
+                borderBottomColor = Color.black,
+                borderTopColor = Color.black,
+
+                unityTextAlign = TextAnchor.MiddleCenter,
+                whiteSpace = WhiteSpace.Normal,
+                fontSize = 16,
+
+                color = new UnityEngine.Color(255, 255, 255)
+            }
+            };
+            sceneVisElement.Add(sceneProj3Label);
+
+            var sceneProj4Label = new Label()
+            {
+                text = "X",
+                style =
+            {
+                width = Length.Percent(9),
+                //height = Length.Percent(100),
+
+                marginLeft = 0,
+                marginRight = 0 ,
+                marginBottom = 0,
+                marginTop = 0,
+
+                paddingLeft = 0,
+                paddingRight = 0,
+                paddingBottom = 0,
+                paddingTop = 0,
+
+                borderLeftWidth = 1,
+                borderRightWidth = 1,
+                borderBottomWidth = 1,
+                borderTopWidth = 1,
+
+                borderLeftColor = Color.black,
+                borderRightColor = Color.black,
+                borderBottomColor = Color.black,
+                borderTopColor = Color.black,
+
+                unityTextAlign = TextAnchor.MiddleCenter,
+                whiteSpace = WhiteSpace.Normal,
+                fontSize = 16,
+
+                color = new UnityEngine.Color(255, 255, 255)
+            }
+            };
+            sceneVisElement.Add(sceneProj4Label);
+
+            var cameraLabel = new Label()
+            {
+                text = "X",
+                style =
+            {
+                width = Length.Percent(6),
+                //height = Length.Percent(100),
+
+                marginLeft = 0,
+                marginRight = 0 ,
+                marginBottom = 0,
+                marginTop = 0,
+
+                paddingLeft = 0,
+                paddingRight = 0,
+                paddingBottom = 0,
+                paddingTop = 0,
+
+                borderLeftWidth = 1,
+                borderRightWidth = 1,
+                borderBottomWidth = 1,
+                borderTopWidth = 1,
+
+                borderLeftColor = Color.black,
+                borderRightColor = Color.black,
+                borderBottomColor = Color.black,
+                borderTopColor = Color.black,
+
+                unityTextAlign = TextAnchor.MiddleCenter,
+                whiteSpace = WhiteSpace.Normal,
+                fontSize = 16,
+
+                color = new UnityEngine.Color(255, 255, 255)
+            }
+            };
+            sceneVisElement.Add(cameraLabel);
+
+            var lightsLabel = new Label()
+            {
+                text = "X",
+                style =
+            {
+                width = Length.Percent(6),
+                //height = Length.Percent(100),
+
+                marginLeft = 0,
+                marginRight = 0 ,
+                marginBottom = 0,
+                marginTop = 0,
+
+                paddingLeft = 0,
+                paddingRight = 0,
+                paddingBottom = 0,
+                paddingTop = 0,
+
+                borderLeftWidth = 1,
+                borderRightWidth = 1,
+                borderBottomWidth = 1,
+                borderTopWidth = 1,
+
+                borderLeftColor = Color.black,
+                borderRightColor = Color.black,
+                borderBottomColor = Color.black,
+                borderTopColor = Color.black,
+
+                unityTextAlign = TextAnchor.MiddleCenter,
+                whiteSpace = WhiteSpace.Normal,
+                fontSize = 16,
+
+                color = new UnityEngine.Color(255, 255, 255)
+            }
+            };
+            sceneVisElement.Add(lightsLabel);
+
+            var videoLabel = new Label()
+            {
+                text = "X",
+                style =
+            {
+                width = Length.Percent(8),
+                //height = Length.Percent(100),
+
+                marginLeft = 0,
+                marginRight = 0 ,
+                marginBottom = 0,
+                marginTop = 0,
+
+                paddingLeft = 0,
+                paddingRight = 0,
+                paddingBottom = 0,
+                paddingTop = 0,
+
+                borderLeftWidth = 1,
+                borderRightWidth = 1,
+                borderBottomWidth = 1,
+                borderTopWidth = 1,
+
+                borderLeftColor = Color.black,
+                borderRightColor = Color.black,
+                borderBottomColor = Color.black,
+                borderTopColor = Color.black,
+
+                unityTextAlign = TextAnchor.MiddleCenter,
+                whiteSpace = WhiteSpace.Normal,
+                fontSize = 16,
+
+                color = new UnityEngine.Color(255, 255, 255)
+            }
+            };
+            sceneVisElement.Add(videoLabel);
+
+            var audioLabel = new Label()
+            {
+                text = "X",
+                style =
+            {
+                width = Length.Percent(8),
+                //height = Length.Percent(100),
+
+                marginLeft = 0,
+                marginRight = 0 ,
+                marginBottom = 0,
+                marginTop = 0,
+
+                paddingLeft = 0,
+                paddingRight = 0,
+                paddingBottom = 0,
+                paddingTop = 0,
+
+                borderLeftWidth = 1,
+                borderRightWidth = 1,
+                borderBottomWidth = 1,
+                borderTopWidth = 1,
+
+                borderLeftColor = Color.black,
+                borderRightColor = Color.black,
+                borderBottomColor = Color.black,
+                borderTopColor = Color.black,
+
+                unityTextAlign = TextAnchor.MiddleCenter,
+                whiteSpace = WhiteSpace.Normal,
+                fontSize = 16,
+
+                color = new UnityEngine.Color(255, 255, 255)
+            }
+            };
+            sceneVisElement.Add(audioLabel);
 
             midVisElement.Add(sceneVisElement);
         }
