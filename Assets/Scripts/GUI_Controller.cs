@@ -2,6 +2,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UIElements;
 using UnityEngine.SceneManagement; // To change scenes through the menu
+using System.Text.RegularExpressions;
 
 public class GUI_Controller : MonoBehaviour
 {
@@ -33,6 +34,11 @@ public class GUI_Controller : MonoBehaviour
     private Slider lightYRotSlider;
     private Slider lightZRotSlider;
 
+    private TextField rText;
+    private TextField gText;
+    private TextField bText;
+    private TextField iText;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -49,6 +55,7 @@ public class GUI_Controller : MonoBehaviour
         play_sec_label = root.Q<Label>("play_seconds");
 
         // Scene selection buttons initialization
+
         InitStartSceneElements(root.Q<ScrollView>("mid_scroll_view"), GetUniqueScenes());
 
         // Scene light controls initialization
@@ -68,12 +75,19 @@ public class GUI_Controller : MonoBehaviour
 
         redSlider = root.Q<Slider>("red_slider");
         redSlider.RegisterValueChangedCallback(x => ColorSliderValueChangedClbk(x.newValue, 'R'));
+        rText = root.Q<TextField>("redText");
+
         greenSlider = root.Q<Slider>("green_slider");
         greenSlider.RegisterValueChangedCallback(x => ColorSliderValueChangedClbk(x.newValue, 'G'));
+        gText = root.Q<TextField>("greenText");
+
         blueSlider = root.Q<Slider>("blue_slider");
         blueSlider.RegisterValueChangedCallback(x => ColorSliderValueChangedClbk(x.newValue, 'B'));
+        bText = root.Q<TextField>("blueText");
+
         intensitySlider = root.Q<Slider>("intensity_slider");
         intensitySlider.RegisterValueChangedCallback(x => ColorSliderValueChangedClbk(x.newValue, 'I'));
+        iText = root.Q<TextField>("intText");
 
         lightXSlider = root.Q<Slider>("x_offset_control");
         lightXSlider.RegisterValueChangedCallback(x => PosOffsetSliderValueChangedClbk(x.newValue, x.previousValue, 'X'));
@@ -95,6 +109,27 @@ public class GUI_Controller : MonoBehaviour
     {
         UpdatePlayTime(play_hour_label, play_min_label, play_sec_label);
         UpdateSceneTime(scene_hour_label, scene_min_label, scene_sec_label);
+
+        rText.value = Regex.Replace(rText.text, @"[^0-9 ]", "");
+        if (double.Parse(rText.value) > 255)
+        {
+            rText.value = "" + 255;
+        }
+        if (double.Parse(rText.value) < 0)
+        {
+            rText.value = "" + 0;
+        }
+        rText.SetValueWithoutNotify(rText.value);
+
+        gText.value = Regex.Replace(gText.text, @"[^0-9 ]", "");
+        gText.SetValueWithoutNotify(gText.value);
+
+        bText.value = Regex.Replace(bText.text, @"[^0-9 ]", "");
+        bText.SetValueWithoutNotify(bText.value);
+
+        iText.value = Regex.Replace(iText.text, @"[^0-9 ]", "");
+        iText.SetValueWithoutNotify(iText.value);
+
     }
 
     private List<int> GetUniqueScenes()
