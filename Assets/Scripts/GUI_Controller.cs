@@ -1,10 +1,7 @@
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UIElements;
 using UnityEngine.SceneManagement; // To change scenes through the menu
-using System;
-using UnityEngine.EventSystems;
 
 public class GUI_Controller : MonoBehaviour
 {
