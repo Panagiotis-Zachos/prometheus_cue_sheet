@@ -15,6 +15,9 @@ public class GUI_Controller : MonoBehaviour
     private Label play_min_label;
     private Label play_sec_label;
 
+    private Label camStatusLabel;
+    private Label projStatusLabel;
+
     private int currentlyActiveScene;
 
     private float play_time_start;
@@ -43,7 +46,6 @@ public class GUI_Controller : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        // SceneManager.LoadScene('name-of-the-scene'); // For future use
         var root = GetComponent<UIDocument>().rootVisualElement;
 
         play_time_start = Time.time;
@@ -56,7 +58,8 @@ public class GUI_Controller : MonoBehaviour
         play_sec_label = root.Q<Label>("play_seconds");
 
         // Scene selection buttons initialization
-
+        camStatusLabel = root.Q<Label>("tracking_ready_label");
+        projStatusLabel = root.Q<Label>("projector_ready_label");
         InitStartSceneElements(root.Q<VisualElement>("scene_vis_element"), GetUniqueScenes());
 
         // Scene light controls initialization
@@ -210,7 +213,7 @@ public class GUI_Controller : MonoBehaviour
                 StartSceneButtonClbk(uniqueScenes[index]);
             }, i);
             sceneVisElement.Add(sceneButton);
-            
+
             var cueNumberLabel = new Label()
             {
                 text = uniqueScenes[i].ToString(),
@@ -247,7 +250,7 @@ public class GUI_Controller : MonoBehaviour
             }
             };
             sceneVisElement.Add(cueNumberLabel);
-            
+
             var sceneDescriptionLabel = new Label()
             {
                 text = "X",
@@ -660,7 +663,7 @@ public class GUI_Controller : MonoBehaviour
             midVisElement.Add(sceneVisElement);
         }
     }
-    
+
     private void UpdatePlayTime(Label play_hour_label, Label play_min_label, Label play_sec_label)
     {
         var frame_time = Time.time;
@@ -686,7 +689,7 @@ public class GUI_Controller : MonoBehaviour
         scene_sec_label.text = scene_time_seconds.ToString();
     }
 
-    private void StartSceneButtonClbk(int sceneSelected){
+    private void StartSceneButtonClbk(int sceneSelected) {
         currentlyActiveScene = sceneSelected;
 
         // get root objects in scene
@@ -711,8 +714,36 @@ public class GUI_Controller : MonoBehaviour
                 }
             }
         }
+        checkCameraReady();
+        checkProjectorReady();
+    }
+
+    private void checkCameraReady()
+    {
+        var camRdy = true;
+        camStatusLabel.text = "Not Ready";
+        camStatusLabel.style.backgroundColor = Color.red;
+        while (!camRdy) ;
+
+        if (camRdy)
+        {
+            camStatusLabel.text = "Ready";
+            camStatusLabel.style.backgroundColor = Color.green;
+        }
     }
     
+    private void checkProjectorReady()
+    {
+        var projRdy = true;
+        projStatusLabel.text = "Not Ready";
+        projStatusLabel.style.backgroundColor = Color.red;
+        while (!projRdy) ;
+        if (projRdy)
+        {
+            projStatusLabel.text = "Ready";
+            projStatusLabel.style.backgroundColor = Color.green;
+        }
+    }
     private void updateTextFieldDisplayClbk(TextField txtF, Slider cSlid)
     {
         txtF.value = Regex.Replace(txtF.text, @"[^0-9 ]", "");
