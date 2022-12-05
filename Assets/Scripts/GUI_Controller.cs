@@ -56,7 +56,7 @@ public class GUI_Controller : MonoBehaviour
 
         // Scene selection buttons initialization
 
-        InitStartSceneElements(root.Q<ScrollView>("mid_scroll_view"), GetUniqueScenes());
+        InitStartSceneElements(root.Q<VisualElement>("scene_vis_element"), GetUniqueScenes());
 
         // Scene light controls initialization
 
@@ -110,25 +110,25 @@ public class GUI_Controller : MonoBehaviour
         UpdatePlayTime(play_hour_label, play_min_label, play_sec_label);
         UpdateSceneTime(scene_hour_label, scene_min_label, scene_sec_label);
 
-        rText.value = Regex.Replace(rText.text, @"[^0-9 ]", "");
-        if (double.Parse(rText.value) > 255)
-        {
-            rText.value = "" + 255;
-        }
-        if (double.Parse(rText.value) < 0)
-        {
-            rText.value = "" + 0;
-        }
-        rText.SetValueWithoutNotify(rText.value);
+        //rText.value = Regex.Replace(rText.text, @"[^0-9 ]", "");
+        //if (double.Parse(rText.value) > 255)
+        //{
+        //    rText.value = "" + 255;
+        //}
+        //if (double.Parse(rText.value) < 0)
+        //{
+        //    rText.value = "" + 0;
+        //}
+        //rText.SetValueWithoutNotify(rText.value);
 
-        gText.value = Regex.Replace(gText.text, @"[^0-9 ]", "");
-        gText.SetValueWithoutNotify(gText.value);
+        //gText.value = Regex.Replace(gText.text, @"[^0-9 ]", "");
+        //gText.SetValueWithoutNotify(gText.value);
 
-        bText.value = Regex.Replace(bText.text, @"[^0-9 ]", "");
-        bText.SetValueWithoutNotify(bText.value);
+        //bText.value = Regex.Replace(bText.text, @"[^0-9 ]", "");
+        //bText.SetValueWithoutNotify(bText.value);
 
-        iText.value = Regex.Replace(iText.text, @"[^0-9 ]", "");
-        iText.SetValueWithoutNotify(iText.value);
+        //iText.value = Regex.Replace(iText.text, @"[^0-9 ]", "");
+        //iText.SetValueWithoutNotify(iText.value);
 
     }
 
@@ -159,7 +159,7 @@ public class GUI_Controller : MonoBehaviour
         return uniqueScenes;
     }
 
-    private void InitStartSceneElements(ScrollView midVisElement, List<int> uniqueScenes)
+    private void InitStartSceneElements(VisualElement midVisElement, List<int> uniqueScenes)
     {
 
         //midVisElement
