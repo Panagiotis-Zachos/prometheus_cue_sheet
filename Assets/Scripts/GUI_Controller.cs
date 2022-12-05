@@ -115,8 +115,6 @@ public class GUI_Controller : MonoBehaviour
     {
         UpdatePlayTime(play_hour_label, play_min_label, play_sec_label);
         UpdateSceneTime(scene_hour_label, scene_min_label, scene_sec_label);
-
-
     }
 
     private List<int> GetUniqueScenes()
@@ -155,6 +153,10 @@ public class GUI_Controller : MonoBehaviour
             {
                 style =
                 {
+
+                    //width = Length.Percent(100),
+                    //height = Length.Percent(100 / uniqueScenes.Count),
+
                     flexDirection = FlexDirection.Row,
                     flexWrap = Wrap.NoWrap,
                     alignItems = Align.Center,
@@ -241,7 +243,7 @@ public class GUI_Controller : MonoBehaviour
                 whiteSpace = WhiteSpace.Normal,
                 fontSize = 16,
 
-                color = new UnityEngine.Color(255, 255, 255)
+                //color = new UnityEngine.Color(255, 255, 255)
             }
             };
             sceneVisElement.Add(cueNumberLabel);
@@ -279,7 +281,7 @@ public class GUI_Controller : MonoBehaviour
                 whiteSpace = WhiteSpace.Normal,
                 fontSize = 16,
 
-                color = new UnityEngine.Color(255, 255, 255)
+                //color = new UnityEngine.Color(255, 255, 255)
 
             }
             };
@@ -317,7 +319,7 @@ public class GUI_Controller : MonoBehaviour
                 whiteSpace = WhiteSpace.Normal,
                 fontSize = 16,
 
-                color = new UnityEngine.Color(255, 255, 255)
+                //color = new UnityEngine.Color(255, 255, 255)
             }
             };
             sceneVisElement.Add(sceneStaticProjLabel);
@@ -354,7 +356,7 @@ public class GUI_Controller : MonoBehaviour
                 whiteSpace = WhiteSpace.Normal,
                 fontSize = 16,
 
-                color = new UnityEngine.Color(255, 255, 255)
+                //color = new UnityEngine.Color(255, 255, 255)
             }
             };
             sceneVisElement.Add(sceneDynamicProjLabel);
@@ -391,7 +393,7 @@ public class GUI_Controller : MonoBehaviour
                 whiteSpace = WhiteSpace.Normal,
                 fontSize = 16,
 
-                color = new UnityEngine.Color(255, 255, 255)
+                //color = new UnityEngine.Color(255, 255, 255)
             }
             };
             sceneVisElement.Add(sceneProj1Label);
@@ -428,7 +430,7 @@ public class GUI_Controller : MonoBehaviour
                 whiteSpace = WhiteSpace.Normal,
                 fontSize = 16,
 
-                color = new UnityEngine.Color(255, 255, 255)
+                //color = new UnityEngine.Color(255, 255, 255)
             }
             };
             sceneVisElement.Add(sceneProj2Label);
@@ -465,7 +467,7 @@ public class GUI_Controller : MonoBehaviour
                 whiteSpace = WhiteSpace.Normal,
                 fontSize = 16,
 
-                color = new UnityEngine.Color(255, 255, 255)
+                //color = new UnityEngine.Color(255, 255, 255)
             }
             };
             sceneVisElement.Add(sceneProj3Label);
@@ -502,7 +504,7 @@ public class GUI_Controller : MonoBehaviour
                 whiteSpace = WhiteSpace.Normal,
                 fontSize = 16,
 
-                color = new UnityEngine.Color(255, 255, 255)
+                //color = new UnityEngine.Color(255, 255, 255)
             }
             };
             sceneVisElement.Add(sceneProj4Label);
@@ -539,7 +541,7 @@ public class GUI_Controller : MonoBehaviour
                 whiteSpace = WhiteSpace.Normal,
                 fontSize = 16,
 
-                color = new UnityEngine.Color(255, 255, 255)
+                //color = new UnityEngine.Color(255, 255, 255)
             }
             };
             sceneVisElement.Add(cameraLabel);
@@ -576,7 +578,7 @@ public class GUI_Controller : MonoBehaviour
                 whiteSpace = WhiteSpace.Normal,
                 fontSize = 16,
 
-                color = new UnityEngine.Color(255, 255, 255)
+                //color = new UnityEngine.Color(255, 255, 255)
             }
             };
             sceneVisElement.Add(lightsLabel);
@@ -613,7 +615,7 @@ public class GUI_Controller : MonoBehaviour
                 whiteSpace = WhiteSpace.Normal,
                 fontSize = 16,
 
-                color = new UnityEngine.Color(255, 255, 255)
+                //color = new UnityEngine.Color(255, 255, 255)
             }
             };
             sceneVisElement.Add(videoLabel);
@@ -650,7 +652,7 @@ public class GUI_Controller : MonoBehaviour
                 whiteSpace = WhiteSpace.Normal,
                 fontSize = 16,
 
-                color = new UnityEngine.Color(255, 255, 255)
+                //color = new UnityEngine.Color(255, 255, 255)
             }
             };
             sceneVisElement.Add(audioLabel);
@@ -658,6 +660,7 @@ public class GUI_Controller : MonoBehaviour
             midVisElement.Add(sceneVisElement);
         }
     }
+    
     private void UpdatePlayTime(Label play_hour_label, Label play_min_label, Label play_sec_label)
     {
         var frame_time = Time.time;
@@ -709,6 +712,7 @@ public class GUI_Controller : MonoBehaviour
             }
         }
     }
+    
     private void updateTextFieldDisplayClbk(TextField txtF, Slider cSlid)
     {
         txtF.value = Regex.Replace(txtF.text, @"[^0-9 ]", "");
