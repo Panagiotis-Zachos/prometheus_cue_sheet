@@ -3,6 +3,7 @@ using UnityEngine;
 using UnityEngine.UIElements;
 using UnityEngine.SceneManagement; // To change scenes through the menu
 using System.Text.RegularExpressions;
+using System;
 
 public class GUI_Controller : MonoBehaviour
 {
@@ -74,20 +75,25 @@ public class GUI_Controller : MonoBehaviour
         }
 
         redSlider = root.Q<Slider>("red_slider");
-        redSlider.RegisterValueChangedCallback(x => ColorSliderValueChangedClbk(x.newValue, 'R'));
         rText = root.Q<TextField>("redText");
+        redSlider.RegisterValueChangedCallback(x => ColorSliderValueChangedClbk(x.newValue, 'R', rText));
+        rText.RegisterValueChangedCallback(x => updateTextFieldDisplayClbk(rText, redSlider));
 
         greenSlider = root.Q<Slider>("green_slider");
-        greenSlider.RegisterValueChangedCallback(x => ColorSliderValueChangedClbk(x.newValue, 'G'));
         gText = root.Q<TextField>("greenText");
+        greenSlider.RegisterValueChangedCallback(x => ColorSliderValueChangedClbk(x.newValue, 'G', gText));
+        gText.RegisterValueChangedCallback(x => updateTextFieldDisplayClbk(gText, greenSlider));
 
         blueSlider = root.Q<Slider>("blue_slider");
-        blueSlider.RegisterValueChangedCallback(x => ColorSliderValueChangedClbk(x.newValue, 'B'));
         bText = root.Q<TextField>("blueText");
+        blueSlider.RegisterValueChangedCallback(x => ColorSliderValueChangedClbk(x.newValue, 'B', bText));
+        bText.RegisterValueChangedCallback(x => updateTextFieldDisplayClbk(bText, blueSlider));
 
         intensitySlider = root.Q<Slider>("intensity_slider");
-        intensitySlider.RegisterValueChangedCallback(x => ColorSliderValueChangedClbk(x.newValue, 'I'));
         iText = root.Q<TextField>("intText");
+        intensitySlider.RegisterValueChangedCallback(x => ColorSliderValueChangedClbk(x.newValue, 'I', iText));
+        iText.RegisterValueChangedCallback(x => updateTextFieldDisplayClbk(iText, intensitySlider));
+
 
         lightXSlider = root.Q<Slider>("x_offset_control");
         lightXSlider.RegisterValueChangedCallback(x => PosOffsetSliderValueChangedClbk(x.newValue, x.previousValue, 'X'));
@@ -110,25 +116,6 @@ public class GUI_Controller : MonoBehaviour
         UpdatePlayTime(play_hour_label, play_min_label, play_sec_label);
         UpdateSceneTime(scene_hour_label, scene_min_label, scene_sec_label);
 
-        //rText.value = Regex.Replace(rText.text, @"[^0-9 ]", "");
-        //if (double.Parse(rText.value) > 255)
-        //{
-        //    rText.value = "" + 255;
-        //}
-        //if (double.Parse(rText.value) < 0)
-        //{
-        //    rText.value = "" + 0;
-        //}
-        //rText.SetValueWithoutNotify(rText.value);
-
-        //gText.value = Regex.Replace(gText.text, @"[^0-9 ]", "");
-        //gText.SetValueWithoutNotify(gText.value);
-
-        //bText.value = Regex.Replace(bText.text, @"[^0-9 ]", "");
-        //bText.SetValueWithoutNotify(bText.value);
-
-        //iText.value = Regex.Replace(iText.text, @"[^0-9 ]", "");
-        //iText.SetValueWithoutNotify(iText.value);
 
     }
 
@@ -162,17 +149,12 @@ public class GUI_Controller : MonoBehaviour
     private void InitStartSceneElements(VisualElement midVisElement, List<int> uniqueScenes)
     {
 
-        //midVisElement
-
         for (int i = 0; i < uniqueScenes.Count; ++i)
         {
             var sceneVisElement = new VisualElement()
             {
                 style =
                 {
-                    //width = Length.Percent(100),
-                    //width = midVisElement.resolvedStyle.width,
-
                     flexDirection = FlexDirection.Row,
                     flexWrap = Wrap.NoWrap,
                     alignItems = Align.Center,
@@ -727,8 +709,25 @@ public class GUI_Controller : MonoBehaviour
             }
         }
     }
+    private void updateTextFieldDisplayClbk(TextField txtF, Slider cSlid)
+    {
+        txtF.value = Regex.Replace(txtF.text, @"[^0-9 ]", "");
+        try
+        {
+            if (double.Parse(txtF.value) > 255)
+            {
+                txtF.value = "" + 255;
+            }
+            txtF.SetValueWithoutNotify(txtF.value);
+            cSlid.value = float.Parse(txtF.value);
+        }
+        catch (FormatException)
+        {
+            Debug.Log("Text in this textField is in the wrong format");
+        }
+    }
 
-    private void ColorSliderValueChangedClbk(float sliderVal, char sliderColor)
+    private void ColorSliderValueChangedClbk(float sliderVal, char sliderColor, TextField txtF)
     {
         for (int i = 0; i < playLights.Count; ++i)
         {
@@ -750,7 +749,8 @@ public class GUI_Controller : MonoBehaviour
                         light.intensity = sliderVal;
                         break;
                 }
-            }       
+            }
+            txtF.SetValueWithoutNotify(sliderVal.ToString());
         }
     }
 
