@@ -714,11 +714,11 @@ public class GUI_Controller : MonoBehaviour
                 }
             }
         }
-        checkCameraReady();
-        checkProjectorReady();
+        CheckCameraReady();
+        CheckProjectorReady();
     }
 
-    private void checkCameraReady()
+    private void CheckCameraReady()
     {
         var camRdy = true;
         camStatusLabel.text = "Not Ready";
@@ -732,7 +732,7 @@ public class GUI_Controller : MonoBehaviour
         }
     }
     
-    private void checkProjectorReady()
+    private void CheckProjectorReady()
     {
         var projRdy = true;
         projStatusLabel.text = "Not Ready";
