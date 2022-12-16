@@ -744,7 +744,7 @@ public class GUI_Controller : MonoBehaviour
             projStatusLabel.style.backgroundColor = Color.green;
         }
     }
-    private void updateTextFieldDisplayClbk(TextField txtF, Slider cSlid)
+    private void UpdateTextFieldDisplayClbk(TextField txtF, Slider cSlid)
     {
         txtF.value = Regex.Replace(txtF.text, @"[^0-9 ]", "");
         try
