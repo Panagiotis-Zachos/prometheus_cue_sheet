@@ -10,10 +10,12 @@ public class GUI_Controller : MonoBehaviour
     private Label scene_hour_label;
     private Label scene_min_label;
     private Label scene_sec_label;
+    private Label scene_timer_label;
 
     private Label play_hour_label;
     private Label play_min_label;
     private Label play_sec_label;
+    private Label play_timer_label;
 
     private Label camStatusLabel;
     private Label projStatusLabel;
@@ -49,13 +51,8 @@ public class GUI_Controller : MonoBehaviour
         var root = GetComponent<UIDocument>().rootVisualElement;
 
         play_time_start = Time.time;
-        scene_hour_label = root.Q<Label>("scene_hours");
-        scene_min_label = root.Q<Label>("scene_minutes");
-        scene_sec_label = root.Q<Label>("scene_seconds");
-
-        play_hour_label = root.Q<Label>("play_hours");
-        play_min_label = root.Q<Label>("play_minutes");
-        play_sec_label = root.Q<Label>("play_seconds");
+        scene_timer_label = root.Q<Label>("scene_timer");
+        play_timer_label = root.Q<Label>("play_timer");
 
         // Scene selection buttons initialization
         camStatusLabel = root.Q<Label>("tracking_ready_label");
@@ -116,8 +113,8 @@ public class GUI_Controller : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        UpdatePlayTime(play_hour_label, play_min_label, play_sec_label);
-        UpdateSceneTime(scene_hour_label, scene_min_label, scene_sec_label);
+        UpdateLabelTime(play_timer_label, play_time_start);
+        UpdateLabelTime(scene_timer_label, scene_time_start);
     }
 
     private List<int> GetUniqueScenes()
@@ -149,7 +146,8 @@ public class GUI_Controller : MonoBehaviour
 
     private void InitStartSceneElements(VisualElement midVisElement, List<int> uniqueScenes)
     {
-
+        var labelBorderWidthHor = 2;
+        var labelBorderWidthVert = 2;
         for (int i = 0; i < uniqueScenes.Count; ++i)
         {
             var sceneVisElement = new VisualElement()
@@ -167,8 +165,8 @@ public class GUI_Controller : MonoBehaviour
 
                     marginLeft = 0,
                     marginRight = 0,
-                    marginBottom = 1,
-                    marginTop = 1,
+                    marginBottom = 0,
+                    marginTop = 0,
 
                     paddingLeft = 0,
                     paddingRight = 0,
@@ -196,10 +194,10 @@ public class GUI_Controller : MonoBehaviour
                     paddingBottom = 0,
                     paddingTop = 0,
 
-                    borderLeftWidth = 2,
-                    borderRightWidth = 1,
-                    borderBottomWidth = 2,
-                    borderTopWidth = 2,
+                    borderLeftWidth = labelBorderWidthHor,
+                    borderRightWidth = labelBorderWidthHor,
+                    borderBottomWidth = labelBorderWidthVert,
+                    borderTopWidth = labelBorderWidthVert,
 
                     borderLeftColor = Color.black,
                     borderRightColor = Color.black,
@@ -232,10 +230,10 @@ public class GUI_Controller : MonoBehaviour
                 paddingBottom = 0,
                 paddingTop = 0,
 
-                borderLeftWidth = 1,
-                borderRightWidth = 1,
-                borderBottomWidth = 1,
-                borderTopWidth = 1,
+                borderLeftWidth = labelBorderWidthHor,
+                borderRightWidth = labelBorderWidthHor,
+                borderBottomWidth = labelBorderWidthVert,
+                borderTopWidth = labelBorderWidthVert,
 
                 borderLeftColor = Color.black,
                 borderRightColor = Color.black,
@@ -270,10 +268,10 @@ public class GUI_Controller : MonoBehaviour
                 paddingBottom = 0,
                 paddingTop = 0,
 
-                borderLeftWidth = 1,
-                borderRightWidth = 1,
-                borderBottomWidth = 1,
-                borderTopWidth = 1,
+                borderLeftWidth = labelBorderWidthHor,
+                borderRightWidth = labelBorderWidthHor,
+                borderBottomWidth = labelBorderWidthVert,
+                borderTopWidth = labelBorderWidthVert,
 
                 borderLeftColor = Color.black,
                 borderRightColor = Color.black,
@@ -308,10 +306,10 @@ public class GUI_Controller : MonoBehaviour
                 paddingBottom = 0,
                 paddingTop = 0,
 
-                borderLeftWidth = 1,
-                borderRightWidth = 1,
-                borderBottomWidth = 1,
-                borderTopWidth = 1,
+                borderLeftWidth = labelBorderWidthHor,
+                borderRightWidth = labelBorderWidthHor,
+                borderBottomWidth = labelBorderWidthVert,
+                borderTopWidth = labelBorderWidthVert,
 
                 borderLeftColor = Color.black,
                 borderRightColor = Color.black,
@@ -345,10 +343,10 @@ public class GUI_Controller : MonoBehaviour
                 paddingBottom = 0,
                 paddingTop = 0,
 
-                borderLeftWidth = 1,
-                borderRightWidth = 1,
-                borderBottomWidth = 1,
-                borderTopWidth = 1,
+                borderLeftWidth = labelBorderWidthHor,
+                borderRightWidth = labelBorderWidthHor,
+                borderBottomWidth = labelBorderWidthVert,
+                borderTopWidth = labelBorderWidthVert,
 
                 borderLeftColor = Color.black,
                 borderRightColor = Color.black,
@@ -382,10 +380,10 @@ public class GUI_Controller : MonoBehaviour
                 paddingBottom = 0,
                 paddingTop = 0,
 
-                borderLeftWidth = 1,
-                borderRightWidth = 1,
-                borderBottomWidth = 1,
-                borderTopWidth = 1,
+                borderLeftWidth = labelBorderWidthHor,
+                borderRightWidth = labelBorderWidthHor,
+                borderBottomWidth = labelBorderWidthVert,
+                borderTopWidth = labelBorderWidthVert,
 
                 borderLeftColor = Color.black,
                 borderRightColor = Color.black,
@@ -419,10 +417,10 @@ public class GUI_Controller : MonoBehaviour
                 paddingBottom = 0,
                 paddingTop = 0,
 
-                borderLeftWidth = 1,
-                borderRightWidth = 1,
-                borderBottomWidth = 1,
-                borderTopWidth = 1,
+                borderLeftWidth = labelBorderWidthHor,
+                borderRightWidth = labelBorderWidthHor,
+                borderBottomWidth = labelBorderWidthVert,
+                borderTopWidth = labelBorderWidthVert,
 
                 borderLeftColor = Color.black,
                 borderRightColor = Color.black,
@@ -456,10 +454,10 @@ public class GUI_Controller : MonoBehaviour
                 paddingBottom = 0,
                 paddingTop = 0,
 
-                borderLeftWidth = 1,
-                borderRightWidth = 1,
-                borderBottomWidth = 1,
-                borderTopWidth = 1,
+                borderLeftWidth = labelBorderWidthHor,
+                borderRightWidth = labelBorderWidthHor,
+                borderBottomWidth = labelBorderWidthVert,
+                borderTopWidth = labelBorderWidthVert,
 
                 borderLeftColor = Color.black,
                 borderRightColor = Color.black,
@@ -493,10 +491,10 @@ public class GUI_Controller : MonoBehaviour
                 paddingBottom = 0,
                 paddingTop = 0,
 
-                borderLeftWidth = 1,
-                borderRightWidth = 1,
-                borderBottomWidth = 1,
-                borderTopWidth = 1,
+                borderLeftWidth = labelBorderWidthHor,
+                borderRightWidth = labelBorderWidthHor,
+                borderBottomWidth = labelBorderWidthVert,
+                borderTopWidth = labelBorderWidthVert,
 
                 borderLeftColor = Color.black,
                 borderRightColor = Color.black,
@@ -530,10 +528,10 @@ public class GUI_Controller : MonoBehaviour
                 paddingBottom = 0,
                 paddingTop = 0,
 
-                borderLeftWidth = 1,
-                borderRightWidth = 1,
-                borderBottomWidth = 1,
-                borderTopWidth = 1,
+                borderLeftWidth = labelBorderWidthHor,
+                borderRightWidth = labelBorderWidthHor,
+                borderBottomWidth = labelBorderWidthVert,
+                borderTopWidth = labelBorderWidthVert,
 
                 borderLeftColor = Color.black,
                 borderRightColor = Color.black,
@@ -567,10 +565,10 @@ public class GUI_Controller : MonoBehaviour
                 paddingBottom = 0,
                 paddingTop = 0,
 
-                borderLeftWidth = 1,
-                borderRightWidth = 1,
-                borderBottomWidth = 1,
-                borderTopWidth = 1,
+                borderLeftWidth = labelBorderWidthHor,
+                borderRightWidth = labelBorderWidthHor,
+                borderBottomWidth = labelBorderWidthVert,
+                borderTopWidth = labelBorderWidthVert,
 
                 borderLeftColor = Color.black,
                 borderRightColor = Color.black,
@@ -604,10 +602,10 @@ public class GUI_Controller : MonoBehaviour
                 paddingBottom = 0,
                 paddingTop = 0,
 
-                borderLeftWidth = 1,
-                borderRightWidth = 1,
-                borderBottomWidth = 1,
-                borderTopWidth = 1,
+                borderLeftWidth = labelBorderWidthHor,
+                borderRightWidth = labelBorderWidthHor,
+                borderBottomWidth = labelBorderWidthVert,
+                borderTopWidth = labelBorderWidthVert,
 
                 borderLeftColor = Color.black,
                 borderRightColor = Color.black,
@@ -641,10 +639,10 @@ public class GUI_Controller : MonoBehaviour
                 paddingBottom = 0,
                 paddingTop = 0,
 
-                borderLeftWidth = 1,
-                borderRightWidth = 1,
-                borderBottomWidth = 1,
-                borderTopWidth = 1,
+                borderLeftWidth = labelBorderWidthHor,
+                borderRightWidth = labelBorderWidthHor,
+                borderBottomWidth = labelBorderWidthVert,
+                borderTopWidth = labelBorderWidthVert,
 
                 borderLeftColor = Color.black,
                 borderRightColor = Color.black,
@@ -664,29 +662,16 @@ public class GUI_Controller : MonoBehaviour
         }
     }
 
-    private void UpdatePlayTime(Label play_hour_label, Label play_min_label, Label play_sec_label)
+    private void UpdateLabelTime(Label timer_label, float time_start)
     {
         var frame_time = Time.time;
-        var time_hours = Mathf.Floor((frame_time - play_time_start) / 3600);
-        var time_minutes = Mathf.Floor((frame_time - time_hours * 3600) / 60);
-        var time_seconds = Mathf.Floor(frame_time - time_hours * 3600 - time_minutes * 60);
+        
+        var scene_time_hours = Mathf.Floor((frame_time - time_start) / 3600);
+        var scene_time_minutes = Mathf.Floor((frame_time - time_start - scene_time_hours * 3600) / 60);
+        var scene_time_seconds = Mathf.Floor(frame_time - time_start - scene_time_hours * 3600 - scene_time_minutes * 60);
 
-        play_hour_label.text = time_hours.ToString();
-        play_min_label.text = time_minutes.ToString();
-        play_sec_label.text = time_seconds.ToString();
-    }
+        timer_label.text = string.Format("{0:00}:{1:00}:{2:00}", scene_time_hours, scene_time_minutes, scene_time_seconds);
 
-    private void UpdateSceneTime(Label scene_hour_label, Label scene_min_label, Label scene_sec_label)
-    {
-        var frame_time = Time.time;
-
-        var scene_time_hours = Mathf.Floor((frame_time - scene_time_start) / 3600);
-        var scene_time_minutes = Mathf.Floor((frame_time - scene_time_start - scene_time_hours * 3600) / 60);
-        var scene_time_seconds = Mathf.Floor(frame_time - scene_time_start - scene_time_hours * 3600 - scene_time_minutes * 60);
-
-        scene_hour_label.text = scene_time_hours.ToString();
-        scene_min_label.text = scene_time_minutes.ToString();
-        scene_sec_label.text = scene_time_seconds.ToString();
     }
 
     private void StartSceneButtonClbk(int sceneSelected) {
