@@ -80,22 +80,22 @@ public class GUI_Controller : MonoBehaviour
         redSlider = root.Q<Slider>("red_slider");
         rText = root.Q<TextField>("redText");
         redSlider.RegisterValueChangedCallback(x => ColorSliderValueChangedClbk(x.newValue, 'R', rText));
-        rText.RegisterValueChangedCallback(x => updateTextFieldDisplayClbk(rText, redSlider));
+        rText.RegisterValueChangedCallback(x => UpdateTextFieldDisplayClbk(rText, redSlider));
 
         greenSlider = root.Q<Slider>("green_slider");
         gText = root.Q<TextField>("greenText");
         greenSlider.RegisterValueChangedCallback(x => ColorSliderValueChangedClbk(x.newValue, 'G', gText));
-        gText.RegisterValueChangedCallback(x => updateTextFieldDisplayClbk(gText, greenSlider));
+        gText.RegisterValueChangedCallback(x => UpdateTextFieldDisplayClbk(gText, greenSlider));
 
         blueSlider = root.Q<Slider>("blue_slider");
         bText = root.Q<TextField>("blueText");
         blueSlider.RegisterValueChangedCallback(x => ColorSliderValueChangedClbk(x.newValue, 'B', bText));
-        bText.RegisterValueChangedCallback(x => updateTextFieldDisplayClbk(bText, blueSlider));
+        bText.RegisterValueChangedCallback(x => UpdateTextFieldDisplayClbk(bText, blueSlider));
 
         intensitySlider = root.Q<Slider>("intensity_slider");
         iText = root.Q<TextField>("intText");
         intensitySlider.RegisterValueChangedCallback(x => ColorSliderValueChangedClbk(x.newValue, 'I', iText));
-        iText.RegisterValueChangedCallback(x => updateTextFieldDisplayClbk(iText, intensitySlider));
+        iText.RegisterValueChangedCallback(x => UpdateTextFieldDisplayClbk(iText, intensitySlider));
 
 
         lightXSlider = root.Q<Slider>("x_offset_control");
@@ -158,7 +158,7 @@ public class GUI_Controller : MonoBehaviour
                 {
 
                     //width = Length.Percent(100),
-                    //height = Length.Percent(100 / uniqueScenes.Count),
+                    height = Length.Percent(100 / uniqueScenes.Count),
 
                     flexDirection = FlexDirection.Row,
                     flexWrap = Wrap.NoWrap,
@@ -184,7 +184,7 @@ public class GUI_Controller : MonoBehaviour
                 {
                     fontSize = 16,
                     width = Length.Percent(8),
-                    //height = Length.Percent(100),
+                    height = Length.Percent(100),
 
                     marginLeft = 0,
                     marginRight = 0 ,
@@ -220,7 +220,7 @@ public class GUI_Controller : MonoBehaviour
                 style =
             {
                 width = Length.Percent(4),
-                //height = Length.Percent(100),
+                height = Length.Percent(100),
 
                 marginLeft = 0,
                 marginRight = 0 ,
@@ -258,7 +258,7 @@ public class GUI_Controller : MonoBehaviour
                 style =
             {
                 width = Length.Percent(11),
-                //height = Length.Percent(100),
+                height = Length.Percent(100),
 
                 marginLeft = 0,
                 marginRight = 0 ,
@@ -296,7 +296,7 @@ public class GUI_Controller : MonoBehaviour
                 style =
             {
                 width = Length.Percent(6.5f),
-                //height = Length.Percent(100),
+                height = Length.Percent(100),
 
                 marginLeft = 0,
                 marginRight = 0 ,
@@ -333,7 +333,7 @@ public class GUI_Controller : MonoBehaviour
                 style =
             {
                 width = Length.Percent(7),
-                //height = Length.Percent(100),
+                height = Length.Percent(100),
 
                 marginLeft = 0,
                 marginRight = 0 ,
@@ -370,7 +370,7 @@ public class GUI_Controller : MonoBehaviour
                 style =
             {
                 width = Length.Percent(9),
-                //height = Length.Percent(100),
+                height = Length.Percent(100),
 
                 marginLeft = 0,
                 marginRight = 0 ,
@@ -407,7 +407,7 @@ public class GUI_Controller : MonoBehaviour
                 style =
             {
                 width = Length.Percent(9),
-                //height = Length.Percent(100),
+                height = Length.Percent(100),
 
                 marginLeft = 0,
                 marginRight = 0 ,
@@ -444,7 +444,7 @@ public class GUI_Controller : MonoBehaviour
                 style =
             {
                 width = Length.Percent(9),
-                //height = Length.Percent(100),
+                height = Length.Percent(100),
 
                 marginLeft = 0,
                 marginRight = 0 ,
@@ -481,7 +481,7 @@ public class GUI_Controller : MonoBehaviour
                 style =
             {
                 width = Length.Percent(9),
-                //height = Length.Percent(100),
+                height = Length.Percent(100),
 
                 marginLeft = 0,
                 marginRight = 0 ,
@@ -518,7 +518,7 @@ public class GUI_Controller : MonoBehaviour
                 style =
             {
                 width = Length.Percent(6),
-                //height = Length.Percent(100),
+                height = Length.Percent(100),
 
                 marginLeft = 0,
                 marginRight = 0 ,
@@ -555,7 +555,7 @@ public class GUI_Controller : MonoBehaviour
                 style =
             {
                 width = Length.Percent(6),
-                //height = Length.Percent(100),
+                height = Length.Percent(100),
 
                 marginLeft = 0,
                 marginRight = 0 ,
@@ -592,7 +592,7 @@ public class GUI_Controller : MonoBehaviour
                 style =
             {
                 width = Length.Percent(8),
-                //height = Length.Percent(100),
+                height = Length.Percent(100),
 
                 marginLeft = 0,
                 marginRight = 0 ,
@@ -629,7 +629,7 @@ public class GUI_Controller : MonoBehaviour
                 style =
             {
                 width = Length.Percent(8),
-                //height = Length.Percent(100),
+                height = Length.Percent(100),
 
                 marginLeft = 0,
                 marginRight = 0 ,
