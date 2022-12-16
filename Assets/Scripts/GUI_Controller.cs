@@ -211,7 +211,7 @@ public class GUI_Controller : MonoBehaviour
                 text = uniqueScenes[i].ToString(),
                 style =
             {
-                width = Length.Percent(4),
+                width = Length.Percent(5),
                 height = Length.Percent(100),
 
                 marginLeft = 0,
@@ -249,7 +249,7 @@ public class GUI_Controller : MonoBehaviour
 
                 style =
             {
-                width = Length.Percent(11),
+                width = Length.Percent(15.3f),
                 height = Length.Percent(100),
 
                 marginLeft = 0,
@@ -287,7 +287,7 @@ public class GUI_Controller : MonoBehaviour
                 text = "X",
                 style =
             {
-                width = Length.Percent(6.5f),
+                width = Length.Percent(5f),
                 height = Length.Percent(100),
 
                 marginLeft = 0,
@@ -324,7 +324,7 @@ public class GUI_Controller : MonoBehaviour
                 text = "X",
                 style =
             {
-                width = Length.Percent(7),
+                width = Length.Percent(5.7f),
                 height = Length.Percent(100),
 
                 marginLeft = 0,
@@ -361,7 +361,7 @@ public class GUI_Controller : MonoBehaviour
                 text = "X",
                 style =
             {
-                width = Length.Percent(9),
+                width = Length.Percent(9.23f),
                 height = Length.Percent(100),
 
                 marginLeft = 0,
@@ -398,7 +398,7 @@ public class GUI_Controller : MonoBehaviour
                 text = "X",
                 style =
             {
-                width = Length.Percent(9),
+                width = Length.Percent(9.23f),
                 height = Length.Percent(100),
 
                 marginLeft = 0,
@@ -435,7 +435,7 @@ public class GUI_Controller : MonoBehaviour
                 text = "X",
                 style =
             {
-                width = Length.Percent(9),
+                width = Length.Percent(9.23f),
                 height = Length.Percent(100),
 
                 marginLeft = 0,
@@ -472,7 +472,7 @@ public class GUI_Controller : MonoBehaviour
                 text = "X",
                 style =
             {
-                width = Length.Percent(9),
+                width = Length.Percent(9.23f),
                 height = Length.Percent(100),
 
                 marginLeft = 0,
@@ -509,7 +509,7 @@ public class GUI_Controller : MonoBehaviour
                 text = "X",
                 style =
             {
-                width = Length.Percent(6),
+                width = Length.Percent(5),
                 height = Length.Percent(100),
 
                 marginLeft = 0,
@@ -546,7 +546,7 @@ public class GUI_Controller : MonoBehaviour
                 text = "X",
                 style =
             {
-                width = Length.Percent(6),
+                width = Length.Percent(5),
                 height = Length.Percent(100),
 
                 marginLeft = 0,
@@ -583,7 +583,7 @@ public class GUI_Controller : MonoBehaviour
                 text = "X",
                 style =
             {
-                width = Length.Percent(8),
+                width = Length.Percent(6),
                 height = Length.Percent(100),
 
                 marginLeft = 0,
@@ -651,6 +651,7 @@ public class GUI_Controller : MonoBehaviour
             }
             };
             sceneVisElement.Add(audioLabel);
+
 
             midVisElement.Add(sceneVisElement);
         }
