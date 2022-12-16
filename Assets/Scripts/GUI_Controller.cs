@@ -7,14 +7,8 @@ using System;
 
 public class GUI_Controller : MonoBehaviour
 {
-    private Label scene_hour_label;
-    private Label scene_min_label;
-    private Label scene_sec_label;
-    private Label scene_timer_label;
 
-    private Label play_hour_label;
-    private Label play_min_label;
-    private Label play_sec_label;
+    private Label scene_timer_label;
     private Label play_timer_label;
 
     private Label camStatusLabel;
@@ -244,7 +238,7 @@ public class GUI_Controller : MonoBehaviour
                 whiteSpace = WhiteSpace.Normal,
                 fontSize = 16,
 
-                //color = new UnityEngine.Color(255, 255, 255)
+                color = Color.black
             }
             };
             sceneVisElement.Add(cueNumberLabel);
@@ -282,7 +276,7 @@ public class GUI_Controller : MonoBehaviour
                 whiteSpace = WhiteSpace.Normal,
                 fontSize = 16,
 
-                //color = new UnityEngine.Color(255, 255, 255)
+                color = Color.black
 
             }
             };
@@ -320,7 +314,7 @@ public class GUI_Controller : MonoBehaviour
                 whiteSpace = WhiteSpace.Normal,
                 fontSize = 16,
 
-                //color = new UnityEngine.Color(255, 255, 255)
+                color = Color.black
             }
             };
             sceneVisElement.Add(sceneStaticProjLabel);
@@ -357,7 +351,7 @@ public class GUI_Controller : MonoBehaviour
                 whiteSpace = WhiteSpace.Normal,
                 fontSize = 16,
 
-                //color = new UnityEngine.Color(255, 255, 255)
+                color = Color.black
             }
             };
             sceneVisElement.Add(sceneDynamicProjLabel);
@@ -394,7 +388,7 @@ public class GUI_Controller : MonoBehaviour
                 whiteSpace = WhiteSpace.Normal,
                 fontSize = 16,
 
-                //color = new UnityEngine.Color(255, 255, 255)
+                color = Color.black
             }
             };
             sceneVisElement.Add(sceneProj1Label);
@@ -431,7 +425,7 @@ public class GUI_Controller : MonoBehaviour
                 whiteSpace = WhiteSpace.Normal,
                 fontSize = 16,
 
-                //color = new UnityEngine.Color(255, 255, 255)
+                color = Color.black
             }
             };
             sceneVisElement.Add(sceneProj2Label);
@@ -468,7 +462,7 @@ public class GUI_Controller : MonoBehaviour
                 whiteSpace = WhiteSpace.Normal,
                 fontSize = 16,
 
-                //color = new UnityEngine.Color(255, 255, 255)
+                color = Color.black
             }
             };
             sceneVisElement.Add(sceneProj3Label);
@@ -505,7 +499,7 @@ public class GUI_Controller : MonoBehaviour
                 whiteSpace = WhiteSpace.Normal,
                 fontSize = 16,
 
-                //color = new UnityEngine.Color(255, 255, 255)
+                color = Color.black
             }
             };
             sceneVisElement.Add(sceneProj4Label);
@@ -542,7 +536,7 @@ public class GUI_Controller : MonoBehaviour
                 whiteSpace = WhiteSpace.Normal,
                 fontSize = 16,
 
-                //color = new UnityEngine.Color(255, 255, 255)
+                color = Color.black
             }
             };
             sceneVisElement.Add(cameraLabel);
@@ -579,7 +573,7 @@ public class GUI_Controller : MonoBehaviour
                 whiteSpace = WhiteSpace.Normal,
                 fontSize = 16,
 
-                //color = new UnityEngine.Color(255, 255, 255)
+                color = Color.black
             }
             };
             sceneVisElement.Add(lightsLabel);
@@ -616,7 +610,7 @@ public class GUI_Controller : MonoBehaviour
                 whiteSpace = WhiteSpace.Normal,
                 fontSize = 16,
 
-                //color = new UnityEngine.Color(255, 255, 255)
+                color = Color.black
             }
             };
             sceneVisElement.Add(videoLabel);
@@ -653,7 +647,7 @@ public class GUI_Controller : MonoBehaviour
                 whiteSpace = WhiteSpace.Normal,
                 fontSize = 16,
 
-                //color = new UnityEngine.Color(255, 255, 255)
+                color = Color.black
             }
             };
             sceneVisElement.Add(audioLabel);
