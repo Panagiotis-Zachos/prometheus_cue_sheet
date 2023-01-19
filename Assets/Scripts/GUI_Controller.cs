@@ -39,6 +39,8 @@ public class GUI_Controller : MonoBehaviour
     private TextField bText;
     private TextField iText;
 
+    public Texture2D StartButton;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -171,9 +173,11 @@ public class GUI_Controller : MonoBehaviour
 
             var sceneButton = new Button()
             {
-                text = "Start",
+
+                text = "",
                 style =
                 {
+                    backgroundImage=new StyleBackground( StartButton),
                     fontSize = 16,
                     width = Length.Percent(8),
                     height = Length.Percent(100),
