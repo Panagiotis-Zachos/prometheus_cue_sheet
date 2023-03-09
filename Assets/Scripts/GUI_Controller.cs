@@ -66,8 +66,13 @@ public class GUI_Controller : MonoBehaviour
             {
                 playLights.Add(gameObject.GetComponent<Light>());
             }
+            // Disable everything except cameras and Cue Sheet GUI
+            if (!(gameObject.GetComponent<Camera>() || gameObject.GetComponent<UIDocument>()))
+            {
+                gameObject.SetActive(false);
+            }
         }
-
+        
         redSlider = root.Q<Slider>("red_slider");
         rText = root.Q<TextField>("redText");
         redSlider.RegisterValueChangedCallback(x => ColorSliderValueChangedClbk(x.newValue, 'R', rText));
