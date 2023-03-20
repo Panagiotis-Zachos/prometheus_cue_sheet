@@ -1,0 +1,8 @@
+<ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" xsi="http://www.w3.org/2001/XMLSchema-instance" engine="UnityEngine.UIElements" editor="UnityEditor.UIElements" noNamespaceSchemaLocation="../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
+    <ui:VisualElement name="mainVisElement" style="width: 100%; height: 100%; background-color: rgba(183, 183, 183, 255);">
+        <ui:VisualElement style="align-items: center; height: 30%; justify-content: center;">
+            <ui:Button text="Calibrate" display-tooltip-when-elided="true" name="calibrateButton" style="align-items: stretch; justify-content: flex-end; width: 20%; height: 30%; font-size: 20px; -unity-font-style: normal;" />
+            <ui:Button text="Start Scene" display-tooltip-when-elided="true" name="startSceneButton" style="width: 20%; height: 30%; font-size: 20px;" />
+        </ui:VisualElement>
+    </ui:VisualElement>
+</ui:UXML>
