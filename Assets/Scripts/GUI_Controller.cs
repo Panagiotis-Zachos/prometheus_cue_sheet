@@ -11,8 +11,8 @@ public class GUI_Controller : MonoBehaviour
     private Label scene_timer_label;
     private Label play_timer_label;
 
-    private Label camStatusLabel;
-    private Label projStatusLabel;
+    //private Label camStatusLabel;
+    //private Label projStatusLabel;
 
     private int currentlyActiveScene;
 
@@ -39,6 +39,16 @@ public class GUI_Controller : MonoBehaviour
     private TextField bText;
     private TextField iText;
 
+    // Add Images
+    public Texture2D StartButton;
+    bool click = true;
+    // Activation Buttons
+    public Texture2D Activated_Static_Video;
+    public Texture2D Activated_Animation;
+
+    // Deactivation Buttons
+    public Texture2D DeActivated_Static_Video;
+    public Texture2D DeActivated_Animation;
     // Start is called before the first frame update
     void Start()
     {
@@ -49,8 +59,8 @@ public class GUI_Controller : MonoBehaviour
         play_timer_label = root.Q<Label>("play_timer");
 
         // Scene selection buttons initialization
-        camStatusLabel = root.Q<Label>("tracking_ready_label");
-        projStatusLabel = root.Q<Label>("projector_ready_label");
+        //camStatusLabel = root.Q<Label>("tracking_ready_label");
+        //projStatusLabel = root.Q<Label>("projector_ready_label");
         InitStartSceneElements(root.Q<VisualElement>("scene_vis_element"), GetUniqueScenes());
 
         // Scene light controls initialization
@@ -171,11 +181,14 @@ public class GUI_Controller : MonoBehaviour
 
             var sceneButton = new Button()
             {
-                text = "Start",
+
+                text = "",
                 style =
                 {
-                    fontSize = 16,
-                    width = Length.Percent(8),
+                    // Set Texture2D StartButton as Background
+                    backgroundImage =new StyleBackground(StartButton),
+                    
+                    width = Length.Percent(10),
                     height = Length.Percent(100),
 
                     marginLeft = 0,
@@ -196,14 +209,16 @@ public class GUI_Controller : MonoBehaviour
                     borderLeftColor = Color.black,
                     borderRightColor = Color.black,
                     borderBottomColor = Color.black,
-                    borderTopColor = Color.black
+                    borderTopColor = Color.black,
+                    unityTextAlign = TextAnchor.MiddleCenter,
+                    whiteSpace = WhiteSpace.Normal,
+                    fontSize = 16,
+
+                    color = Color.black
                 }
             };
 
-            sceneButton.RegisterCallback<ClickEvent, int>((evt, index) =>
-            {
-                StartSceneButtonClbk(uniqueScenes[index]);
-            }, i);
+
             sceneVisElement.Add(sceneButton);
 
             var cueNumberLabel = new Label()
@@ -211,7 +226,7 @@ public class GUI_Controller : MonoBehaviour
                 text = uniqueScenes[i].ToString(),
                 style =
             {
-                width = Length.Percent(5),
+                width = Length.Percent(7),
                 height = Length.Percent(100),
 
                 marginLeft = 0,
@@ -243,13 +258,19 @@ public class GUI_Controller : MonoBehaviour
             };
             sceneVisElement.Add(cueNumberLabel);
 
+            sceneButton.RegisterCallback<ClickEvent, int>((evt, index) =>
+            {               
+ 
+                StartSceneButtonClbk(sceneButton,uniqueScenes[index]);
+            }, i);
+
             var sceneDescriptionLabel = new Label()
             {
-                text = "X",
+                text = "Content",
 
                 style =
             {
-                width = Length.Percent(15.3f),
+                width = Length.Percent(18),
                 height = Length.Percent(100),
 
                 marginLeft = 0,
@@ -284,10 +305,12 @@ public class GUI_Controller : MonoBehaviour
 
             var sceneStaticProjLabel = new Label()
             {
-                text = "X",
+                text = "",
                 style =
             {
-                width = Length.Percent(5f),
+                backgroundImage=new StyleBackground(Activated_Static_Video),
+                //backgroundColor = Color.yellow,
+                width = Length.Percent(10),
                 height = Length.Percent(100),
 
                 marginLeft = 0,
@@ -319,12 +342,14 @@ public class GUI_Controller : MonoBehaviour
             };
             sceneVisElement.Add(sceneStaticProjLabel);
 
-            var sceneDynamicProjLabel = new Label()
+            var sceneAnimationProjLabel = new Label()
             {
-                text = "X",
+                text = "",
                 style =
             {
-                width = Length.Percent(5.7f),
+                backgroundImage=new StyleBackground(Activated_Animation),
+                //backgroundColor = Color.yellow,
+                width = Length.Percent(15),
                 height = Length.Percent(100),
 
                 marginLeft = 0,
@@ -354,236 +379,18 @@ public class GUI_Controller : MonoBehaviour
                 color = Color.black
             }
             };
-            sceneVisElement.Add(sceneDynamicProjLabel);
+            sceneVisElement.Add(sceneAnimationProjLabel);
 
-            var sceneProj1Label = new Label()
-            {
-                text = "X",
-                style =
-            {
-                width = Length.Percent(9.23f),
-                height = Length.Percent(100),
-
-                marginLeft = 0,
-                marginRight = 0 ,
-                marginBottom = 0,
-                marginTop = 0,
-
-                paddingLeft = 0,
-                paddingRight = 0,
-                paddingBottom = 0,
-                paddingTop = 0,
-
-                borderLeftWidth = labelBorderWidthHor,
-                borderRightWidth = labelBorderWidthHor,
-                borderBottomWidth = labelBorderWidthVert,
-                borderTopWidth = labelBorderWidthVert,
-
-                borderLeftColor = Color.black,
-                borderRightColor = Color.black,
-                borderBottomColor = Color.black,
-                borderTopColor = Color.black,
-
-                unityTextAlign = TextAnchor.MiddleCenter,
-                whiteSpace = WhiteSpace.Normal,
-                fontSize = 16,
-
-                color = Color.black
-            }
-            };
-            sceneVisElement.Add(sceneProj1Label);
-
-            var sceneProj2Label = new Label()
-            {
-                text = "X",
-                style =
-            {
-                width = Length.Percent(9.23f),
-                height = Length.Percent(100),
-
-                marginLeft = 0,
-                marginRight = 0 ,
-                marginBottom = 0,
-                marginTop = 0,
-
-                paddingLeft = 0,
-                paddingRight = 0,
-                paddingBottom = 0,
-                paddingTop = 0,
-
-                borderLeftWidth = labelBorderWidthHor,
-                borderRightWidth = labelBorderWidthHor,
-                borderBottomWidth = labelBorderWidthVert,
-                borderTopWidth = labelBorderWidthVert,
-
-                borderLeftColor = Color.black,
-                borderRightColor = Color.black,
-                borderBottomColor = Color.black,
-                borderTopColor = Color.black,
-
-                unityTextAlign = TextAnchor.MiddleCenter,
-                whiteSpace = WhiteSpace.Normal,
-                fontSize = 16,
-
-                color = Color.black
-            }
-            };
-            sceneVisElement.Add(sceneProj2Label);
-
-            var sceneProj3Label = new Label()
-            {
-                text = "X",
-                style =
-            {
-                width = Length.Percent(9.23f),
-                height = Length.Percent(100),
-
-                marginLeft = 0,
-                marginRight = 0 ,
-                marginBottom = 0,
-                marginTop = 0,
-
-                paddingLeft = 0,
-                paddingRight = 0,
-                paddingBottom = 0,
-                paddingTop = 0,
-
-                borderLeftWidth = labelBorderWidthHor,
-                borderRightWidth = labelBorderWidthHor,
-                borderBottomWidth = labelBorderWidthVert,
-                borderTopWidth = labelBorderWidthVert,
-
-                borderLeftColor = Color.black,
-                borderRightColor = Color.black,
-                borderBottomColor = Color.black,
-                borderTopColor = Color.black,
-
-                unityTextAlign = TextAnchor.MiddleCenter,
-                whiteSpace = WhiteSpace.Normal,
-                fontSize = 16,
-
-                color = Color.black
-            }
-            };
-            sceneVisElement.Add(sceneProj3Label);
-
-            var sceneProj4Label = new Label()
-            {
-                text = "X",
-                style =
-            {
-                width = Length.Percent(9.23f),
-                height = Length.Percent(100),
-
-                marginLeft = 0,
-                marginRight = 0 ,
-                marginBottom = 0,
-                marginTop = 0,
-
-                paddingLeft = 0,
-                paddingRight = 0,
-                paddingBottom = 0,
-                paddingTop = 0,
-
-                borderLeftWidth = labelBorderWidthHor,
-                borderRightWidth = labelBorderWidthHor,
-                borderBottomWidth = labelBorderWidthVert,
-                borderTopWidth = labelBorderWidthVert,
-
-                borderLeftColor = Color.black,
-                borderRightColor = Color.black,
-                borderBottomColor = Color.black,
-                borderTopColor = Color.black,
-
-                unityTextAlign = TextAnchor.MiddleCenter,
-                whiteSpace = WhiteSpace.Normal,
-                fontSize = 16,
-
-                color = Color.black
-            }
-            };
-            sceneVisElement.Add(sceneProj4Label);
-
-            var cameraLabel = new Label()
-            {
-                text = "X",
-                style =
-            {
-                width = Length.Percent(5),
-                height = Length.Percent(100),
-
-                marginLeft = 0,
-                marginRight = 0 ,
-                marginBottom = 0,
-                marginTop = 0,
-
-                paddingLeft = 0,
-                paddingRight = 0,
-                paddingBottom = 0,
-                paddingTop = 0,
-
-                borderLeftWidth = labelBorderWidthHor,
-                borderRightWidth = labelBorderWidthHor,
-                borderBottomWidth = labelBorderWidthVert,
-                borderTopWidth = labelBorderWidthVert,
-
-                borderLeftColor = Color.black,
-                borderRightColor = Color.black,
-                borderBottomColor = Color.black,
-                borderTopColor = Color.black,
-
-                unityTextAlign = TextAnchor.MiddleCenter,
-                whiteSpace = WhiteSpace.Normal,
-                fontSize = 16,
-
-                color = Color.black
-            }
-            };
-            sceneVisElement.Add(cameraLabel);
-
-            var lightsLabel = new Label()
-            {
-                text = "X",
-                style =
-            {
-                width = Length.Percent(5),
-                height = Length.Percent(100),
-
-                marginLeft = 0,
-                marginRight = 0 ,
-                marginBottom = 0,
-                marginTop = 0,
-
-                paddingLeft = 0,
-                paddingRight = 0,
-                paddingBottom = 0,
-                paddingTop = 0,
-
-                borderLeftWidth = labelBorderWidthHor,
-                borderRightWidth = labelBorderWidthHor,
-                borderBottomWidth = labelBorderWidthVert,
-                borderTopWidth = labelBorderWidthVert,
-
-                borderLeftColor = Color.black,
-                borderRightColor = Color.black,
-                borderBottomColor = Color.black,
-                borderTopColor = Color.black,
-
-                unityTextAlign = TextAnchor.MiddleCenter,
-                whiteSpace = WhiteSpace.Normal,
-                fontSize = 16,
-
-                color = Color.black
-            }
-            };
-            sceneVisElement.Add(lightsLabel);
+           
 
             var videoLabel = new Label()
             {
-                text = "X",
+                text = "",
                 style =
             {
-                width = Length.Percent(6),
+                backgroundImage=new StyleBackground(Activated_Static_Video),
+                //backgroundColor = Color.yellow,
+                width = Length.Percent(10),
                 height = Length.Percent(100),
 
                 marginLeft = 0,
@@ -615,12 +422,12 @@ public class GUI_Controller : MonoBehaviour
             };
             sceneVisElement.Add(videoLabel);
 
-            var audioLabel = new Label()
+            var commentaryLabel = new Label()
             {
-                text = "X",
+                text = "",
                 style =
             {
-                width = Length.Percent(8),
+                width = Length.Percent(30),
                 height = Length.Percent(100),
 
                 marginLeft = 0,
@@ -650,11 +457,12 @@ public class GUI_Controller : MonoBehaviour
                 color = Color.black
             }
             };
-            sceneVisElement.Add(audioLabel);
+            sceneVisElement.Add(commentaryLabel);
 
 
             midVisElement.Add(sceneVisElement);
         }
+       
     }
 
     private void UpdateLabelTime(Label timer_label, float time_start)
@@ -669,12 +477,16 @@ public class GUI_Controller : MonoBehaviour
 
     }
 
-    private void StartSceneButtonClbk(int sceneSelected) {
+    private void StartSceneButtonClbk(Button sceneButton,int sceneSelected) {
         currentlyActiveScene = sceneSelected;
+
+        Color newColor = new Color(0.3f, 0.9f, 0.3f, 0.9f);
+        sceneButton.style.backgroundColor = newColor;
 
         // get root objects in scene
         List<GameObject> rootObjects = new List<GameObject>();
         Scene scene = SceneManager.GetActiveScene();
+
         scene.GetRootGameObjects(rootObjects);
 
         scene_time_start = Time.time;
@@ -694,36 +506,45 @@ public class GUI_Controller : MonoBehaviour
                 }
             }
         }
-        CheckCameraReady();
-        CheckProjectorReady();
+
+        //ChangeColor(sceneElement[1]);
+        //CheckProjectorReady();
     }
 
-    private void CheckCameraReady()
-    {
-        var camRdy = true;
-        camStatusLabel.text = "Not Ready";
-        camStatusLabel.style.backgroundColor = Color.red;
-        while (!camRdy) ;
 
-        if (camRdy)
-        {
-            camStatusLabel.text = "Ready";
-            camStatusLabel.style.backgroundColor = Color.green;
-        }
-    }
-    
-    private void CheckProjectorReady()
-    {
-        var projRdy = true;
-        projStatusLabel.text = "Not Ready";
-        projStatusLabel.style.backgroundColor = Color.red;
-        while (!projRdy) ;
-        if (projRdy)
-        {
-            projStatusLabel.text = "Ready";
-            projStatusLabel.style.backgroundColor = Color.green;
-        }
-    }
+    //private void ChangeColor(VisualElement sceneElement)
+    //{
+
+    //    sceneElement.style.backgroundColor = Color.red;
+  
+    //}
+
+    //private void CheckCameraReady()
+    //{
+    //    var camRdy = true;
+    //    camStatusLabel.text = "Not Ready";
+    //    camStatusLabel.style.backgroundColor = Color.red;
+    //    while (!camRdy) ;
+
+    //    if (camRdy)
+    //    {
+    //        camStatusLabel.text = "Ready";
+    //        camStatusLabel.style.backgroundColor = Color.green;
+    //    }
+    //}
+
+    //private void CheckProjectorReady()
+    //{
+    //    var projRdy = true;
+    //    projStatusLabel.text = "Not Ready";
+    //    projStatusLabel.style.backgroundColor = Color.red;
+    //    while (!projRdy) ;
+    //    if (projRdy)
+    //    {
+    //        projStatusLabel.text = "Ready";
+    //        projStatusLabel.style.backgroundColor = Color.green;
+    //    }
+    //}
     private void UpdateTextFieldDisplayClbk(TextField txtF, Slider cSlid)
     {
         txtF.value = Regex.Replace(txtF.text, @"[^0-9 ]", "");
