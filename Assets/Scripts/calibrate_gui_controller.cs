@@ -230,7 +230,7 @@ public class calibrate_gui_controller : MonoBehaviour
                     quat_y = cameraObj.transform.rotation.y,
                     quat_z = cameraObj.transform.rotation.z,
                     Name = cameraObj.name };
-                File.WriteAllText(@m_Path + "/Calibration_JSON/" + cameraObj.name + ".json", JsonConvert.SerializeObject(tempCameraObj));
+                File.WriteAllText(@m_Path + "/Calibration_JSON/" + cameraObj.name + ".json", JsonConvert.SerializeObject(tempCameraSaveObj));
             }
         }
     }
