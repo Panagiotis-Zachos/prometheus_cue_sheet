@@ -3,8 +3,9 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UIElements;
 using UnityEngine.SceneManagement; // To change scenes through the menu
+using System.IO;
 
-
+using Newtonsoft.Json;
 public class main_menu_controller : MonoBehaviour
 {
     // Main Menu
@@ -14,6 +15,8 @@ public class main_menu_controller : MonoBehaviour
 
     private Button calibrateButton;
     private Button startPlayButton;
+
+    private List<GameObject> rootObjects = new();
     // Start is called before the first frame update
     void Start()
     {
@@ -22,7 +25,6 @@ public class main_menu_controller : MonoBehaviour
         calibrateUI.rootVisualElement.style.display = DisplayStyle.None;
         cueSheetUI.rootVisualElement.style.display = DisplayStyle.None;
 
-        List<GameObject> rootObjects = new();
         Scene scene = SceneManager.GetActiveScene();
         scene.GetRootGameObjects(rootObjects);
 
@@ -35,6 +37,8 @@ public class main_menu_controller : MonoBehaviour
                 gameObject.SetActive(false);
             }
         }
+
+        InitCameras();
 
         startPlayButton = root.Q<Button>("startSceneButton");
         startPlayButton.RegisterCallback<ClickEvent>((evt) =>
@@ -53,6 +57,32 @@ public class main_menu_controller : MonoBehaviour
     void Update()
     {
         
+    }
+
+    private void InitCameras()
+    {
+        string json_Path = Application.dataPath + "/Calibration_JSON/";
+        
+        string[] files = Directory.GetFiles(json_Path, "*.json");
+
+        foreach (string json_path in files)
+        {
+            StreamReader reader = new StreamReader(json_path);
+            CameraSaveObject tmp = JsonConvert.DeserializeObject<CameraSaveObject>(reader.ReadToEnd());
+
+            for (int i = 0; i < rootObjects.Count; ++i)
+            {
+                GameObject gameObject = rootObjects[i];
+                if (gameObject.GetComponent<Camera>() && string.Compare(gameObject.name, tmp.Name) == 0)
+                {
+                    gameObject.transform.position = new Vector3(tmp.pos_x, tmp.pos_y, tmp.pos_z);
+                    gameObject.transform.rotation = new Quaternion(tmp.quat_x, tmp.quat_y, tmp.quat_z, tmp.quat_w);
+                }
+            }
+        }
+
+
+
     }
 
     private void StartPlayButtonClbk()
