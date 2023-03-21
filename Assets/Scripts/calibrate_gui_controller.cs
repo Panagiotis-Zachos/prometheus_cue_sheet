@@ -4,12 +4,30 @@ using UnityEngine;
 using UnityEngine.UIElements;
 using UnityEngine.SceneManagement; // To change scenes through the 
 
+using Newtonsoft.Json;
+using System.IO;
+
+public class CameraSaveObject
+{
+    public float pos_x;
+    public float pos_y;
+    public float pos_z;
+
+    public float quat_w;
+    public float quat_x;
+    public float quat_y;
+    public float quat_z;
+
+    public string Name;
+}
+
 public class calibrate_gui_controller : MonoBehaviour
 {
     public VisualElement root;
     public UIDocument MainUIDocument;
 
     private Button backButton;
+    private Button saveButton;
 
     private Button previousCameraButton;
     private Button nextCameraButton;
@@ -76,6 +94,12 @@ public class calibrate_gui_controller : MonoBehaviour
         backButton.RegisterCallback<ClickEvent>((evt) =>
         {
             backButtonClbk();
+        });
+
+        saveButton = root.Q<Button>("save_cal_button");
+        saveButton.RegisterCallback<ClickEvent>((evt) =>
+        {
+            saveButtonClbk();
         });
     }
 
@@ -185,5 +209,29 @@ public class calibrate_gui_controller : MonoBehaviour
         }
         root.style.display = DisplayStyle.None;
         MainUIDocument.rootVisualElement.style.display = DisplayStyle.Flex;
+    }
+
+    private void saveButtonClbk()
+    {
+        string m_Path = Application.dataPath;
+        for (int i = 0; i < playCameras.Count; ++i)
+        {
+            GameObject cameraObj = playCameras[i].gameObject;
+            if (cameraObj.GetComponent<Camera>())
+            {
+                CameraSaveObject tempCameraSaveObj = new CameraSaveObject
+                {
+                    pos_x = cameraObj.transform.position.x,
+                    pos_y = cameraObj.transform.position.y,
+                    pos_z = cameraObj.transform.position.z,
+
+                    quat_w = cameraObj.transform.rotation.w,
+                    quat_x = cameraObj.transform.rotation.x,
+                    quat_y = cameraObj.transform.rotation.y,
+                    quat_z = cameraObj.transform.rotation.z,
+                    Name = cameraObj.name };
+                File.WriteAllText(@m_Path + "/Calibration_JSON/" + cameraObj.name + ".json", JsonConvert.SerializeObject(tempCameraObj));
+            }
+        }
     }
 }
