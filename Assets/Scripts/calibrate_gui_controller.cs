@@ -104,6 +104,8 @@ public class calibrate_gui_controller : MonoBehaviour
         currentCamera = (currentCamera + 1) % playCameras.Count;
         playCameras[currentCamera].gameObject.SetActive(true);
 
+        currentCameraLabel.text = playCameras[currentCamera].name;
+
         cameraXSlider.SetValueWithoutNotify(0);
         cameraYSlider.SetValueWithoutNotify(0);
         cameraZSlider.SetValueWithoutNotify(0);
@@ -119,6 +121,8 @@ public class calibrate_gui_controller : MonoBehaviour
         playCameras[currentCamera].gameObject.SetActive(false);
         currentCamera = ((currentCamera - 1) + playCameras.Count) % playCameras.Count;
         playCameras[currentCamera].gameObject.SetActive(true);
+
+        currentCameraLabel.text = playCameras[currentCamera].name;
 
         cameraXSlider.SetValueWithoutNotify(0);
         cameraYSlider.SetValueWithoutNotify(0);
