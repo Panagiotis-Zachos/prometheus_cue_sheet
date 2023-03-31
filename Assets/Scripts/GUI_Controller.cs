@@ -41,7 +41,6 @@ public class GUI_Controller : MonoBehaviour
 
     // Add Images
     public Texture2D StartButton;
-    bool click = true;
     // Activation Buttons
     public Texture2D Activated_Static_Video;
     public Texture2D Activated_Animation;
@@ -59,8 +58,6 @@ public class GUI_Controller : MonoBehaviour
         play_timer_label = root.Q<Label>("play_timer");
 
         // Scene selection buttons initialization
-        //camStatusLabel = root.Q<Label>("tracking_ready_label");
-        //projStatusLabel = root.Q<Label>("projector_ready_label");
         InitStartSceneElements(root.Q<VisualElement>("scene_vis_element"), GetUniqueScenes());
 
         // Scene light controls initialization
@@ -77,7 +74,27 @@ public class GUI_Controller : MonoBehaviour
                 playLights.Add(gameObject.GetComponent<Light>());
             }
         }
-        
+
+        InitColorSliders(root);
+        InitMoveSliders(root);
+        InitRotSliders(root);
+    }
+
+    // Update is called once per frame
+    void Update()
+    {
+        UpdateLabelTime(play_timer_label, play_time_start);
+        UpdateLabelTime(scene_timer_label, scene_time_start);
+    }
+
+    public void PlayStartTime()
+    {
+        play_time_start = Time.time;
+        scene_time_start = Time.time;
+    }
+
+    private void InitColorSliders(VisualElement root)
+    {
         redSlider = root.Q<Slider>("red_slider");
         rText = root.Q<TextField>("redText");
         redSlider.RegisterValueChangedCallback(x => ColorSliderValueChangedClbk(x.newValue, 'R', rText));
@@ -97,34 +114,26 @@ public class GUI_Controller : MonoBehaviour
         iText = root.Q<TextField>("intText");
         intensitySlider.RegisterValueChangedCallback(x => ColorSliderValueChangedClbk(x.newValue, 'I', iText));
         iText.RegisterValueChangedCallback(x => UpdateTextFieldDisplayClbk(iText, intensitySlider));
+    }
 
-
+    private void InitMoveSliders(VisualElement root)
+    {
         lightXSlider = root.Q<Slider>("x_offset_control");
         lightXSlider.RegisterValueChangedCallback(x => PosOffsetSliderValueChangedClbk(x.newValue, x.previousValue, 'X'));
         lightYSlider = root.Q<Slider>("y_offset_control");
         lightYSlider.RegisterValueChangedCallback(x => PosOffsetSliderValueChangedClbk(x.newValue, x.previousValue, 'Y'));
         lightZSlider = root.Q<Slider>("z_offset_control");
         lightZSlider.RegisterValueChangedCallback(x => PosOffsetSliderValueChangedClbk(x.newValue, x.previousValue, 'Z'));
+    }
 
+    private void InitRotSliders(VisualElement root)
+    {
         lightXRotSlider = root.Q<Slider>("x_rot_control");
         lightXRotSlider.RegisterValueChangedCallback(x => RotOffsetSliderValueChangedClbk(x.newValue, x.previousValue, 'X'));
         lightYRotSlider = root.Q<Slider>("y_rot_control");
         lightYRotSlider.RegisterValueChangedCallback(x => RotOffsetSliderValueChangedClbk(x.newValue, x.previousValue, 'Y'));
         lightZRotSlider = root.Q<Slider>("z_rot_control");
         lightZRotSlider.RegisterValueChangedCallback(x => RotOffsetSliderValueChangedClbk(x.newValue, x.previousValue, 'Z'));
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        UpdateLabelTime(play_timer_label, play_time_start);
-        UpdateLabelTime(scene_timer_label, scene_time_start);
-    }
-
-    public void PlayStartTime()
-    {
-        play_time_start = Time.time;
-        scene_time_start = Time.time;
     }
 
     private List<int> GetUniqueScenes()
@@ -535,40 +544,6 @@ public class GUI_Controller : MonoBehaviour
         //CheckProjectorReady();
     }
 
-
-    //private void ChangeColor(VisualElement sceneElement)
-    //{
-
-    //    sceneElement.style.backgroundColor = Color.red;
-  
-    //}
-
-    //private void CheckCameraReady()
-    //{
-    //    var camRdy = true;
-    //    camStatusLabel.text = "Not Ready";
-    //    camStatusLabel.style.backgroundColor = Color.red;
-    //    while (!camRdy) ;
-
-    //    if (camRdy)
-    //    {
-    //        camStatusLabel.text = "Ready";
-    //        camStatusLabel.style.backgroundColor = Color.green;
-    //    }
-    //}
-
-    //private void CheckProjectorReady()
-    //{
-    //    var projRdy = true;
-    //    projStatusLabel.text = "Not Ready";
-    //    projStatusLabel.style.backgroundColor = Color.red;
-    //    while (!projRdy) ;
-    //    if (projRdy)
-    //    {
-    //        projStatusLabel.text = "Ready";
-    //        projStatusLabel.style.backgroundColor = Color.green;
-    //    }
-    //}
     private void UpdateTextFieldDisplayClbk(TextField txtF, Slider cSlid)
     {
         txtF.value = Regex.Replace(txtF.text, @"[^0-9 ]", "");
