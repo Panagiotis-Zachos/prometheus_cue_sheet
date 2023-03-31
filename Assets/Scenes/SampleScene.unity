@@ -704,7 +704,7 @@ GameObject:
   - component: {fileID: 403135395}
   - component: {fileID: 403135397}
   m_Layer: 5
-  m_Name: MainUIDocument
+  m_Name: MainMenu_UIDocument
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -971,7 +971,7 @@ GameObject:
   - component: {fileID: 778530292}
   - component: {fileID: 778530294}
   m_Layer: 5
-  m_Name: UIDocument
+  m_Name: CueSheet_UIDocument
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2063,7 +2063,7 @@ GameObject:
   - component: {fileID: 1687196627}
   - component: {fileID: 1687196629}
   m_Layer: 5
-  m_Name: CalibrateUIDocument
+  m_Name: Calibrate_UIDocument
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
