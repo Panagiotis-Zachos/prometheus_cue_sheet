@@ -121,6 +121,12 @@ public class GUI_Controller : MonoBehaviour
         UpdateLabelTime(scene_timer_label, scene_time_start);
     }
 
+    public void PlayStartTime()
+    {
+        play_time_start = Time.time;
+        scene_time_start = Time.time;
+    }
+
     private List<int> GetUniqueScenes()
     {
         // This method finds all unique scenes via parsing the available GameObjects and looking at their 'SceneNumber' property

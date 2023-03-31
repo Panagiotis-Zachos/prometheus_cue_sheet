@@ -88,6 +88,9 @@ public class main_menu_controller : MonoBehaviour
         calibrateUI.rootVisualElement.style.display = DisplayStyle.None;
         root.style.display = DisplayStyle.None;
         cueSheetUI.rootVisualElement.style.display = DisplayStyle.Flex;
+
+        var cal_script = GameObject.FindObjectOfType(typeof(GUI_Controller)) as GUI_Controller;
+        cal_script.PlayStartTime();
     }
 
     private void StartCalibrateButtonClbk()
