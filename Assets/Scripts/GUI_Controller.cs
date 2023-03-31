@@ -143,9 +143,12 @@ public class GUI_Controller : MonoBehaviour
             GameObject gameObject = rootObjects[i];
             if (gameObject.TryGetComponent<SceneObjectController>(out var soc))
             {
-                if (uniqueScenes.IndexOf(soc.sceneNumber) == -1)
+                foreach (int sceneNumber in soc.sceneList)
                 {
-                    uniqueScenes.Add(soc.sceneNumber);
+                    if (!uniqueScenes.Contains(sceneNumber))
+                    {
+                        uniqueScenes.Add(sceneNumber);
+                    }
                 }
             }
         }
@@ -502,25 +505,27 @@ public class GUI_Controller : MonoBehaviour
             GameObject gameObject = rootObjects[i];
             if (gameObject.TryGetComponent<SceneObjectController>(out var soc))
             {
-                if (soc.sceneNumber != sceneSelected)
+                if (soc.SceneExistsInList(sceneSelected))
                 {
-                    if (gameObject.GetComponent<Camera>()){
-                        gameObject.GetComponent<Camera>().targetDisplay = 7; // Turn off camera for this cue
+                    if (gameObject.GetComponent<Camera>())
+                    {
+                        gameObject.GetComponent<Camera>().targetDisplay = soc.targetDisplay - 1; // Turn on camera for this cue
                     }
                     else
                     {
-                        gameObject.SetActive(false);
+                        gameObject.SetActive(true);
                     }
+                    
                 }
                 else
                 {
                     if (gameObject.GetComponent<Camera>())
                     {
-                        gameObject.GetComponent<Camera>().targetDisplay = soc.targetDisplay - 1; // Turn off camera for this cue
+                        gameObject.GetComponent<Camera>().targetDisplay = 7; // Turn off camera for this cue
                     }
                     else
                     {
-                        gameObject.SetActive(true);
+                        gameObject.SetActive(false);
                     }
                 }
             }
@@ -587,7 +592,8 @@ public class GUI_Controller : MonoBehaviour
         for (int i = 0; i < playLights.Count; ++i)
         {
             var light = playLights[i];
-            if (light.GetComponent<SceneObjectController>().sceneNumber == currentlyActiveScene)
+            var lightSceneObjCont = light.GetComponent<SceneObjectController>();
+            if (lightSceneObjCont.SceneExistsInList(currentlyActiveScene))
             {
                 switch (sliderColor)
                 {
@@ -615,7 +621,7 @@ public class GUI_Controller : MonoBehaviour
         {
             var light = playLights[i];
             var lightSceneObjCont = light.GetComponent<SceneObjectController>();
-            if (lightSceneObjCont.sceneNumber == currentlyActiveScene)
+            if (lightSceneObjCont.SceneExistsInList(currentlyActiveScene))
             {
                 var moveAmount = sliderPrevVal - sliderVal;
                 Transform lightTransform = light.GetComponentInParent(typeof(Transform)) as Transform;
@@ -641,7 +647,7 @@ public class GUI_Controller : MonoBehaviour
         {
             var light = playLights[i];
             var lightSceneObjCont = light.GetComponent<SceneObjectController>();
-            if (lightSceneObjCont.sceneNumber == currentlyActiveScene)
+            if (lightSceneObjCont.SceneExistsInList(currentlyActiveScene))
             {
                 var moveAmount = sliderPrevVal - sliderVal;
                 Transform lightTransform = light.GetComponentInParent(typeof(Transform)) as Transform;

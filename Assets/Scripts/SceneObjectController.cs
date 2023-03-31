@@ -1,8 +1,10 @@
+using System.Collections.Generic;
 using UnityEngine;
 
 public class SceneObjectController : MonoBehaviour
 {
-    public int sceneNumber;
+    public List<int> sceneList = new();
+    public bool alwaysActive = false;
     public int targetDisplay;
 
     private Transform initTransform;
@@ -21,5 +23,21 @@ public class SceneObjectController : MonoBehaviour
     public Transform getInitTransform()
     {
         return initTransform;
+    }
+
+    public bool SceneExistsInList(int sceneSelected)
+    {
+        if (alwaysActive)
+        {
+            return true;
+        }
+        foreach (int number in sceneList)
+        {
+            if (number == sceneSelected)
+            {
+                return true;
+            }
+        }
+        return false;
     }
 }
