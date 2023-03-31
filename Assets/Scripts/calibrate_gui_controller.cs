@@ -1,4 +1,3 @@
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UIElements;
@@ -168,13 +167,34 @@ public class calibrate_gui_controller : MonoBehaviour
 
     private void enableSceneObjects(Camera selectedCamera)
     {
+        bool flag;
+
         selectedCamera.gameObject.TryGetComponent<SceneObjectController>(out var camSoc);
         for (int i = 0; i < rootObjects.Count; ++i)
         {
+            flag = true;
             GameObject gameObject = rootObjects[i];
             if (gameObject.TryGetComponent<SceneObjectController>(out var soc))
             {
-                if (soc.sceneNumber != camSoc.sceneNumber)
+                foreach (int cameraScene in camSoc.sceneList)
+                {
+                    if (gameObject.GetComponent<Camera>() && gameObject != selectedCamera.gameObject) { break; } // If gameObject is unselected Camera we don't have to do checks
+
+                    if (soc.SceneExistsInList(cameraScene))
+                    {
+                        if (gameObject.GetComponent<Camera>())
+                        {
+                            gameObject.GetComponent<Camera>().targetDisplay = soc.targetDisplay - 1; // Turn on camera for this cue
+                        }
+                        else
+                        {
+                            gameObject.SetActive(true);
+                        }
+                        flag = false;
+                        break;
+                    }
+                }
+                if (flag)
                 {
                     if (gameObject.GetComponent<Camera>())
                     {
@@ -183,17 +203,6 @@ public class calibrate_gui_controller : MonoBehaviour
                     else
                     {
                         gameObject.SetActive(false);
-                    }
-                }
-                else
-                {
-                    if (gameObject.GetComponent<Camera>())
-                    {
-                        gameObject.GetComponent<Camera>().targetDisplay = soc.targetDisplay - 1; // Turn off camera for this cue
-                    }
-                    else
-                    {
-                        gameObject.SetActive(true);
                     }
                 }
             }
