@@ -5,6 +5,7 @@ using UnityEngine;
 public class SceneObjectController : MonoBehaviour
 {
     public int sceneNumber;
+    public int targetDisplay;
 
     private Transform initTransform;
     // Start is called before the first frame update

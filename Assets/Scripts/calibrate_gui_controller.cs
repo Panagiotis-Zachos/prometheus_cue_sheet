@@ -25,6 +25,7 @@ public class calibrate_gui_controller : MonoBehaviour
 {
     public VisualElement root;
     public UIDocument MainUIDocument;
+    public UIDocument CueSheetUIDocument;
 
     private Button backButton;
     private Button saveButton;
@@ -43,20 +44,22 @@ public class calibrate_gui_controller : MonoBehaviour
     private Slider cameraYRotSlider;
     private Slider cameraZRotSlider;
 
-    private List<Camera> playCameras = new();
+    List<Camera> playCameras = new();
+    List<GameObject> rootObjects = new();
+    private Scene scene;
     // Start is called before the first frame update
     void Start()
     {
         root = GetComponent<UIDocument>().rootVisualElement;
 
-        List<GameObject> rootObjects = new();
-        Scene scene = SceneManager.GetActiveScene();
+        
+        scene = SceneManager.GetActiveScene();
         scene.GetRootGameObjects(rootObjects);
 
         for (int i = 0; i < rootObjects.Count; ++i)
         {
             GameObject gameObject = rootObjects[i];
-            if (gameObject.GetComponent<Camera>())
+            if (gameObject.GetComponent<Camera>() && !gameObject.name.Equals("GUI_Camera"))
             {
                 playCameras.Add(gameObject.GetComponent<Camera>());
             }
@@ -120,6 +123,7 @@ public class calibrate_gui_controller : MonoBehaviour
             }
         }
         playCameras[0].gameObject.SetActive(true);
+        currentCameraLabel.text = playCameras[currentCamera].name;
     }
 
     private void nextCameraClbk()
@@ -138,6 +142,8 @@ public class calibrate_gui_controller : MonoBehaviour
         cameraYRotSlider.SetValueWithoutNotify(0);
         cameraZRotSlider.SetValueWithoutNotify(0);
         cameraXRotSlider.SetValueWithoutNotify(0);
+
+        enableSceneObjects(playCameras[currentCamera]);
     }
 
     private void prevCameraClbk()
@@ -156,6 +162,42 @@ public class calibrate_gui_controller : MonoBehaviour
         cameraYRotSlider.SetValueWithoutNotify(0);
         cameraZRotSlider.SetValueWithoutNotify(0);
         cameraXRotSlider.SetValueWithoutNotify(0);
+
+        enableSceneObjects(playCameras[currentCamera]);
+    }
+
+    private void enableSceneObjects(Camera selectedCamera)
+    {
+        selectedCamera.gameObject.TryGetComponent<SceneObjectController>(out var camSoc);
+        for (int i = 0; i < rootObjects.Count; ++i)
+        {
+            GameObject gameObject = rootObjects[i];
+            if (gameObject.TryGetComponent<SceneObjectController>(out var soc))
+            {
+                if (soc.sceneNumber != camSoc.sceneNumber)
+                {
+                    if (gameObject.GetComponent<Camera>())
+                    {
+                        gameObject.GetComponent<Camera>().targetDisplay = 7; // Turn off camera for this cue
+                    }
+                    else
+                    {
+                        gameObject.SetActive(false);
+                    }
+                }
+                else
+                {
+                    if (gameObject.GetComponent<Camera>())
+                    {
+                        gameObject.GetComponent<Camera>().targetDisplay = soc.targetDisplay - 1; // Turn off camera for this cue
+                    }
+                    else
+                    {
+                        gameObject.SetActive(true);
+                    }
+                }
+            }
+        }
     }
 
     private void PosOffsetSliderValueChangedClbk(float sliderVal, float sliderPrevVal, char sliderDim)
@@ -209,6 +251,7 @@ public class calibrate_gui_controller : MonoBehaviour
         }
         root.style.display = DisplayStyle.None;
         MainUIDocument.rootVisualElement.style.display = DisplayStyle.Flex;
+        CueSheetUIDocument.rootVisualElement.style.display = DisplayStyle.None;
     }
 
     private void saveButtonClbk()

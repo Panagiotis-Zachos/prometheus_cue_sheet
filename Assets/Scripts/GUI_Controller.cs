@@ -498,11 +498,24 @@ public class GUI_Controller : MonoBehaviour
             {
                 if (soc.sceneNumber != sceneSelected)
                 {
-                    gameObject.SetActive(false);
+                    if (gameObject.GetComponent<Camera>()){
+                        gameObject.GetComponent<Camera>().targetDisplay = 7; // Turn off camera for this cue
+                    }
+                    else
+                    {
+                        gameObject.SetActive(false);
+                    }
                 }
                 else
                 {
-                    gameObject.SetActive(true);
+                    if (gameObject.GetComponent<Camera>())
+                    {
+                        gameObject.GetComponent<Camera>().targetDisplay = soc.targetDisplay - 1; // Turn off camera for this cue
+                    }
+                    else
+                    {
+                        gameObject.SetActive(true);
+                    }
                 }
             }
         }

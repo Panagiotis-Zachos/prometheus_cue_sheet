@@ -39,7 +39,6 @@ public class main_menu_controller : MonoBehaviour
         }
 
         InitCameras();
-
         startPlayButton = root.Q<Button>("startSceneButton");
         startPlayButton.RegisterCallback<ClickEvent>((evt) =>
         {
@@ -62,7 +61,10 @@ public class main_menu_controller : MonoBehaviour
     private void InitCameras()
     {
         string json_Path = Application.dataPath + "/Calibration_JSON/";
-        
+        if (!Directory.Exists(json_Path))
+        {
+            return;
+        }
         string[] files = Directory.GetFiles(json_Path, "*.json");
 
         foreach (string json_path in files)
@@ -80,23 +82,21 @@ public class main_menu_controller : MonoBehaviour
                 }
             }
         }
-
-
-
     }
 
     private void StartPlayButtonClbk()
     {
+        calibrateUI.rootVisualElement.style.display = DisplayStyle.None;
         root.style.display = DisplayStyle.None;
         cueSheetUI.rootVisualElement.style.display = DisplayStyle.Flex;
     }
 
     private void StartCalibrateButtonClbk()
     {
-        root.style.display = DisplayStyle.None;
         calibrateUI.rootVisualElement.style.display = DisplayStyle.Flex;
+        root.style.display = DisplayStyle.None;
+        cueSheetUI.rootVisualElement.style.display = DisplayStyle.None;
         var cal_script = GameObject.FindObjectOfType(typeof(calibrate_gui_controller)) as calibrate_gui_controller;
         cal_script.beginCalibrate();
-        //calibrateUI.GetComponent<calibrate_gui_controller>;
     }
 }
