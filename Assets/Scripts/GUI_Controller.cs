@@ -170,6 +170,9 @@ public class GUI_Controller : MonoBehaviour
     {
         var labelBorderWidthHor = 2;
         var labelBorderWidthVert = 2;
+         // Initialize list of scene buttons
+         List<Button> all_scenebuttons= new List<Button>();
+
         for (int i = 0; i < uniqueScenes.Count; ++i)
         {
             var sceneVisElement = new VisualElement()
@@ -236,7 +239,8 @@ public class GUI_Controller : MonoBehaviour
                 }
             };
 
-
+            // Add each scene button to a list 
+            all_scenebuttons.Add(sceneButton);
             sceneVisElement.Add(sceneButton);
 
             var cueNumberLabel = new Label()
@@ -279,7 +283,7 @@ public class GUI_Controller : MonoBehaviour
             sceneButton.RegisterCallback<ClickEvent, int>((evt, index) =>
             {               
  
-                StartSceneButtonClbk(sceneButton,uniqueScenes[index]);
+                StartSceneButtonClbk(sceneButton,uniqueScenes[index], all_scenebuttons);
             }, i);
 
             var sceneDescriptionLabel = new Label()
@@ -495,11 +499,32 @@ public class GUI_Controller : MonoBehaviour
 
     }
 
-    private void StartSceneButtonClbk(Button sceneButton,int sceneSelected) {
+    private void StartSceneButtonClbk(Button sceneButton,int sceneSelected, List<Button> all_scenebuttons) {
+
+        // Adjust the background colors of the Start Buttons
+        foreach (Button button in all_scenebuttons) {
+            if (button == sceneButton)
+            {
+                // Set the background color of the clicked button
+                Color newColor = new Color(0.3f, 0.9f, 0.3f, 0.9f);
+                button.style.backgroundColor = newColor;
+            }
+            else if(all_scenebuttons.IndexOf(button)+1 < sceneSelected)
+            {
+                // Set the background color of previous buttons 
+                Color newColor = new Color(0.8f, 0.2f, 0.2f, 0.5f);
+                button.style.backgroundColor = newColor;
+            }
+            else
+            {
+                // Set the background color of next buttons 
+                Color newColor = new Color(0.6f, 0.6f, 0.6f, 0.6f);
+                button.style.backgroundColor = newColor;
+            }
+        }
+
         currentlyActiveScene = sceneSelected;
 
-        Color newColor = new Color(0.3f, 0.9f, 0.3f, 0.9f);
-        sceneButton.style.backgroundColor = newColor;
 
         // get root objects in scene
         List<GameObject> rootObjects = new List<GameObject>();
