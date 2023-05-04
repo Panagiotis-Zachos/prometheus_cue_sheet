@@ -31,7 +31,7 @@ public class main_menu_controller : MonoBehaviour
         {
             GameObject gameObject = rootObjects[i];
             // Disable everything except cameras and Cue Sheet GUI
-            if (!(gameObject.GetComponent<Camera>() || gameObject.GetComponent<UIDocument>()))
+            if (!(gameObject.GetComponent<Camera>() || gameObject.GetComponent<UIDocument>() || gameObject.GetComponent<SceneSorter>()))
             {
                 gameObject.SetActive(false);
             }
