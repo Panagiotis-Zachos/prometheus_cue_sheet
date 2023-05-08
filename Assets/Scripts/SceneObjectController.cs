@@ -4,11 +4,11 @@ using UnityEngine;
 [ExecuteInEditMode]
 public class SceneObjectController : MonoBehaviour
 {
-    public List<int> sceneList = new();
-    public List<string> sceneNames = new();
+    public List<string> activeSceneNames = new();
     public bool alwaysActive = false;
     public int targetDisplay;
 
+    private List<int> sceneList = new();
     private Transform initTransform;
     private SceneSorter sceneSorterScript;
     // Start is called before the first frame update
@@ -22,8 +22,23 @@ public class SceneObjectController : MonoBehaviour
     void Update()
     {
         if (!Application.isPlaying){
-            sceneSorterScript.AddScenes(sceneNames);
+            sceneSorterScript.AddScenes(activeSceneNames);
         }
+    }
+
+    public List<int> getSceneList()
+    {
+        return sceneList;
+    }
+
+    public void AddSceneList(int element)
+    {
+        sceneList.Add(element);
+    }
+
+    public void ResetSceneList()
+    {
+        sceneList = new();
     }
 
     public Transform getInitTransform()

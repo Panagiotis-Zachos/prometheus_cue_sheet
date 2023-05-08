@@ -235,10 +235,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7ab8d85bc0016b64f83a9ba657ced8e6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  sceneList: 01000000020000000400000005000000
-  sceneNames:
-  - ski_1
-  - ski_2
+  activeSceneNames: []
   alwaysActive: 0
   targetDisplay: 0
 --- !u!1001 &86708857
@@ -422,10 +419,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7ab8d85bc0016b64f83a9ba657ced8e6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  sceneList: 06000000
-  sceneNames:
-  - lik_1
-  - lik_2
+  activeSceneNames:
+  - 1
   alwaysActive: 0
   targetDisplay: 0
 --- !u!1 &204338222
@@ -458,8 +453,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7ab8d85bc0016b64f83a9ba657ced8e6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  sceneList: 
-  sceneNames: []
+  activeSceneNames: []
   alwaysActive: 1
   targetDisplay: 0
 --- !u!108 &204338224
@@ -700,10 +694,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7ab8d85bc0016b64f83a9ba657ced8e6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  sceneList: 02000000
-  sceneNames:
-  - ele_ena
-  - ele_duo
+  activeSceneNames:
+  - 3
+  - 4
   alwaysActive: 0
   targetDisplay: 0
 --- !u!1 &705507993
@@ -813,8 +806,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7ab8d85bc0016b64f83a9ba657ced8e6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  sceneList: 
-  sceneNames: []
+  activeSceneNames: []
   alwaysActive: 1
   targetDisplay: 0
 --- !u!1 &778530291
@@ -918,7 +910,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   updateSceneList: 0
-  sceneList: []
+  resetSceneList: 0
+  sortedSceneList:
+  - 2
+  - 1
+  - 3
+  - 4
 --- !u!4 &846133285
 Transform:
   m_ObjectHideFlags: 0
@@ -1081,10 +1078,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7ab8d85bc0016b64f83a9ba657ced8e6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  sceneList: 0200000007000000
-  sceneNames:
-  - or_ena
-  - or_duo
+  activeSceneNames:
+  - 1
+  - 2
+  - 3
+  - 4
   alwaysActive: 0
   targetDisplay: 0
 --- !u!1001 &1133737995
@@ -1201,10 +1199,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7ab8d85bc0016b64f83a9ba657ced8e6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  sceneList: 04000000
-  sceneNames:
-  - shield_1
-  - shield_2
+  activeSceneNames:
+  - 1
   alwaysActive: 0
   targetDisplay: 0
 --- !u!1 &1221610768
@@ -1372,8 +1368,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7ab8d85bc0016b64f83a9ba657ced8e6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  sceneList: 0200000005000000
-  sceneNames: []
+  activeSceneNames: []
   alwaysActive: 0
   targetDisplay: 3
 --- !u!1 &1687196626
@@ -1568,8 +1563,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7ab8d85bc0016b64f83a9ba657ced8e6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  sceneList: 01000000020000000400000005000000
-  sceneNames: []
+  activeSceneNames: []
   alwaysActive: 0
   targetDisplay: 2
 --- !u!81 &2103017396
