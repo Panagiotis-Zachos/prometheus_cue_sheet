@@ -4,9 +4,12 @@ using UnityEngine.UIElements;
 using UnityEngine.SceneManagement; // To change scenes through the menu
 using System.Text.RegularExpressions;
 using System;
+using System.Collections;
 
 public class GUI_Controller : MonoBehaviour
 {
+
+    private VisualElement root;
 
     private Label scene_timer_label;
     private Label play_timer_label;
@@ -51,15 +54,13 @@ public class GUI_Controller : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        var root = GetComponent<UIDocument>().rootVisualElement;
+        root = GetComponent<UIDocument>().rootVisualElement;
 
         play_time_start = Time.time;
         scene_timer_label = root.Q<Label>("scene_timer");
         play_timer_label = root.Q<Label>("play_timer");
 
-        // Scene selection buttons initialization
-        InitStartSceneElements(root.Q<VisualElement>("scene_vis_element"), GetUniqueScenes());
-
+       
         // Scene light controls initialization
 
         List<GameObject> rootObjects = new();
@@ -78,6 +79,8 @@ public class GUI_Controller : MonoBehaviour
         InitColorSliders(root);
         InitMoveSliders(root);
         InitRotSliders(root);
+
+        StartCoroutine(DoSomethingAfterStart());
     }
 
     // Update is called once per frame
@@ -85,6 +88,14 @@ public class GUI_Controller : MonoBehaviour
     {
         UpdateLabelTime(play_timer_label, play_time_start);
         UpdateLabelTime(scene_timer_label, scene_time_start);
+    }
+
+    IEnumerator DoSomethingAfterStart()
+    {
+        yield return null; // Wait for the next frame
+
+        // Scene selection buttons initialization
+        InitStartSceneElements(root.Q<VisualElement>("scene_vis_element"), GetUniqueScenes());
     }
 
     public void PlayStartTime()
@@ -152,7 +163,7 @@ public class GUI_Controller : MonoBehaviour
             GameObject gameObject = rootObjects[i];
             if (gameObject.TryGetComponent<SceneObjectController>(out var soc))
             {
-                foreach (int sceneNumber in soc.sceneList)
+                foreach (int sceneNumber in soc.getSceneList())
                 {
                     if (!uniqueScenes.Contains(sceneNumber))
                     {
@@ -162,7 +173,6 @@ public class GUI_Controller : MonoBehaviour
             }
         }
         uniqueScenes.Sort();
-
         return uniqueScenes;
     }
 

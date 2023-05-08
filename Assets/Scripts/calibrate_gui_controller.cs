@@ -176,7 +176,7 @@ public class calibrate_gui_controller : MonoBehaviour
             GameObject gameObject = rootObjects[i];
             if (gameObject.TryGetComponent<SceneObjectController>(out var soc))
             {
-                foreach (int cameraScene in camSoc.sceneList)
+                foreach (int cameraScene in camSoc.getSceneList())
                 {
                     if (gameObject.GetComponent<Camera>() && gameObject != selectedCamera.gameObject) { break; } // If gameObject is unselected Camera we don't have to do checks
 
