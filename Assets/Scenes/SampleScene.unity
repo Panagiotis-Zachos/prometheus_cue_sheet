@@ -420,7 +420,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   activeSceneNames:
-  - 1
+  - cue_test54
   alwaysActive: 0
   targetDisplay: 0
 --- !u!1 &204338222
@@ -694,9 +694,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7ab8d85bc0016b64f83a9ba657ced8e6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  activeSceneNames:
-  - 3
-  - 4
+  activeSceneNames: []
   alwaysActive: 0
   targetDisplay: 0
 --- !u!1 &705507993
@@ -912,10 +910,9 @@ MonoBehaviour:
   updateSceneList: 0
   resetSceneList: 0
   sortedSceneList:
-  - 2
-  - 1
-  - 3
-  - 4
+  - cue_test54
+  - cue_test
+  - cue_test2
 --- !u!4 &846133285
 Transform:
   m_ObjectHideFlags: 0
@@ -1079,10 +1076,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   activeSceneNames:
-  - 1
-  - 2
-  - 3
-  - 4
+  - cue_test
+  - cue_test2
   alwaysActive: 0
   targetDisplay: 0
 --- !u!1001 &1133737995
@@ -1199,8 +1194,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7ab8d85bc0016b64f83a9ba657ced8e6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  activeSceneNames:
-  - 1
+  activeSceneNames: []
   alwaysActive: 0
   targetDisplay: 0
 --- !u!1 &1221610768
