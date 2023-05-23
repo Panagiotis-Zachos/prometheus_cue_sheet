@@ -82,3 +82,5 @@ Library/guidmapper
 Temp
 
 /[Aa]ssets/Calibration_JSON
+
+/v0.2.0/**
