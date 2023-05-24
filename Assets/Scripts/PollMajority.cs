@@ -7,57 +7,73 @@ using SimpleJSON;
 
 public class PollMajority : MonoBehaviour
 {
-    public List<GameObject> pollResults= new();
+    public List<GameObject> pollOptions= new();
 
     private JSONNode jParse = null;
     private RequestSocket client;
-    private string message = null;
-    private bool gotMessage = false;
-    private int errorCounter = 0;
+    private bool messageReceived;
+    private bool messageRequested;
     
     void Start()
     {
-        ForceDotNet.Force(); // this line is needed to prevent unity freeze after one use, not sure why yet
-        client = new RequestSocket();
-        client.Connect("tcp://localhost:5555");
-        client.SendFrame("Hello");
-        Debug.Log("Connected to Server");
+        
     }
 
     void Update()
     {
-        gotMessage = client.TryReceiveFrameString(out message); // this returns true if it's successful
-        if (errorCounter >= 100)
+        jParse = GetMessage();
+        if (jParse != null)
         {
-            // Debug.Log("Connection Error. Resetting socket.");
-            errorCounter = 0;
-            client.Close();
-            NetMQConfig.Cleanup(); // this line is needed to prevent unity freeze after one use, not sure why yet
-            client = new RequestSocket();
-            client.Connect("tcp://localhost:5555");
-            client.SendFrame("Hello");
-        }
-        if (gotMessage)
-        {
-            errorCounter = 0;
-            //jParse = JSON.Parse(message);
-            Debug.Log(message);
-            client.SendFrame("Ready");
-        }
-        else
-        {
-            errorCounter++;
+            int majorityOpt = (int)char.GetNumericValue(jParse["Question 1"][0].ToString().Split(' ')[1][0]) - 1;
+            pollOptions[majorityOpt].GetComponentInChildren<Renderer>().enabled = true;
         }
     }
 
     private void OnEnable()
     {
+        ForceDotNet.Force(); // this line is needed to prevent unity freeze after one use
+        client = new RequestSocket();
+        client.Connect("tcp://localhost:5555");
+        messageRequested = false;
+        messageReceived = false;
+        Debug.Log("Connected to Server");
         
+        foreach (GameObject gob in pollOptions)
+        {
+            gob.GetComponentInChildren<Renderer>().enabled = false;
+        }
+    }
+
+    private void OnDisable()
+    {
+        client.Close();
+        NetMQConfig.Cleanup(); // this line is needed to prevent unity freeze after one use
     }
 
     private void OnDestroy()
     {
         client.Close();
-        NetMQConfig.Cleanup(); // this line is needed to prevent unity freeze after one use, not sure why yet
+        NetMQConfig.Cleanup(); // this line is needed to prevent unity freeze after one use
+    }
+
+    private JSONNode GetMessage()
+    {
+        if (!messageReceived)
+        {
+            if (!messageRequested)
+            {
+                client.SendFrame("send_poll_result");
+                messageRequested = true;
+            }
+            var gotMessage = client.TryReceiveFrameString(out var message);
+            if (gotMessage)
+            {
+                jParse = JSON.Parse(message);
+                messageReceived = true;
+                messageRequested = false;
+                return jParse;
+            }
+        }
+        return null;
     }
 }

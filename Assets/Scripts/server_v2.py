@@ -1,5 +1,3 @@
-#
-#   Hello World server in Python
 #   Binds REP socket to tcp://*:5555
 
 import time
@@ -13,14 +11,10 @@ port = 1883
 user = ""
 password = ""
 
-# Establish ZMQ connection with Unity client
-# context = zmq.Context()
-# socket = context.socket(zmq.REP)
-# socket.bind("tcp://*:5555")
-
 class Irida():
-    def __init__(self):
+    def __init__(self, socket):
 
+        self.socket = socket
         self.connected = False # check connection with broker
 
         self.service_data = {
@@ -55,11 +49,9 @@ class Irida():
         # print(msg.topic)
         if msg.topic == "results":
             self.majority_votes = json.loads(msg.payload.decode("utf-8"))
-            print(self.majority_votes)
 
         elif msg.topic == "answers":
             self.answers = json.loads(msg.payload.decode("utf-8"))
-            print("Got answers")
         else:
             pass
 
@@ -74,20 +66,25 @@ class Irida():
         print('Connection success. Waiting for message.')
         self.client.subscribe([("results", 0), ("answers", 0)])
         while True:
-            # ret = self.client.publish("result")
-            ret = self.client.publish("answer")
-            time.sleep(0.5)
+            # Wait for Unity to request update
+            message = self.socket.recv()
+            print("Received request: {}".format(message))
 
+            # Based on the request, publish the appropriate topic
+            # ret = self.client.publish("answer")
+            ret = self.client.publish("result")
+            time.sleep(0.5) # In future, replace this with checking if message list is empty
 
-        # Wait for Unity to request update
-        # message = socket.recv()
-        # print("Received request: %s" % message)
-
-        #  Send reply back to client
-        # socket.send(data_encoded)
+            #  Send reply back to client
+            self.socket.send(json.dumps(self.majority_votes).encode('utf-8'))
 
 def main():
-    irida = Irida()
+    # Establish ZMQ connection with Unity client
+    context = zmq.Context()
+    socket = context.socket(zmq.REP)
+    socket.bind("tcp://*:5555")
+
+    irida = Irida(socket)
     try:
         irida.processing()
     except KeyboardInterrupt:
