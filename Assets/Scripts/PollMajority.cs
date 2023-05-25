@@ -24,8 +24,7 @@ public class PollMajority : MonoBehaviour
         jParse = GetMessage();
         if (jParse != null)
         {
-            int majorityOpt = (int)char.GetNumericValue(jParse["Question 1"][0].ToString().Split(' ')[1][0]) - 1;
-            pollOptions[majorityOpt].GetComponentInChildren<Renderer>().enabled = true;
+            pollOptions[jParse["Question 1"][0]].GetComponentInChildren<Renderer>().enabled = true;
         }
     }
 
