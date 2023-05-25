@@ -45,7 +45,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8fd51ed016306e147b9ac9b963c599ba, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  pollResults:
+  pollOptions:
   - {fileID: 0}
   - {fileID: 0}
 --- !u!114 &3094033921626497435
