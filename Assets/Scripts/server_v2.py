@@ -17,13 +17,7 @@ class Irida():
         self.socket = socket
         self.connected = False # check connection with broker
 
-        self.service_data = {
-                    "Hello" : "Irida"
-                    }
-
-        self.topics =   {
-                    "result": "irida/test/data",
-                }
+        self.submitedAnswers = []
 
         ##  --- MQTT client initialization --- ##
         self.client = mqtt.Client()                             # create a new instance
@@ -50,8 +44,8 @@ class Irida():
         if msg.topic == "results":
             self.majority_votes = json.loads(msg.payload.decode("utf-8"))
 
-        elif msg.topic == "answers":
-            self.answers = json.loads(msg.payload.decode("utf-8"))
+        elif msg.topic == "submitedAnswer":
+            self.submitedAnswers.append(json.loads(msg.payload.decode("utf-8")))
         else:
             pass
 
@@ -64,19 +58,40 @@ class Irida():
 
     def processing(self):
         print('Connection success. Waiting for message.')
-        self.client.subscribe([("results", 0), ("answers", 0)])
+        self.client.subscribe([("results", 0), ("submitedAnswer", 0)])
         while True:
             # Wait for Unity to request update
             message = self.socket.recv()
-            print("Received request: {}".format(message))
+            print("Received request: {}".format(message.decode('utf-8')))
 
             # Based on the request, publish the appropriate topic
-            # ret = self.client.publish("answer")
-            ret = self.client.publish("result")
-            time.sleep(0.5) # In future, replace this with checking if message list is empty
+            if message == b'send_poll_result':
+                ret = self.client.publish("result")
+                time.sleep(0.5) # In future, replace this with checking if message list is empty
+                #  Send reply back to client
+                self.socket.send(json.dumps(self.majority_votes).encode('utf-8'))
 
-            #  Send reply back to client
-            self.socket.send(json.dumps(self.majority_votes).encode('utf-8'))
+            elif message == b'start_live_count':
+                ret = self.client.publish("answer/submit")
+                self.socket.send(b"0")
+
+            elif message == b'send_submited_answer':
+                timeStart = time.time()
+                votingOver = False
+                while len(self.submitedAnswers) == 0:
+                    if time.time() - timeStart > 2:
+                        print("Voting over")
+                        votingOver = True
+                        break
+                    pass
+
+                if not votingOver:
+                    ret = self.socket.send(json.dumps(self.submitedAnswers.pop(0)).encode('utf-8'))
+                    time.sleep(0.2)
+                else:
+                    ret = self.socket.send(b"Voting over")
+
+            # Add else clause to avoid communication blocking
 
 def main():
     # Establish ZMQ connection with Unity client

@@ -17,7 +17,7 @@ public class GUI_Controller : MonoBehaviour
     //private Label camStatusLabel;
     //private Label projStatusLabel;
 
-    private int currentlyActiveScene;
+    private int currentlyActiveScene = 99999;
 
     private float play_time_start;
     private float scene_time_start;
@@ -102,6 +102,11 @@ public class GUI_Controller : MonoBehaviour
     {
         play_time_start = Time.time;
         scene_time_start = Time.time;
+    }
+
+    public int GetCurrentlyActiveScene()
+    {
+        return currentlyActiveScene;
     }
 
     private void InitColorSliders(VisualElement root)
@@ -544,6 +549,26 @@ public class GUI_Controller : MonoBehaviour
 
         scene_time_start = Time.time;
 
+        // Two loops are separate here to guarantee correct callback order execution
+        for (int i = 0; i < rootObjects.Count; ++i)
+        {
+            GameObject gameObject = rootObjects[i];
+            if (gameObject.TryGetComponent<SceneObjectController>(out var soc))
+            {
+                if (!soc.SceneExistsInList(sceneSelected))
+                {
+                    if (gameObject.GetComponent<Camera>())
+                    {
+                        gameObject.GetComponent<Camera>().targetDisplay = 7; // Turn off camera for this cue
+                    }
+                    else
+                    {
+                        gameObject.SetActive(false);
+                    }
+                }
+            }
+        }
+
         for (int i = 0; i < rootObjects.Count; ++i)
         {
             GameObject gameObject = rootObjects[i];
@@ -559,22 +584,10 @@ public class GUI_Controller : MonoBehaviour
                     {
                         gameObject.SetActive(true);
                     }
-                    
-                }
-                else
-                {
-                    if (gameObject.GetComponent<Camera>())
-                    {
-                        gameObject.GetComponent<Camera>().targetDisplay = 7; // Turn off camera for this cue
-                    }
-                    else
-                    {
-                        gameObject.SetActive(false);
-                    }
+
                 }
             }
         }
-
         //ChangeColor(sceneElement[1]);
         //CheckProjectorReady();
     }
