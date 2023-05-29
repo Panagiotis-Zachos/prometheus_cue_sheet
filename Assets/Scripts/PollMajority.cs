@@ -30,16 +30,21 @@ public class PollMajority : MonoBehaviour
 
     private void OnEnable()
     {
-        ForceDotNet.Force(); // this line is needed to prevent unity freeze after one use
-        client = new RequestSocket();
-        client.Connect("tcp://localhost:5555");
-        messageRequested = false;
-        messageReceived = false;
-        Debug.Log("Connected to Server");
-        
-        foreach (GameObject gob in pollOptions)
+        var gcl = GameObject.Find("CueSheet_UIDocument");
+        gcl.TryGetComponent<GUI_Controller>(out var gco);
+        if (gco.GetCurrentlyActiveScene() != 99999)
         {
-            gob.GetComponentInChildren<Renderer>().enabled = false;
+            ForceDotNet.Force(); // this line is needed to prevent unity freeze after one use
+            client = new RequestSocket();
+            client.Connect("tcp://localhost:5555");
+            messageRequested = false;
+            messageReceived = false;
+            Debug.Log("Connected to Server");
+
+            foreach (GameObject gob in pollOptions)
+            {
+                gob.GetComponentInChildren<Renderer>().enabled = false;
+            }
         }
     }
 
