@@ -47,7 +47,6 @@ public class PollLiveCount : MonoBehaviour
             {
                 children[i].GetComponent<Renderer>().material.color = color_2;
             }
-            Debug.Log(answerTotal + " " + answerCount + " " + answerEnd);
         }
     }
 

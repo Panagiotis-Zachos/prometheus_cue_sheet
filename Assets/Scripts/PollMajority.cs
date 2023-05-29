@@ -8,6 +8,7 @@ using SimpleJSON;
 public class PollMajority : MonoBehaviour
 {
     public List<GameObject> pollOptions= new();
+    public string questionName;
 
     private JSONNode jParse = null;
     private RequestSocket client;

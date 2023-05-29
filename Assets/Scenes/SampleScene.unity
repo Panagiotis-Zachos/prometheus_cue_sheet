@@ -2166,6 +2166,11 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 1295908111451419158, guid: 9f89aaf8a5ed8f44785b40c5489592cc,
         type: 3}
+      propertyPath: questionName
+      value: Question 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1295908111451419158, guid: 9f89aaf8a5ed8f44785b40c5489592cc,
+        type: 3}
       propertyPath: pollOptions.Array.size
       value: 2
       objectReference: {fileID: 0}
