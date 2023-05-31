@@ -91,6 +91,10 @@ class Irida():
                 else:
                     ret = self.socket.send(b"Voting over")
 
+            elif message.decode('utf-8').isnumeric():
+                ret = self.client.publish("current_cue", json.dumps(int(message.decode('utf-8'))))
+                self.socket.send(b"Current cue published")
+                time.sleep(0.5)
             # Add else clause to avoid communication blocking
 
 def main():

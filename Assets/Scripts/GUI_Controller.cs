@@ -5,7 +5,10 @@ using UnityEngine.SceneManagement; // To change scenes through the menu
 using System.Text.RegularExpressions;
 using System;
 using System.Collections;
-
+using AsyncIO;
+using NetMQ;
+using NetMQ.Sockets;
+using SimpleJSON;
 public class GUI_Controller : MonoBehaviour
 {
 
@@ -41,6 +44,11 @@ public class GUI_Controller : MonoBehaviour
     private TextField gText;
     private TextField bText;
     private TextField iText;
+
+    private JSONNode jParse = null;
+    private RequestSocket client;
+    private bool messageReceived;
+    private bool messageRequested;
 
     // Add Images
     public Texture2D StartButton;
@@ -538,8 +546,19 @@ public class GUI_Controller : MonoBehaviour
             }
         }
 
-        currentlyActiveScene = sceneSelected;
+        ForceDotNet.Force(); // this line is needed to prevent unity freeze after one use
+        client = new RequestSocket();
+        client.Connect("tcp://localhost:5555");
 
+        Debug.Log("Connected to Server");
+
+        currentlyActiveScene = sceneSelected;
+        client.SendFrame(currentlyActiveScene.ToString());
+
+        while (!client.TryReceiveFrameString(out var message));
+
+        client.Close();
+        NetMQConfig.Cleanup(); // this line is needed to prevent unity freeze after one use
 
         // get root objects in scene
         List<GameObject> rootObjects = new List<GameObject>();
