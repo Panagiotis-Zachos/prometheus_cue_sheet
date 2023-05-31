@@ -106,6 +106,8 @@ public class PollLiveCount : MonoBehaviour
                     case "Voting over":
                         waitReceive = false;
                         Debug.Log("Voting over.");
+                        client.Close();
+                        NetMQConfig.Cleanup(); // this line is needed to prevent unity freeze after one use
                         break;
                     default:
                         jParse = JSON.Parse(message);

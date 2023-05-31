@@ -26,6 +26,9 @@ public class PollMajority : MonoBehaviour
         if (jParse != null)
         {
             pollOptions[jParse["Question 1"][0]].GetComponentInChildren<Renderer>().enabled = true;
+
+            client.Close();
+            NetMQConfig.Cleanup(); // this line is needed to prevent unity freeze after one use
         }
     }
 
