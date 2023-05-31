@@ -54,13 +54,19 @@ public class PollMajority : MonoBehaviour
 
     private void OnDisable()
     {
-        client.Close();
+        if (client != null)
+        {
+            client.Close();
+        }
         NetMQConfig.Cleanup(); // this line is needed to prevent unity freeze after one use
     }
 
     private void OnDestroy()
     {
-        client.Close();
+        if (client != null)
+        {
+            client.Close();
+        }
         NetMQConfig.Cleanup(); // this line is needed to prevent unity freeze after one use
     }
 

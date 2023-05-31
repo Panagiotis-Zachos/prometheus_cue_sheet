@@ -555,10 +555,8 @@ public class GUI_Controller : MonoBehaviour
         currentlyActiveScene = sceneSelected;
         client.SendFrame(currentlyActiveScene.ToString());
 
-        while (!client.TryReceiveFrameString(out var message))
-        {
-        Debug.Log(message);
-        }
+        while (!client.TryReceiveFrameString(out var message));
+
         client.Close();
         NetMQConfig.Cleanup(); // this line is needed to prevent unity freeze after one use
 
