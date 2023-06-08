@@ -45,10 +45,7 @@ public class GUI_Controller : MonoBehaviour
     private TextField bText;
     private TextField iText;
 
-    private JSONNode jParse = null;
     private RequestSocket client;
-    private bool messageReceived;
-    private bool messageRequested;
 
     // Add Images
     public Texture2D StartButton;
