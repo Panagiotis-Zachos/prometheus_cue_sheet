@@ -7,8 +7,10 @@ using SimpleJSON;
 
 public class PollLiveCount : MonoBehaviour
 {
-    public Color color_1;
-    public Color color_2;
+    //public Color color_1;
+    //public Color color_2;
+    public Material pollRes;
+    public Material noRes;
 
     public GameObject pollResultsGO;
     private List<Component> children = new();
@@ -32,20 +34,17 @@ public class PollLiveCount : MonoBehaviour
         jParse = GetMessage();
         if (jParse != null)
         {
-            if (jParse["answer"] == 0)
-            {
-                answerCount++;
-            }
-            answerTotal++;
-
-            int answerEnd = Mathf.RoundToInt(answerCount / answerTotal * children.Count);
+            //if (jParse["answer"] == 0)
+            //{
+            //    answerCount++;
+            //}
+            //answerTotal++;
+            answerCount += jParse["weight"];
+            
+            int answerEnd = Mathf.RoundToInt(answerCount);
             for (int i = 0; i < answerEnd; i++)
             {
-                children[i].GetComponent<Renderer>().material.color = color_1;
-            }
-            for (int i = answerEnd; i < children.Count; i++)
-            {
-                children[i].GetComponent<Renderer>().material.color = color_2;
+                children[i].GetComponent<Renderer>().material = pollRes;
             }
         }
     }
@@ -67,8 +66,10 @@ public class PollLiveCount : MonoBehaviour
             answerCount = 0;
             foreach (Component child in pollResultsGO.GetComponentsInChildren<Renderer>())
                 children.Add(child);
-            //option_1.GetComponent<Renderer>().material.color = color_1;
-            //option_2.GetComponent<Renderer>().material.color = color_2;
+        }
+        for (int i = 0; i < children.Count; i++)
+        {
+            children[i].GetComponent<Renderer>().material = noRes;
         }
     }
 
