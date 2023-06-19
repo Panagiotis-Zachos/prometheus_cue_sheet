@@ -86,6 +86,8 @@ public class GUI_Controller : MonoBehaviour
         InitRotSliders(root);
 
         StartCoroutine(DoSomethingAfterStart());
+
+        
     }
 
     // Update is called once per frame
@@ -100,7 +102,8 @@ public class GUI_Controller : MonoBehaviour
         yield return null; // Wait for the next frame
 
         // Scene selection buttons initialization
-        InitStartSceneElements(root.Q<VisualElement>("scene_vis_element"), GetUniqueScenes());
+        InitStartSceneElements(root.Q<VisualElement>("scene_vis_element"), GetUniqueScenes(), GetDescriptionScene());
+
     }
 
     public void PlayStartTime()
@@ -162,7 +165,6 @@ public class GUI_Controller : MonoBehaviour
         // This method finds all unique scenes via parsing the available GameObjects and looking at their 'SceneNumber' property
 
         List<int> uniqueScenes = new();
-
         // get root objects in scene
         List<GameObject> rootObjects = new();
         Scene scene = SceneManager.GetActiveScene();
@@ -178,15 +180,26 @@ public class GUI_Controller : MonoBehaviour
                     if (!uniqueScenes.Contains(sceneNumber))
                     {
                         uniqueScenes.Add(sceneNumber);
+                        
                     }
                 }
             }
         }
         uniqueScenes.Sort();
-        return uniqueScenes;
-    }
 
-    private void InitStartSceneElements(VisualElement midVisElement, List<int> uniqueScenes)
+        return uniqueScenes;
+       
+    }
+    private List<string> GetDescriptionScene()
+    {
+        // This method finds all the description given to each scene
+        GameObject hand = GameObject.Find("Scene Sorter");
+        List<string> sceneNames = hand.GetComponent<SceneSorter>().sortedSceneList;
+
+        return sceneNames;
+
+    }
+    private void InitStartSceneElements(VisualElement midVisElement, List<int> uniqueScenes, List<string> descriptionNames)
     {
         var labelBorderWidthHor = 2;
         var labelBorderWidthVert = 2;
@@ -308,7 +321,7 @@ public class GUI_Controller : MonoBehaviour
 
             var sceneDescriptionLabel = new Label()
             {
-                text = "Content",
+                text = descriptionNames[i],
 
                 style =
             {
