@@ -11,6 +11,8 @@ public class SceneSorter : MonoBehaviour
     public List<string> sortedSceneList = new();
 
     private List<GameObject> rootObjects = new();
+    private List<GameObject> prevObjList = new();
+    private List<GameObject> newObjList = new();
 
     // Start is called before the first frame update
     void Start()
@@ -22,6 +24,7 @@ public class SceneSorter : MonoBehaviour
     void Update()
     {
         ResetScenes();
+        AutoAttachSceneObjectController();
     }
 
     public void LateUpdate()
@@ -72,8 +75,22 @@ public class SceneSorter : MonoBehaviour
                     objectController.AddSceneList(j+1);
                 }
             }
-
         }
+    }
 
+    private void AutoAttachSceneObjectController()
+    {
+        Scene scene = SceneManager.GetActiveScene();
+        scene.GetRootGameObjects(newObjList);
+
+        for (int i=0; i< newObjList.Count; i++)
+        {
+            if (prevObjList.Contains(newObjList[i])) continue;
+            if (newObjList[i].GetComponent<SceneObjectController>() == null)
+            {
+                newObjList[i].AddComponent<SceneObjectController>();
+            }
+        }
+        prevObjList = new List<GameObject>(newObjList);
     }
 }
