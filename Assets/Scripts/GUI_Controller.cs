@@ -1,5 +1,7 @@
 using System.Collections.Generic;
 using UnityEngine;
+
+using UnityEngine.Video;
 using UnityEngine.UIElements;
 using UnityEngine.SceneManagement; // To change scenes through the menu
 using System.Text.RegularExpressions;
@@ -56,6 +58,12 @@ public class GUI_Controller : MonoBehaviour
     // Deactivation Buttons
     public Texture2D DeActivated_Static_Video;
     public Texture2D DeActivated_Animation;
+
+    // Variables for buttons in GUI
+    private Texture2D Static_Button;
+    private Texture2D Animation_Button;
+    private Texture2D Poll_Button;
+ 
     // Start is called before the first frame update
     void Start()
     {
@@ -206,8 +214,50 @@ public class GUI_Controller : MonoBehaviour
          // Initialize list of scene buttons
          List<Button> all_scenebuttons= new List<Button>();
 
+        // get root objects in scene
+        List<GameObject> rootObjects = new();
+        Scene scene = SceneManager.GetActiveScene();
+        scene.GetRootGameObjects(rootObjects);
+        List<GameObject> scene_GameObjects = new();
+
         for (int i = 0; i < uniqueScenes.Count; ++i)
         {
+            scene_GameObjects.Clear();
+            // Iterate through each found object to find the objects of the scene
+            foreach (GameObject rootObject in rootObjects)
+            {
+                if (rootObject.GetComponent<SceneObjectController>().activeSceneNames.Contains(descriptionNames[i]))
+                {
+                    scene_GameObjects.Add(rootObject);
+                }
+            }
+
+            // Initialize Buttons to be deactivated
+            Poll_Button = DeActivated_Static_Video;
+            Static_Button = DeActivated_Static_Video;
+            Animation_Button = DeActivated_Animation;
+
+            foreach (GameObject scene_GameObject in scene_GameObjects)
+            {
+                // Check for polls
+                if (scene_GameObject.GetComponent<PollMajority>() != null || scene_GameObject.GetComponent<PollLiveCount>() != null)
+                {
+                    Poll_Button = Activated_Static_Video;
+                }
+                // Check for animations
+                if (scene_GameObject.GetComponentInChildren<VideoPlayer>() != null)
+                {
+                    Animation_Button = Activated_Animation;
+                }
+                // Check for static projections
+                if (scene_GameObject.GetComponentInChildren<VideoPlayer>() == null && scene_GameObject.GetComponent<PollMajority>() == null && scene_GameObject.GetComponent<PollLiveCount>() == null)
+                {
+                    Static_Button = Activated_Static_Video;
+                }
+            }
+
+
+
             var sceneVisElement = new VisualElement()
             {
                 style =
@@ -363,7 +413,7 @@ public class GUI_Controller : MonoBehaviour
                 text = "",
                 style =
             {
-                backgroundImage=new StyleBackground(Activated_Static_Video),
+                backgroundImage=new StyleBackground(Static_Button),
                 //backgroundColor = Color.yellow,
                 width = Length.Percent(10),
                 height = Length.Percent(100),
@@ -402,7 +452,7 @@ public class GUI_Controller : MonoBehaviour
                 text = "",
                 style =
             {
-                backgroundImage=new StyleBackground(Activated_Animation),
+                backgroundImage=new StyleBackground(Animation_Button),
                 //backgroundColor = Color.yellow,
                 width = Length.Percent(15),
                 height = Length.Percent(100),
@@ -443,7 +493,7 @@ public class GUI_Controller : MonoBehaviour
                 text = "",
                 style =
             {
-                backgroundImage=new StyleBackground(Activated_Static_Video),
+                backgroundImage=new StyleBackground(Poll_Button),
                 //backgroundColor = Color.yellow,
                 width = Length.Percent(10),
                 height = Length.Percent(100),
@@ -518,6 +568,7 @@ public class GUI_Controller : MonoBehaviour
             midVisElement.Add(sceneVisElement);
         }
        
+
     }
 
     private void UpdateLabelTime(Label timer_label, float time_start)
