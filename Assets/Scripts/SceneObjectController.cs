@@ -19,29 +19,52 @@ public class SceneObjectController : MonoBehaviour
 
     private string labelText = "";
 
+    private int lineCount = 60; // Adjust the number of lines
+    private float cylinderRadius = 0.01f; // Adjust the radius of the cylinder
+
     private void OnDrawGizmos()
     {
-        bool hasMeshRenderer = HasMeshRendererInChildren(transform);
 
+        bool hasMeshRenderer = HasMeshRendererInChildren(transform);
+        // If it is not a camera and has a mesh, plot line and add text above GameObjects
         if (activeSceneNames.Count > 0 && hasMeshRenderer )
         {
-            labelText = string.Join(", ", activeSceneNames);
-            Gizmos.DrawLine(transform.position, transform.position + Vector3.up * 1.9f);
             Gizmos.color = Color.white;
+            // Make the lines thicker 
+
+            // Calculate the angle between each line
+            float angleStep = 360.0f / lineCount;
+            float lineHeight = 1.8f;
+            // Draw the lines in a cylinder
+            for (int i = 0; i < lineCount; i++)
+            {
+                float angle = i * angleStep * Mathf.Deg2Rad;
+                Vector3 startPoint = transform.position + new Vector3(Mathf.Cos(angle) * cylinderRadius, 0, Mathf.Sin(angle) * cylinderRadius);
+                Vector3 endPoint = startPoint + Vector3.up * lineHeight;
+
+                // Draw the line
+                Gizmos.DrawLine(startPoint, endPoint);
+            }
+
+            // Add the text
+            labelText = string.Join(", ", activeSceneNames);
             GUIStyle style = new GUIStyle();
             style.normal.textColor = Color.white;
             style.alignment = TextAnchor.MiddleCenter;
-            style.fontSize = 14;
+            style.fontSize = 16;
+            style.fontStyle = FontStyle.Bold;
             Handles.Label(transform.position + Vector3.up * 2, labelText, style);
         }
 
+        // If it is a camera add only text
         else if (GetComponent<Camera>() !=null)
         {
             labelText = gameObject.name;
             GUIStyle style = new GUIStyle();
             style.normal.textColor = Color.black;
             style.alignment = TextAnchor.MiddleCenter;
-            style.fontSize = 16;
+            style.fontSize = 18;
+            style.fontStyle = FontStyle.Bold;
             Handles.Label(transform.position + Vector3.up * 1, labelText, style);
         }
     }

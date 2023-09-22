@@ -1352,7 +1352,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   activeSceneNames:
-  - animation
+  - major_poll
   alwaysActive: 0
   targetDisplay: 0
 --- !u!1 &1221610768
