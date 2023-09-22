@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 705507994}
-  m_IndirectSpecularColor: {r: 0.44657898, g: 0.4964133, b: 0.5748178, a: 1}
+  m_IndirectSpecularColor: {r: 0.44657874, g: 0.49641258, b: 0.5748172, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -544,6 +544,7 @@ GameObject:
   - component: {fileID: 403135396}
   - component: {fileID: 403135395}
   - component: {fileID: 403135397}
+  - component: {fileID: 403135398}
   m_Layer: 5
   m_Name: MainMenu_UIDocument
   m_TagString: Untagged
@@ -597,6 +598,21 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   calibrateUI: {fileID: 1687196627}
   cueSheetUI: {fileID: 778530292}
+--- !u!114 &403135398
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 403135394}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7ab8d85bc0016b64f83a9ba657ced8e6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  activeSceneNames: []
+  alwaysActive: 0
+  targetDisplay: 0
 --- !u!1001 &677349083
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -818,6 +834,7 @@ GameObject:
   - component: {fileID: 778530293}
   - component: {fileID: 778530292}
   - component: {fileID: 778530294}
+  - component: {fileID: 778530295}
   m_Layer: 5
   m_Name: CueSheet_UIDocument
   m_TagString: Untagged
@@ -871,13 +888,28 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   StartButton: {fileID: 2800000, guid: db1160761a8151d468aab60751076e5f, type: 3}
-  Activated_Static_Video: {fileID: 2800000, guid: e26e7febc23e06f4aa95f89e90082c1c,
+  Activated_Static_Video: {fileID: 2800000, guid: 46132d36f3cd5334aa2c4b2a2bfe8a1b,
     type: 3}
-  Activated_Animation: {fileID: 2800000, guid: e26e7febc23e06f4aa95f89e90082c1c, type: 3}
-  DeActivated_Static_Video: {fileID: 2800000, guid: e26e7febc23e06f4aa95f89e90082c1c,
+  Activated_Animation: {fileID: 2800000, guid: 87412435647db9149ac92585c210afcb, type: 3}
+  DeActivated_Static_Video: {fileID: 2800000, guid: a3e0e33906f10f44eb2bdf1cb2dcbc47,
     type: 3}
-  DeActivated_Animation: {fileID: 2800000, guid: e26e7febc23e06f4aa95f89e90082c1c,
+  DeActivated_Animation: {fileID: 2800000, guid: bc7b793add84cfe40801d6f3df1d2902,
     type: 3}
+--- !u!114 &778530295
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 778530291}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7ab8d85bc0016b64f83a9ba657ced8e6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  activeSceneNames: []
+  alwaysActive: 0
+  targetDisplay: 0
 --- !u!1 &846133283
 GameObject:
   m_ObjectHideFlags: 0
@@ -888,6 +920,7 @@ GameObject:
   m_Component:
   - component: {fileID: 846133285}
   - component: {fileID: 846133284}
+  - component: {fileID: 846133286}
   m_Layer: 0
   m_Name: Scene Sorter
   m_TagString: Untagged
@@ -912,9 +945,10 @@ MonoBehaviour:
   sortedSceneList:
   - poll_live
   - major_poll
+  - cue_test54
   - cue_test
   - cue_test2
-  - cue_test54
+  - animation
 --- !u!4 &846133285
 Transform:
   m_ObjectHideFlags: 0
@@ -930,6 +964,21 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &846133286
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 846133283}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7ab8d85bc0016b64f83a9ba657ced8e6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  activeSceneNames: []
+  alwaysActive: 0
+  targetDisplay: 0
 --- !u!1 &892916398
 GameObject:
   m_ObjectHideFlags: 0
@@ -1302,7 +1351,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7ab8d85bc0016b64f83a9ba657ced8e6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  activeSceneNames: []
+  activeSceneNames:
+  - animation
   alwaysActive: 0
   targetDisplay: 0
 --- !u!1 &1221610768
@@ -1583,6 +1633,7 @@ GameObject:
   - component: {fileID: 1687196628}
   - component: {fileID: 1687196627}
   - component: {fileID: 1687196629}
+  - component: {fileID: 1687196630}
   m_Layer: 5
   m_Name: Calibrate_UIDocument
   m_TagString: Untagged
@@ -1636,6 +1687,21 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   MainUIDocument: {fileID: 403135395}
   CueSheetUIDocument: {fileID: 778530292}
+--- !u!114 &1687196630
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1687196626}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7ab8d85bc0016b64f83a9ba657ced8e6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  activeSceneNames: []
+  alwaysActive: 0
+  targetDisplay: 0
 --- !u!1 &1697649014
 GameObject:
   m_ObjectHideFlags: 0
@@ -1648,6 +1714,7 @@ GameObject:
   - component: {fileID: 1697649016}
   - component: {fileID: 1697649015}
   - component: {fileID: 1697649018}
+  - component: {fileID: 1697649019}
   m_Layer: 0
   m_Name: GUI_Camera
   m_TagString: Untagged
@@ -1733,6 +1800,21 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 215ea8b19f2a4694d87a32d883c26dbc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &1697649019
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1697649014}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7ab8d85bc0016b64f83a9ba657ced8e6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  activeSceneNames: []
+  alwaysActive: 0
+  targetDisplay: 0
 --- !u!1001 &1856543703
 PrefabInstance:
   m_ObjectHideFlags: 0
