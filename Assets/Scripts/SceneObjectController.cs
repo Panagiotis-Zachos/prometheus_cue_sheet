@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEditor;
 
 [ExecuteInEditMode]
 public class SceneObjectController : MonoBehaviour
@@ -15,6 +16,35 @@ public class SceneObjectController : MonoBehaviour
     private Camera[] activeProjectors;
     private List<Camera> activeLongProjectors;
     private List<Camera> activeBackProjectors;
+
+    private string labelText = "";
+
+    private void OnDrawGizmos()
+    {
+        bool hasMeshRenderer = HasMeshRendererInChildren(transform);
+
+        if (activeSceneNames.Count > 0 && hasMeshRenderer )
+        {
+            labelText = string.Join(", ", activeSceneNames);
+            Gizmos.DrawLine(transform.position, transform.position + Vector3.up * 1.9f);
+            Gizmos.color = Color.white;
+            GUIStyle style = new GUIStyle();
+            style.normal.textColor = Color.white;
+            style.alignment = TextAnchor.MiddleCenter;
+            style.fontSize = 14;
+            Handles.Label(transform.position + Vector3.up * 2, labelText, style);
+        }
+
+        else if (GetComponent<Camera>() !=null)
+        {
+            labelText = gameObject.name;
+            GUIStyle style = new GUIStyle();
+            style.normal.textColor = Color.black;
+            style.alignment = TextAnchor.MiddleCenter;
+            style.fontSize = 16;
+            Handles.Label(transform.position + Vector3.up * 1, labelText, style);
+        }
+    }
 
     // Start is called before the first frame update
     void Start()
@@ -85,6 +115,30 @@ public class SceneObjectController : MonoBehaviour
                 activeBackProjectors.Add(activeProjectors[i]);
             }
         }
+    }
+    
+    // Function for checking if a gameobject or its children have a mesh
+    private bool HasMeshRendererInChildren(Transform parentTransform)
+    {
+        // Check if the parentTransform has a MeshRenderer
+        MeshRenderer meshRenderer = parentTransform.GetComponent<MeshRenderer>();
+
+        if (meshRenderer != null)
+        {
+            return true;
+        }
+
+        // Recursively check child objects
+        foreach (Transform child in parentTransform)
+        {
+            if (HasMeshRendererInChildren(child))
+            {
+                return true;
+            }
+        }
+
+        // If no MeshRenderer was found in the hierarchy, return false
+        return false;
     }
 
     [EditorCools.Button(row: "row-1", space: 10f)]
