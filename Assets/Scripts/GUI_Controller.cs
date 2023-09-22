@@ -1,6 +1,6 @@
 using System.Collections.Generic;
 using UnityEngine;
-
+using System.Linq;
 using UnityEngine.Video;
 using UnityEngine.UIElements;
 using UnityEngine.SceneManagement; // To change scenes through the menu
@@ -529,7 +529,7 @@ public class GUI_Controller : MonoBehaviour
 
             var commentaryLabel = new Label()
             {
-                text = "",
+                text = string.Join(", ", scene_GameObjects.Select(obj => obj.name).ToList()),
                 style =
             {
                 width = Length.Percent(30),
