@@ -180,7 +180,8 @@ public class SceneObjectController : MonoBehaviour
     {
         try
         {
-            transform.position = activeLongProjectors[0].transform.position + new Vector3(0, 0, 5 * activeLongProjectors[0].transform.position.z / Mathf.Abs(activeLongProjectors[0].transform.position.z));
+            transform.position = activeLongProjectors[0].transform.position + 5 * activeLongProjectors[0].transform.forward;
+            Debug.Log("Got in");
         }
         catch
         {
@@ -192,7 +193,7 @@ public class SceneObjectController : MonoBehaviour
     {
         try
         {
-            transform.position = activeLongProjectors[1].transform.position + new Vector3(0, 0, 5 * activeLongProjectors[1].transform.position.z / Mathf.Abs(activeLongProjectors[1].transform.position.z));
+            transform.position = activeLongProjectors[1].transform.position + 5 * activeLongProjectors[1].transform.forward;
         }
         catch
         {
@@ -204,7 +205,7 @@ public class SceneObjectController : MonoBehaviour
     {
         try
         {
-            transform.position = activeBackProjectors[0].transform.position + new Vector3(0, 0, 5 * activeBackProjectors[0].transform.position.z / Mathf.Abs(activeBackProjectors[0].transform.position.z));
+            transform.position = activeBackProjectors[0].transform.position + 5 * activeBackProjectors[0].transform.forward;
         }
         catch
         {
@@ -216,7 +217,7 @@ public class SceneObjectController : MonoBehaviour
     {
         try
         {
-            transform.position = activeBackProjectors[1].transform.position + new Vector3(0, 0, 5 * activeBackProjectors[1].transform.position.z / Mathf.Abs(activeBackProjectors[1].transform.position.z));
+            transform.position = activeBackProjectors[1].transform.position + 5 * activeBackProjectors[1].transform.forward;
         }
         catch
         {
